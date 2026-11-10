@@ -20,6 +20,7 @@
 | [实现进度与运行方法](08-implementation-status.md) | 已完成能力、实际验证结果和可运行的命令 |
 | [先验证识别能力](09-validation-first.md) | 新的优先级、独立正反例验证与项目内验收目标 |
 | [人工识别第一次操作](10-human-walkthrough.md) | 常见人工工作流程、真实数据交互练习与证据边界 |
+| [真实观测里的术语](11-case-glossary.md) | 页面名词、坐标轴、处理选项和文件字段的入门解释 |
 
 文档中的论文结论、本地计算结果和未来建议分别标明，不把候选写成已确认发现。
 
@@ -33,7 +34,7 @@ variable-star-discovery/
 ├── .gitattributes
 ├── doc/
 │   ├── README.md
-│   └── 01…10 文档
+│   └── 01…11 文档
 └── repo/
     ├── README.md
     ├── .gitignore

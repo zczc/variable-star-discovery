@@ -6,29 +6,35 @@
 :root{color-scheme:light}*{box-sizing:border-box}body{font:16px/1.75 system-ui,sans-serif;color:#24354b;background:#f5f7fa;margin:0}main{max-width:1180px;margin:36px auto;padding:0 22px}h1{font-size:32px;line-height:1.3}h2{font-size:23px}h3{font-size:18px}section,details{background:white;border:1px solid #dce3ec;border-radius:12px;padding:22px;margin:20px 0}summary{cursor:pointer;font-weight:650}a{color:#125fa3}.muted{color:#59687b;font-size:14px}.notice{border-left:4px solid #167b82;padding:12px 18px;background:#eaf5f4}.controls{display:flex;flex-wrap:wrap;align-items:end;gap:16px}label{display:block}select,input,button{font:inherit;padding:7px 10px;border:1px solid #aebccd;border-radius:6px;background:#fff;color:inherit}button{cursor:pointer;background:#eff5fc}button:hover{background:#dceafb}input[type=number]{width:145px}input[type=range]{width:min(390px,90%);vertical-align:middle}.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}canvas{display:block;width:100%;height:290px;border:1px solid #e3e8ef;border-radius:6px}#periodogram{height:230px}.readout{color:#165b64;font-weight:600}textarea{font:inherit;width:100%;min-height:135px;padding:12px;border:1px solid #aebccd;border-radius:6px}li{margin-bottom:8px}.steps a{white-space:nowrap}#message{color:#a43b20}img{max-width:100%}code{font-size:.9em}@media(max-width:760px){.grid{grid-template-columns:1fr}main{padding:0 12px}section{padding:15px}h1{font-size:26px}}
 </style>
 <main>
-<p class="muted">TESS 真实观测 · 已知食双星 · 学习练习</p>
+<p class="muted">太空望远镜的真实测量 · 从亮度记录开始学习</p>
 <h1>亲手识别一颗变星</h1>
-<p>对象是 TIC 9473243。每个点都是一段时间内测得的亮度。你要判断：它是否在重复变化、完整重复一次需要多久，以及现有数据还证明不了什么。</p>
+<p>太空望远镜反复测量天空中同一个光点，留下“时间—亮度”记录。这个光点的编号是 TIC 9473243，实际是一对彼此绕转、会互相遮挡的恒星。我们测到的是它们合起来的光。</p>
+<p>这次只回答一个问题：这对星怎样反复变亮、变暗，完整重复一次需要多久？先读左图，再试着把重复的变化叠起来。</p>
+<details><summary>第一次接触？先读这些词的日常解释</summary>
+<ul><li><b>TESS</b>：取得这份观测的太空望远镜。<b>TIC 9473243</b>：目标在一份恒星目录里的编号，作用类似检索用的档案号。</li><li><b>食双星</b>：两颗星绕转时，从我们这里看会互相遮挡，因此合起来的光会减少。</li><li><b>Sector 25 / 79</b>：TESS 两批观测的编号。本例两批都观察了同一对象，但时间不同，可互相核对。</li><li><b>光变曲线</b>：把不同时间测到的亮度画出来。图上每个点是约 10 分钟内几次有效测量的平均值。</li><li><b>相对亮度变化</b>：选一个参照亮度后，计算多了或少了百分之几。0% 代表与参照相同；−20% 代表收到参照值 80% 的光；+10% 代表收到参照值 110% 的光。参照用当前所选测量的中位数，即把数值排好后取中间的数。</li><li><b>周期</b>：完整重复一次需要多久，页面单位是天。<b>相位</b>：进行到这一轮的哪个位置，用 0 到 1 表示。假设周期是 2 天，0.5 就代表从本轮起点过去了 1 天。</li><li><b>相位折叠</b>：把许多轮的数据按你尝试的周期叠起来。右图重新摆放了左图中的点，没有新增观测；周期不同，摆放结果不同。</li><li><b>LS / BLS</b>：两种帮你猜周期的计算方法。LS 偏向寻找类似波浪的重复成分；BLS 寻找重复变暗的片段。按钮填入它们各自选出的候选周期，仍需要你检查。</li><li><b>周期图、峰</b>：软件尝试很多周期后的评分图。较高的峰表示这个方法对某个周期给了较高分；分数不直接表示可信概率，也不保证周期正确。</li></ul>
+<p>数据处理和文件里的其他名词，见 <a href="../../../doc/11-case-glossary.md">本例术语逐项解释</a>。第一遍可以保留默认处理方式，先理解亮度和周期。</p></details>
 <p class="notice">这是有答案的教学案例，不用于计算算法准确率。页面内含真实数据，可离线打开；调节周期会重新绘图，不会自动替你判定“发现”。</p>
 <p class="steps"><a href="#observe">① 看变化</a> → <a href="#fold">② 试周期</a> → <a href="#verify">③ 换时段核对</a> → <a href="#source">④ 检查来源</a> → <a href="#notes">⑤ 写结论</a></p>
 <section id="observe"><h2>① 先看亮度怎样变化</h2>
 <p>先看左图，不急着看算法。数一数明显的深谷：相邻两次深谷大约隔几天？深谷之间是否还有较浅的下降？纵轴越高，收到的光越多；这里没有使用“数值越小越亮”的星等。</p>
 <div class="controls">
-<label>观测时段<select id="sector"><option value="79">Sector 79</option><option value="25">Sector 25</option></select></label>
-<label>光变产品<select id="product"><option value="PDCSAP_FLUX">PDCSAP：经过系统效应校正</option><option value="SAP_FLUX">SAP：孔径内测光</option></select></label>
-<label>质量处理<select id="quality"><option value="good">只保留 QUALITY=0</option><option value="all">保留带质量标记的有效测量</option></select></label>
+<label>选择哪批观测<select id="sector"><option value="79">第 79 批观测（Sector 79）</option><option value="25">第 25 批观测（Sector 25）</option></select></label>
+<label>数据处理版本<select id="product"><option value="PDCSAP_FLUX">减少部分仪器影响的版本（PDCSAP）</option><option value="SAP_FLUX">选定区域内收到的光（SAP）</option></select></label>
+<label>质量筛选<select id="quality"><option value="good">去掉带质量警告的点（QUALITY=0）</option><option value="all">也保留带质量警告的有效点</option></select></label>
 </div>
+<details><summary>这两个数据处理选项是什么意思？</summary><p><b>SAP</b>：在图像中选定一块包含目标的区域，把里面的光加起来，并进行背景等基础处理。<b>PDCSAP</b>：在此基础上进一步减少部分仪器造成的变化。它们是同一份观测的两种处理版本；处理后的版本也可能改变真实变化，需要比较。</p><p><b>QUALITY=0</b>：数据提供方没有给这次测量加上该字段的质量警告。这里的 0 不是质量得零分；它也不能保证测量完全可靠。两种选项都会先去掉无法使用的缺失值等记录。</p></details>
 <p id="dataStatus" class="muted"></p>
-<div class="grid"><div><h3>光变曲线：横轴是时间</h3><canvas id="lightcurve" role="img" aria-label="亮度随时间变化图"></canvas></div><div><h3>相位图：按你设定的周期叠起来</h3><canvas id="phase" role="img" aria-label="按选定周期折叠后的相位图"></canvas></div></div>
+<div class="grid"><div><h3>左图：亮度随时间怎样变化</h3><canvas id="lightcurve" role="img" aria-label="亮度随时间变化图"></canvas></div><div><h3>右图：把许多轮变化叠起来</h3><canvas id="phase" role="img" aria-label="按选定周期折叠后的相位图"></canvas></div></div>
+<p class="notice">两图纵轴都是“比参照亮度多或少了多少百分比”。0% 仍然有光；点越低，收到的光越少。左图横轴是经过多少天，右图横轴是进行到一轮的哪个位置。</p>
 <p class="muted">图上使用 10 分钟平均值；这是为了便于观察，窄于分箱宽度的变化可能被削弱。两种产品和质量处理对应的周期搜索已各自预先计算。校正产品也可能改变真实信号，不能只看哪张更平滑。</p>
 </section>
 <section id="fold"><h2>② 自己试一个周期</h2>
 <p>“周期”是完整重复一次需要的时间。相位折叠相当于把时间轴按这个长度剪成一段段，再叠在一起。周期合适时，同类变化会落在相近的位置。</p>
-<div class="controls"><label>尝试周期（天，输入后按 Enter）<input id="period" type="number" min="0.05" max="8" step="0.0001" value="1"></label><button id="half">÷ 2</button><button id="twice">× 2</button><button id="ls">采用 LS 最强峰</button><button id="bls">采用 BLS 最强峰</button><button id="reset">回到 1 天</button></div>
+<div class="controls"><label>猜多久重复一次（天，按 Enter 确认）<input id="period" type="number" min="0.05" max="8" step="0.0001" value="1"></label><button id="half">÷ 2</button><button id="twice">× 2</button><button id="ls">试波浪搜索给的周期（LS）</button><button id="bls">试变暗搜索给的周期（BLS）</button><button id="reset">回到 1 天</button></div>
 <p><input id="slider" type="range" min="0.05" max="8" step="0.0001" value="1" aria-label="调整尝试周期"> <span id="periodReadout" class="readout" aria-live="polite"></span></p>
 <p id="message" role="status"></p>
-<p>先试 1 天，再点“采用 LS 最强峰”，然后点“× 2”。注意：一团挤在一起的深浅谷，是否分开了？最后再试 BLS。LS 偏向寻找类似波浪的重复成分，BLS 寻找反复变暗的片段；它们都可能选错。</p>
-<h3>周期图：每个试验周期得到的统计量</h3><canvas id="periodogram" role="img" aria-label="Lomb Scargle 周期图"></canvas>
+<p>先试 1 天，再点“试波浪搜索给的周期（LS）”，然后点“× 2”。注意：一团挤在一起的深浅谷，是否分开了？最后再试 BLS。这里的“波浪搜索”“变暗搜索”是帮助理解两种方法的说法；它们都可能选错。</p>
+<h3>软件给不同周期打了多少分（周期图）</h3><canvas id="periodogram" role="img" aria-label="Lomb Scargle 周期图"></canvas>
 <p id="searchStatus" class="muted"></p>
 <p class="muted">周期图的峰高不是“变星概率”。当前显示的红线只是你正在试的周期。周期相近还不够：要留意半周期、倍周期、采样造成的假峰和搜索边界。</p>
 </section>
@@ -68,12 +74,12 @@ function plot(id,x,y,xmin,xmax,ymin,ymax,xlabel,ylabel,line=false,marker=null){
 }
 function render(){
  const s=chosen(),info=DATA.sectors[el('sector').value],time=s.time.map(t=>t-s.time_zero),phase=time.map(t=>((t/currentPeriod)%1+1)%1),lo=Math.min(...s.flux_pct),hi=Math.max(...s.flux_pct),pad=(hi-lo)*.06||1;
- plot('lightcurve',time,s.flux_pct,0,Math.max(...time),lo-pad,hi+pad,'本时段起点之后的天数','相对亮度（%）');
- plot('phase',phase,s.flux_pct,0,1,lo-pad,hi+pad,'相位：一个周期内的位置','相对亮度（%）');
- plot('periodogram',s.periods,s.power,.05,8,0,Math.max(...s.power)*1.05,'尝试周期（天）','LS power',true,currentPeriod);
+ plot('lightcurve',time,s.flux_pct,0,Math.max(...time),lo-pad,hi+pad,'本时段起点之后的天数','比参照亮度变化（%）');
+ plot('phase',phase,s.flux_pct,0,1,lo-pad,hi+pad,'一轮进行到哪里（相位）','比参照亮度变化（%）');
+ plot('periodogram',s.periods,s.power,.05,8,0,Math.max(...s.power)*1.05,'尝试周期（天）','LS 方法的评分',true,currentPeriod);
  el('periodReadout').textContent=currentPeriod.toFixed(6)+' 天 ≈ '+(currentPeriod*24).toFixed(3)+' 小时';
- el('dataStatus').textContent='源文件 '+info.original_points+' 个测量点 → 当前方案保留 '+s.used_points+' 点 → 10 分钟分箱后 '+s.time.length+' 点。分箱后典型单点形式误差约 '+s.median_error_pct.toFixed(4)+'%，不含全部系统误差。';
- el('searchStatus').textContent='当前数据方案：LS 最强峰 '+s.ls_period.toFixed(6)+' 天；BLS 最强峰 '+s.bls_period.toFixed(6)+' 天。搜索范围为 0.05–8 天。';
+ el('dataStatus').textContent='文件中有 '+info.original_points+' 次测量，筛选后保留 '+s.used_points+' 次；每约 10 分钟的测量取平均，画成 '+s.time.length+' 个点。根据仪器提供的误差估算，合并后典型单点的不确定程度约 '+s.median_error_pct.toFixed(4)+'%，尚未计入全部干扰。';
+ el('searchStatus').textContent='当前这份数据：LS 猜测 '+s.ls_period.toFixed(6)+' 天重复一次；BLS 猜测 '+s.bls_period.toFixed(6)+' 天重复一次。两种方法都只在 0.05–8 天之间搜索。显示的小数位数不代表已经达到同样精度。';
  el('csv').href=info.csv;
 }
 function setPeriod(value){if(!Number.isFinite(value)||value<.05||value>8){el('message').textContent='请输入 0.05–8 天之间的周期。';return}currentPeriod=value;el('message').textContent='';el('period').value=value.toFixed(8);el('slider').value=value;render()}
