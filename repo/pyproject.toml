@@ -1,0 +1,23 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "variable-star-discovery"
+version = "0.1.0"
+description = "Reproducible TESS variable-star screening and evidence reports"
+requires-python = ">=3.12"
+dependencies = ["numpy>=1.26,<3", "scipy>=1.11,<2", "astropy>=6,<9", "matplotlib>=3.8,<4", "requests>=2.31,<3"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<10"]
+
+[project.scripts]
+vstar = "vstar.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/vstar"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"

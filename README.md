@@ -16,4 +16,9 @@ Git 仓库根目录是整个 `variable-star-discovery/`，`repo/` 是代码与�
 
 先读 [文档入口](doc/README.md)，再看 [已完成试验及限制](doc/05-pilot-2026-11-09.md)。运行现有脚本前，请查看 [环境准备与离线复现说明](repo/experiments/2026-11-09-pilot/README.md)。
 
-接下来的实现方案见 [系统框架与执行计划](doc/07-architecture-and-plan.md)。其中的模块和命令目前是设计目标，尚未实现。
+实现方案见 [系统框架与执行计划](doc/07-architecture-and-plan.md)，已完成能力和命令见 [实现进度与运行方法](doc/08-implementation-status.md)。
+
+```bash
+uv sync --project repo --extra dev --locked
+repo/.venv/bin/vstar run --config repo/configs/historical.toml --offline
+```

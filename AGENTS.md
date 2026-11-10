@@ -1,6 +1,6 @@
 # 公开数据中的变星发现
 
-这是独立于 `just_chat` 的项目。先读 `doc/README.md`、`doc/05-pilot-2026-11-09.md` 和 `doc/07-architecture-and-plan.md`，再开展工作。框架文档是待实现计划，不能当作已经完成的功能。
+这是独立于 `just_chat` 的项目。先读 `doc/README.md`、`doc/05-pilot-2026-11-09.md`、`doc/07-architecture-and-plan.md` 和 `doc/08-implementation-status.md`，再开展工作。框架文档描述完整计划，已完成能力以实现进度和代码为准。
 
 ## 目录
 
