@@ -22,3 +22,5 @@ Git 仓库根目录是整个 `variable-star-discovery/`，`repo/` 是代码与�
 uv sync --project repo --extra dev --locked
 repo/.venv/bin/vstar run --config repo/configs/historical.toml --offline
 ```
+
+已完成 [100 个目标的筛选](repo/runs/sector94-100-v02/README.md) 和 [已知变星的周期对照](repo/benchmarks/README.md)。对照发现食双星的半周期误判；100 个目标中另有邻星污染和搜索边界造成的误报。结果用于验证、改进流程，尚不能宣布新发现。

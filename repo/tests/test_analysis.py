@@ -41,3 +41,14 @@ def test_multiple_epochs_not_inferred_from_single_period():
     assert assess([{"period_d": 2.3}], .05)["status"] == "insufficient_epochs"
     assert assess([{"period_d": 2.23}, {"period_d": 2.29}], .05)["status"] == "approximately_repeated"
     assert assess([{"period_d": 7.37}, {"period_d": 2.59}], .05)["status"] == "inconsistent"
+
+
+def test_repeated_search_boundary_does_not_create_candidate(monkeypatch):
+    import vstar.periods as module
+    t = np.linspace(0, 27, 5000)
+    lc = LightCurve(t, .01 * np.sin(2 * np.pi * t / 8), np.full(len(t), .001), {})
+    monkeypatch.setattr(module, "read_lightcurve", lambda *a: lc)
+    result, _ = analyze(Path("synthetic.fits"), AnalysisConfig())
+    assert result["period_d"] == pytest.approx(8)
+    assert result["period_at_search_boundary"]
+    assert assess([result, result], .05)["status"] == "boundary_limited"

@@ -19,6 +19,9 @@ def assess(results, tolerance):
         return {"status": "insufficient_epochs", "fractional_spread": None}
     periods = [r["period_d"] for r in results]
     spread = (max(periods) - min(periods)) / sorted(periods)[len(periods) // 2]
+    if any(r.get("period_at_search_boundary", False) for r in results):
+        return {"status": "boundary_limited", "fractional_spread": spread, "tolerance": tolerance,
+                "note": "At least one strongest peak is at a search boundary; do not promote shared bounds as periodic evidence."}
     return {"status": "approximately_repeated" if spread <= tolerance else "inconsistent",
             "fractional_spread": spread, "tolerance": tolerance,
             "note": "Heuristic screening comparison, not period-error or long-term phase-coherence validation."}
@@ -120,6 +123,8 @@ def execute_run(root: Path):
                     row["reasons"].append("多个观测区的最强周期近似重复，仍需误差、谐波和来源检查。")
                 elif row["repeatability"]["status"] == "inconsistent":
                     row["reasons"].append("不同观测区的最强周期不一致；不能据此认定天体恒定。")
+                elif row["repeatability"]["status"] == "boundary_limited":
+                    row["reasons"].append("至少一个观测区的最强峰位于搜索边界；卡在相同边界不能作为周期重复的证据。")
                 else:
                     row["reasons"].append("仅有一个已分析观测区，尚无独立时段验证。")
                 if config.source == "mast":

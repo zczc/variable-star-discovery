@@ -28,7 +28,9 @@ def analyze(path: Path, config: AnalysisConfig):
         raise ValueError(f"Only {len(raw.time)} usable points; need {config.min_points}")
     lc = bin_lightcurve(raw, config.bin_minutes)
     period, power, frequency, powers, peaks = period_search(lc, config)
+    at_boundary = int(np.argmax(powers)) in (0, len(powers) - 1)
     result = {"period_d": period, "power": power, "n": len(raw.time), "n_bin": len(lc.time),
+              "period_at_search_boundary": at_boundary,
               "span_d": float(np.ptp(raw.time)), "metadata": raw.metadata, "peaks": peaks,
               "period_error_d": None, "epoch": None,
               "warnings": ["Screening peak only; no correlated-noise false-alarm calibration or physical classification."]}
@@ -47,6 +49,8 @@ def analyze(path: Path, config: AnalysisConfig):
     result["harmonics_d"] = [period / 2, period, period * 2]
     if config.use_bls:
         result["bls"] = bls_search(lc, config)
+    if at_boundary:
+        result["warnings"].append("Strongest peak is at the search boundary; repetition does not establish a bounded period.")
     if period > result["span_d"] / 3:
         result["warnings"].append("Fewer than three cycles observed; long-period evidence is limited.")
     if len(lc.time) > 1 and period < 4 * np.median(np.diff(lc.time)):

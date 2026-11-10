@@ -1,6 +1,7 @@
 """Analyze known targets with fixed parameters, then compare independently supplied periods."""
 import argparse
 from collections import Counter
+from dataclasses import asdict
 from pathlib import Path
 import csv
 import json
@@ -32,7 +33,7 @@ def main():
     out.mkdir(parents=True, exist_ok=False)
     client = ArchiveClient(root / "repo/data/known-controls", offline=args.offline)
     config = AnalysisConfig(use_bls=True)
-    output = {"created_at": now(), "code_fingerprint": code_fingerprint(), "truth": truth,
+    output = {"created_at": now(), "code_fingerprint": code_fingerprint(), "analysis_config": asdict(config), "truth": truth,
               "evaluation": "Fixed 1% relative tolerance; half/double periods reported as errors, not exact recovery. No population accuracy estimate.", "results": [], "errors": []}
     write_json(out / "results.json", output)
     for target in truth["targets"]:
