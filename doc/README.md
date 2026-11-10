@@ -4,7 +4,7 @@
 
 项目目标是用公开望远镜数据，寻找此前未被报告的周期变星。当前尚无确认的新发现，也没有向 VSX 提交。
 
-当前优先阅读：[先验证识别能力](09-validation-first.md) → [人工识别第一次操作](10-human-walkthrough.md)。按用户要求，先完成能力验证与亲手练习，再讨论新对象筛选。
+当前优先阅读：[先验证识别能力](09-validation-first.md) → [人工识别第一次操作](10-human-walkthrough.md) → [混合验证实际结果](12-mixed-validation-results.md)。按用户要求，先完成能力验证与亲手练习，再讨论新对象筛选。
 
 ## 阅读顺序
 
@@ -21,6 +21,7 @@
 | [先验证识别能力](09-validation-first.md) | 新的优先级、独立正反例验证与项目内验收目标 |
 | [人工识别第一次操作](10-human-walkthrough.md) | 常见人工工作流程、真实数据交互练习与证据边界 |
 | [真实观测里的术语](11-case-glossary.md) | 页面名词、坐标轴、处理选项和文件字段的入门解释 |
+| [混合验证实际结果](12-mixed-validation-results.md) | TU Her 来源检查、模拟漏检与误报、下一步 |
 
 文档中的论文结论、本地计算结果和未来建议分别标明，不把候选写成已确认发现。
 
@@ -34,7 +35,7 @@ variable-star-discovery/
 ├── .gitattributes
 ├── doc/
 │   ├── README.md
-│   └── 01…11 文档
+│   └── 01…12 文档
 └── repo/
     ├── README.md
     ├── .gitignore

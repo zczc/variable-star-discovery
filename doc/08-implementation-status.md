@@ -32,7 +32,7 @@ repo/.venv/bin/vstar inspect 458747716 --run repo/runs/<run_id>
 
 恢复会检查源数据及已完成结果的校验值。程序源码发生变化后应创建新运行，旧报告仍能阅读。已有运行名不能覆盖。退出码 2 表示部分目标失败，成功结果会保留。
 
-下载缓存 `repo/data/`、运行中的 SQLite 数据库和锁文件不提交到 Git；配置、冻结的目标清单、计算结果、图表和报告可以提交。最初已上传的 38 个 FITS 仍保留在仓库中。
+批量下载缓存 `repo/data/` 默认忽略；本轮基准使用的具体 FITS 另行纳入版本控制。运行中的 SQLite 数据库和锁文件不提交到 Git；配置、冻结的目标清单、计算结果、图表和报告可以提交。最初已上传的 38 个 FITS 仍保留在仓库中。
 
 ## 第二阶段与已知目标对照
 
@@ -73,3 +73,21 @@ repo/.venv/bin/python repo/benchmarks/build_known_report.py --run repo/benchmark
 在线选择目前按观测区、标准 SPOC 产品和多时段覆盖筛选，尚未加星等和拥挤度硬筛；完整的 SIMBAD、VizieR 和 ADS 查询仍标为未执行，需后续接入或人工复核。当前查询缓存没有过期刷新命令，首次发现核验需重新查询最新记录。
 
 像素诊断是启发式位置与谐波比较，尚无精细来源拟合及定位误差。BLS 只搜索有限食持续时间；近似周期比较没有完成正式周期误差估计和相关噪声校准。VSX 导出需要人工提供经核实的测光、历元、类型及附件，不自动编造这些量。任何当前报告都不能直接用于宣布新发现。
+
+## 第一轮来源复核与混合开发验证
+
+[TU Her 像素检查](../repo/benchmarks/source-9473243-v01/index.html) 已完成：第 25、79 批的深食、浅食都支持来源在目标附近，不等于精密定位或排除未分辨近邻。新增事件前后差分图，并验证线性背景漂移不会被当作该合成测试的局部食信号。当前 50 项软件测试通过。
+
+[混合报告](../repo/benchmarks/mixed-v01/index.html) 保存 36 个冻结案例：34 个完成，2 个已知目标因数据格式不可用而保留。真实已知变量仍是原来的 3 颗、6 段；2 个旧污染案例都重现疑似污染。29 个模拟案例中，4 个深浅食仅 2 个进入候选，4 个漂移有 1 个误报，3 个仪器周期全部进入候选。算法和阈值没有为通过本轮而调整。详见[通俗结果解读](12-mixed-validation-results.md)。
+
+`analyze_series` 与读取 FITS 的 `analyze` 共享同一套数值分析，模拟测试直接使用该核心。测试固定输入、随机种子、代码指纹、文件校验值和软件版本；模拟亮度不是真实星的噪声注入。尚无自动最终周期选择，也没有可信真实安静星反例，因此能力仍未充分验证。
+
+```bash
+repo/.venv/bin/python repo/benchmarks/restore_benchmark_inputs.py
+repo/.venv/bin/python repo/benchmarks/check_known_source.py
+repo/.venv/bin/python repo/benchmarks/run_mixed_controls.py --prepare-only --output repo/benchmarks/mixed-rerun
+repo/.venv/bin/python repo/benchmarks/run_mixed_controls.py --output repo/benchmarks/mixed-rerun
+repo/.venv/bin/python repo/benchmarks/build_mixed_report.py --run repo/benchmarks/mixed-rerun
+```
+
+混合运行拒绝覆盖已存在结果。源码变动会导致旧流水线的 `resume` 拒绝继续；已有报告仍能读取，本轮没有覆盖原 100 个目标的结果。

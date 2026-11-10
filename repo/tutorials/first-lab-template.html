@@ -46,12 +46,13 @@
 </section>
 <section id="source"><h2>④ 确认变化来自哪颗星</h2>
 <p>走到这里，你已经找到一条重复变光的时间序列。还要看像素图、孔径、附近恒星、背景与质心，确认变化来自目标。换时段和漂亮的相位图都不能单独完成这一步。</p>
-<p>这个练习没有下载 TIC 9473243 的像素数据，也没有重新完成来源定位。可用现成的<a href="../../runs/sector94-100-v02/report/294052132.html">邻星污染案例 TIC 294052132</a>学习：它的周期重复得很好，但信号峰偏离目标，接近一颗周期相符的已知邻星。那是一颗不同的星，不能把它的定位结论移用到本例。</p>
+<p>本例的像素来源检查已完成第一轮：TIC 9473243 对应已知食双星 TU Her。两批观测中，深食和浅食时少掉的光都集中在目标位置附近；缩小测光区域后，两种下降仍存在。<a href="../../benchmarks/source-9473243-v01/index.html" target="_blank" rel="noopener">打开本例的来源检查图</a>，分别看正常亮度、深食少掉的光、浅食少掉的光。</p>
+<p>这支持变化来自 TU Her 所在位置，但没有精细的光斑拟合和正式定位误差，仍不能排除望远镜分不开的极近邻星。还可以对照<a href="../../runs/sector94-100-v02/report/294052132.html" target="_blank" rel="noopener">邻星污染案例 TIC 294052132</a>：它也有稳定周期，变化位置却接近另一颗星。</p>
 <p>若怀疑仪器，通常还会看同一探测器其他恒星是否同步出现异常、变化是否跟背景或指向漂移相关，以及不同孔径测光是否保留信号。</p>
 </section>
 <section id="notes"><h2>⑤ 写下你自己的判断</h2>
 <p>写下：我试了哪些周期？为什么选现在这个？另一个时段和另一种处理方式是否支持？哪些证据还没检查？不要只写“看起来像”。</p>
-<textarea id="notebook" aria-label="我的观察记录" placeholder="我认为完整周期约为……天。依据是……。另一个时段……。来源定位尚未完成，因此我目前只能确认……"></textarea>
+<textarea id="notebook" aria-label="我的观察记录" placeholder="我认为完整周期约为……天。依据是……。另一个时段……。来源检查支持……，但仍不能排除……"></textarea>
 <p><button id="save">下载我的观察记录</button> <span class="muted">记录只在本页内存中；刷新前请下载。页面不向服务器发送记录。</span></p>
 <p><a id="csv" href="tic9473243-sector79.csv" download>下载当前时段原始测量 CSV</a> · <a href="provenance.json">观测来源与校验值</a> · <a href="../../../doc/10-human-walkthrough.md">完整操作说明</a></p>
 <p class="muted">CSV 的 TIME_BTJD_TDB_d 是 BJD_TDB 减去 2457000 天，BJD_TDB_d 是加回零点后的时间，两者都不是 HJD。光通量单位为电子/秒。CSV 保留质量标记和无效值，导入其他软件前要按所选方案处理。</p>
