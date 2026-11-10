@@ -6,6 +6,7 @@ from .io import read_json
 from .models import load_config
 from .pipeline import create_run, execute_run
 from .reports import generate_report
+from .submission import export_vsx
 
 
 def main(argv=None):
@@ -22,6 +23,10 @@ def main(argv=None):
     inspect = commands.add_parser("inspect")
     inspect.add_argument("tic")
     inspect.add_argument("--run", type=Path, required=True)
+    export = commands.add_parser("export-vsx", help="只导出本地草稿，不发送到 AAVSO")
+    export.add_argument("tic")
+    export.add_argument("--run", type=Path, required=True)
+    export.add_argument("--review", type=Path, help="人工复核字段和图片清单 JSON")
     args = parser.parse_args(argv)
     try:
         if args.command == "run":
@@ -31,6 +36,11 @@ def main(argv=None):
         elif args.command == "report":
             print(generate_report(args.run.resolve()))
             return 0
+        elif args.command == "export-vsx":
+            path, validation = export_vsx(args.run, args.tic, args.review)
+            print(f"{validation['status']}: {path}")
+            print(json.dumps(validation, ensure_ascii=False, indent=2))
+            return 2 if validation["missing"] else 0
         else:
             rows = read_json(args.run / "summary.json")["targets"]
             target = next((r for r in rows if r["tic"] == args.tic), None)

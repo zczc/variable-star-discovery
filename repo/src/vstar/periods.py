@@ -1,6 +1,6 @@
 from pathlib import Path
 import numpy as np
-from astropy.timeseries import LombScargle
+from astropy.timeseries import LombScargle, BoxLeastSquares
 from scipy.signal import find_peaks
 from .models import AnalysisConfig
 from .photometry import LightCurve, read_lightcurve, bin_lightcurve
@@ -45,8 +45,26 @@ def analyze(path: Path, config: AnalysisConfig):
     sap = bin_lightcurve(read_lightcurve(path, "SAP_FLUX"), config.bin_minutes)
     result["sap_power_at_period"] = float(LombScargle(sap.time, sap.flux, sap.error).power(1 / period))
     result["harmonics_d"] = [period / 2, period, period * 2]
+    if config.use_bls:
+        result["bls"] = bls_search(lc, config)
     if period > result["span_d"] / 3:
         result["warnings"].append("Fewer than three cycles observed; long-period evidence is limited.")
     if len(lc.time) > 1 and period < 4 * np.median(np.diff(lc.time)):
         result["warnings"].append("Period is poorly sampled; inspect cadence aliases.")
     return result, (lc, frequency, powers)
+
+
+def bls_search(lc, config):
+    model = BoxLeastSquares(lc.time, lc.flux, lc.error)
+    periods = np.geomspace(config.min_period_days, config.max_period_days, 2500)
+    trials = []
+    for duration in [.005, .015, .04, .1]:
+        allowed = periods[periods > 4 * duration]
+        if len(allowed) == 0:
+            continue
+        result = model.power(allowed, duration, objective="likelihood")
+        i = int(np.argmax(result.power))
+        trials.append({"period_d": float(result.period[i]), "duration_d": float(result.duration[i]),
+                       "power": float(result.power[i]), "depth_fraction": float(result.depth[i])})
+    best = max(trials, key=lambda x: x["power"])
+    return {**best, "note": "Auxiliary box-shaped signal search on binned data; limited duration grid, no false-alarm calibration or classification."}

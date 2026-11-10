@@ -12,9 +12,14 @@ class AnalysisConfig:
     samples_per_peak: int = 8
     min_points: int = 500
     period_tolerance: float = 0.05
+    use_bls: bool = False
 
     def __post_init__(self):
-        for value in asdict(self).values():
+        for key, value in asdict(self).items():
+            if key == "use_bls":
+                if not isinstance(value, bool):
+                    raise ValueError("use_bls must be true or false")
+                continue
             if not isinstance(value, (int, float)) or not math.isfinite(value) or value <= 0:
                 raise ValueError("Analysis parameters must be finite positive numbers")
         if self.min_period_days >= self.max_period_days:
@@ -23,6 +28,8 @@ class AnalysisConfig:
             raise ValueError("Bin width must preserve at least four bins per shortest period")
         if self.min_points < 20 or self.samples_per_peak < 2 or self.period_tolerance >= 1:
             raise ValueError("Invalid sample count, frequency resolution or period tolerance")
+        if not isinstance(self.min_points, int) or not isinstance(self.samples_per_peak, int):
+            raise ValueError("Sample counts must be integers")
 
 
 @dataclass
