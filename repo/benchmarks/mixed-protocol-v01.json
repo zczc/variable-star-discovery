@@ -1,0 +1,344 @@
+{
+  "frozen_at": "2026-11-10T15:35:05.898158+00:00",
+  "stage": "development diagnostic, not a sealed accuracy evaluation",
+  "purpose": "Exercise the unchanged screening rule on real positives, prior contamination cases and explicitly synthetic negatives/positives.",
+  "selection": "Reuse all three available known stars and preserve two unavailable controls. Synthetic cases use the same actual quality-filtered time sampling as the selected star; they are not independent real stars.",
+  "baseline": "vstar.periods.analyze plus vstar.pipeline.assess; 5% spread across epochs, reject search-grid boundaries; optional existing localization for real contamination cases. No final physical classification or final-period selector exists.",
+  "period_tolerance": 0.01,
+  "analysis": {
+    "use_bls": true,
+    "min_period_days": 0.05,
+    "max_period_days": 8,
+    "bin_minutes": 10,
+    "period_tolerance": 0.05
+  },
+  "evaluation": {
+    "real_variables": "Report candidate rate and LS/BLS period agreement separately, by star and by observation. Do not call BLS a chosen final period.",
+    "negatives": "Count periodic-candidate alerts, not confirmed-variable false positives; real quiet-star denominator is zero and its false-positive rate is unavailable.",
+    "equal_eclipses": "Report both photometric P/2 and supplied orbital P; an equal-eclipse photometric ambiguity is not a uniquely resolved orbit.",
+    "failures": "Unavailable inputs and analysis errors remain visible; no silent replacement."
+  },
+  "limitations": [
+    "Previously examined real cases are development examples.",
+    "No independently established quiet real stars are available in this first diagnostic.",
+    "Synthetic labels and simple noise models cannot certify population accuracy.",
+    "Changing thresholds after these results requires a new development version and a separate untouched evaluation."
+  ],
+  "cases": [
+    {
+      "id": "known-9473243",
+      "kind": "real_known_variable",
+      "tic": "9473243",
+      "reference": "known-controls.json",
+      "available": true
+    },
+    {
+      "id": "known-159717514",
+      "kind": "real_known_variable",
+      "tic": "159717514",
+      "reference": "known-controls.json",
+      "available": true
+    },
+    {
+      "id": "known-81709032",
+      "kind": "real_known_variable",
+      "tic": "81709032",
+      "reference": "known-controls.json",
+      "available": true
+    },
+    {
+      "id": "unavailable-2597145",
+      "kind": "real_known_variable",
+      "tic": "2597145",
+      "available": false,
+      "reason": "No supported non-fast SPOC data in the original preselected control query; not replaced."
+    },
+    {
+      "id": "unavailable-403072759",
+      "kind": "real_known_variable",
+      "tic": "403072759",
+      "available": false,
+      "reason": "No supported non-fast SPOC data in the original preselected control query; not replaced."
+    },
+    {
+      "id": "contamination-259238257",
+      "kind": "real_contaminated_target",
+      "tic": "259238257",
+      "run": "historical-v02",
+      "reference": "Prior development-source diagnosis, not independent ground truth; period from known neighbor."
+    },
+    {
+      "id": "contamination-294052132",
+      "kind": "real_contaminated_target",
+      "tic": "294052132",
+      "run": "sector94-100-v02",
+      "reference": "Prior development-source diagnosis, not independent ground truth; period from known neighbor."
+    },
+    {
+      "id": "white_noise-01",
+      "kind": "synthetic_white_noise",
+      "seed": 2026111007,
+      "cadence_tic": "9473243",
+      "noise_sigma": 0.0025
+    },
+    {
+      "id": "white_noise-02",
+      "kind": "synthetic_white_noise",
+      "seed": 2026111008,
+      "cadence_tic": "159717514",
+      "noise_sigma": 0.0025
+    },
+    {
+      "id": "white_noise-03",
+      "kind": "synthetic_white_noise",
+      "seed": 2026111009,
+      "cadence_tic": "81709032",
+      "noise_sigma": 0.0025
+    },
+    {
+      "id": "white_noise-04",
+      "kind": "synthetic_white_noise",
+      "seed": 2026111010,
+      "cadence_tic": "9473243",
+      "noise_sigma": 0.0025
+    },
+    {
+      "id": "white_noise-05",
+      "kind": "synthetic_white_noise",
+      "seed": 2026111011,
+      "cadence_tic": "159717514",
+      "noise_sigma": 0.0025
+    },
+    {
+      "id": "white_noise-06",
+      "kind": "synthetic_white_noise",
+      "seed": 2026111012,
+      "cadence_tic": "81709032",
+      "noise_sigma": 0.0025
+    },
+    {
+      "id": "correlated_noise-01",
+      "kind": "synthetic_correlated_noise",
+      "seed": 2026111013,
+      "cadence_tic": "9473243",
+      "noise_sigma": 0.0025,
+      "correlation_timescale_d": 0.04,
+      "correlated_sigma": 0.006
+    },
+    {
+      "id": "correlated_noise-02",
+      "kind": "synthetic_correlated_noise",
+      "seed": 2026111014,
+      "cadence_tic": "159717514",
+      "noise_sigma": 0.0025,
+      "correlation_timescale_d": 0.2,
+      "correlated_sigma": 0.006
+    },
+    {
+      "id": "correlated_noise-03",
+      "kind": "synthetic_correlated_noise",
+      "seed": 2026111015,
+      "cadence_tic": "81709032",
+      "noise_sigma": 0.0025,
+      "correlation_timescale_d": 0.6,
+      "correlated_sigma": 0.006
+    },
+    {
+      "id": "correlated_noise-04",
+      "kind": "synthetic_correlated_noise",
+      "seed": 2026111016,
+      "cadence_tic": "9473243",
+      "noise_sigma": 0.0025,
+      "correlation_timescale_d": 0.04,
+      "correlated_sigma": 0.006
+    },
+    {
+      "id": "correlated_noise-05",
+      "kind": "synthetic_correlated_noise",
+      "seed": 2026111017,
+      "cadence_tic": "159717514",
+      "noise_sigma": 0.0025,
+      "correlation_timescale_d": 0.2,
+      "correlated_sigma": 0.006
+    },
+    {
+      "id": "correlated_noise-06",
+      "kind": "synthetic_correlated_noise",
+      "seed": 2026111018,
+      "cadence_tic": "81709032",
+      "noise_sigma": 0.0025,
+      "correlation_timescale_d": 0.6,
+      "correlated_sigma": 0.006
+    },
+    {
+      "id": "trend-01",
+      "kind": "synthetic_trend",
+      "seed": 2026111019,
+      "cadence_tic": "9473243",
+      "noise_sigma": 0.0025,
+      "curvature": 0,
+      "slope": 0.02
+    },
+    {
+      "id": "trend-02",
+      "kind": "synthetic_trend",
+      "seed": 2026111020,
+      "cadence_tic": "159717514",
+      "noise_sigma": 0.0025,
+      "curvature": 0.5,
+      "slope": 0.02
+    },
+    {
+      "id": "trend-03",
+      "kind": "synthetic_trend",
+      "seed": 2026111021,
+      "cadence_tic": "81709032",
+      "noise_sigma": 0.0025,
+      "curvature": -0.5,
+      "slope": 0.02
+    },
+    {
+      "id": "trend-04",
+      "kind": "synthetic_trend",
+      "seed": 2026111022,
+      "cadence_tic": "9473243",
+      "noise_sigma": 0.0025,
+      "curvature": 1,
+      "slope": 0.02
+    },
+    {
+      "id": "sinusoid-01",
+      "kind": "synthetic_sinusoid",
+      "seed": 2026111023,
+      "cadence_tic": "9473243",
+      "noise_sigma": 0.0025,
+      "period_d": 0.173,
+      "amplitude": 0.003
+    },
+    {
+      "id": "sinusoid-02",
+      "kind": "synthetic_sinusoid",
+      "seed": 2026111024,
+      "cadence_tic": "159717514",
+      "noise_sigma": 0.0025,
+      "period_d": 0.73,
+      "amplitude": 0.01
+    },
+    {
+      "id": "sinusoid-03",
+      "kind": "synthetic_sinusoid",
+      "seed": 2026111025,
+      "cadence_tic": "81709032",
+      "noise_sigma": 0.0025,
+      "period_d": 2.31,
+      "amplitude": 0.02
+    },
+    {
+      "id": "sinusoid-04",
+      "kind": "synthetic_sinusoid",
+      "seed": 2026111026,
+      "cadence_tic": "9473243",
+      "noise_sigma": 0.0025,
+      "period_d": 5.13,
+      "amplitude": 0.006
+    },
+    {
+      "id": "unequal_eclipses-01",
+      "kind": "synthetic_unequal_eclipses",
+      "seed": 2026111027,
+      "cadence_tic": "9473243",
+      "noise_sigma": 0.0025,
+      "period_d": 1.3,
+      "duration_fraction": 0.035,
+      "primary_depth": 0.03,
+      "secondary_fraction": 0.25
+    },
+    {
+      "id": "unequal_eclipses-02",
+      "kind": "synthetic_unequal_eclipses",
+      "seed": 2026111028,
+      "cadence_tic": "159717514",
+      "noise_sigma": 0.0025,
+      "period_d": 2.47,
+      "duration_fraction": 0.02,
+      "primary_depth": 0.01,
+      "secondary_fraction": 0.4
+    },
+    {
+      "id": "unequal_eclipses-03",
+      "kind": "synthetic_unequal_eclipses",
+      "seed": 2026111029,
+      "cadence_tic": "81709032",
+      "noise_sigma": 0.0025,
+      "period_d": 3.77,
+      "duration_fraction": 0.04,
+      "primary_depth": 0.08,
+      "secondary_fraction": 0.6
+    },
+    {
+      "id": "unequal_eclipses-04",
+      "kind": "synthetic_unequal_eclipses",
+      "seed": 2026111030,
+      "cadence_tic": "9473243",
+      "noise_sigma": 0.0025,
+      "period_d": 6.2,
+      "duration_fraction": 0.015,
+      "primary_depth": 0.04,
+      "secondary_fraction": 0.2
+    },
+    {
+      "id": "equal_eclipses-01",
+      "kind": "synthetic_equal_eclipses",
+      "seed": 2026111031,
+      "cadence_tic": "9473243",
+      "noise_sigma": 0.0025,
+      "period_d": 1.8,
+      "duration_fraction": 0.04,
+      "primary_depth": 0.025,
+      "secondary_fraction": 1,
+      "photometric_period_fraction": 0.5
+    },
+    {
+      "id": "equal_eclipses-02",
+      "kind": "synthetic_equal_eclipses",
+      "seed": 2026111032,
+      "cadence_tic": "159717514",
+      "noise_sigma": 0.0025,
+      "period_d": 3.1,
+      "duration_fraction": 0.04,
+      "primary_depth": 0.025,
+      "secondary_fraction": 1,
+      "photometric_period_fraction": 0.5
+    },
+    {
+      "id": "common_mode-01",
+      "kind": "synthetic_common_mode",
+      "seed": 2026111033,
+      "cadence_tic": "9473243",
+      "noise_sigma": 0.0025,
+      "period_d": 0.42,
+      "amplitude": 0.01,
+      "auxiliary": "A matching simulated instrumental channel is retained but is not consumed by the baseline pipeline."
+    },
+    {
+      "id": "common_mode-02",
+      "kind": "synthetic_common_mode",
+      "seed": 2026111034,
+      "cadence_tic": "159717514",
+      "noise_sigma": 0.0025,
+      "period_d": 1.7,
+      "amplitude": 0.01,
+      "auxiliary": "A matching simulated instrumental channel is retained but is not consumed by the baseline pipeline."
+    },
+    {
+      "id": "common_mode-03",
+      "kind": "synthetic_common_mode",
+      "seed": 2026111035,
+      "cadence_tic": "81709032",
+      "noise_sigma": 0.0025,
+      "period_d": 3.4,
+      "amplitude": 0.01,
+      "auxiliary": "A matching simulated instrumental channel is retained but is not consumed by the baseline pipeline."
+    }
+  ]
+}
