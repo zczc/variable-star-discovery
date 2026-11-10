@@ -2,6 +2,8 @@
 
 使用 TESS 等公开观测数据，寻找此前未被报告的周期变星。项目从入门学习、小规模试验和可重复验证开始，目前尚无经过完整核验的新发现，也未向 VSX 提交。
 
+当前先做 [识别能力验证](doc/09-validation-first.md)，再考虑新对象筛选。初学者可从 [亲手操作一次](doc/10-human-walkthrough.md) 和 [交互练习](repo/tutorials/first-variable-star/index.html) 开始。
+
 ## 内容
 
 - [doc/](doc/README.md)：入门知识、项目目标、研究依据、分析流程、前期结果和 VSX 提交说明。

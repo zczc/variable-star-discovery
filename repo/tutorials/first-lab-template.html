@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>亲手识别一颗变星 · TIC 9473243</title>
+<style>
+:root{color-scheme:light}*{box-sizing:border-box}body{font:16px/1.75 system-ui,sans-serif;color:#24354b;background:#f5f7fa;margin:0}main{max-width:1180px;margin:36px auto;padding:0 22px}h1{font-size:32px;line-height:1.3}h2{font-size:23px}h3{font-size:18px}section,details{background:white;border:1px solid #dce3ec;border-radius:12px;padding:22px;margin:20px 0}summary{cursor:pointer;font-weight:650}a{color:#125fa3}.muted{color:#59687b;font-size:14px}.notice{border-left:4px solid #167b82;padding:12px 18px;background:#eaf5f4}.controls{display:flex;flex-wrap:wrap;align-items:end;gap:16px}label{display:block}select,input,button{font:inherit;padding:7px 10px;border:1px solid #aebccd;border-radius:6px;background:#fff;color:inherit}button{cursor:pointer;background:#eff5fc}button:hover{background:#dceafb}input[type=number]{width:145px}input[type=range]{width:min(390px,90%);vertical-align:middle}.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}canvas{display:block;width:100%;height:290px;border:1px solid #e3e8ef;border-radius:6px}#periodogram{height:230px}.readout{color:#165b64;font-weight:600}textarea{font:inherit;width:100%;min-height:135px;padding:12px;border:1px solid #aebccd;border-radius:6px}li{margin-bottom:8px}.steps a{white-space:nowrap}#message{color:#a43b20}img{max-width:100%}code{font-size:.9em}@media(max-width:760px){.grid{grid-template-columns:1fr}main{padding:0 12px}section{padding:15px}h1{font-size:26px}}
+</style>
+<main>
+<p class="muted">TESS 真实观测 · 已知食双星 · 学习练习</p>
+<h1>亲手识别一颗变星</h1>
+<p>对象是 TIC 9473243。每个点都是一段时间内测得的亮度。你要判断：它是否在重复变化、完整重复一次需要多久，以及现有数据还证明不了什么。</p>
+<p class="notice">这是有答案的教学案例，不用于计算算法准确率。页面内含真实数据，可离线打开；调节周期会重新绘图，不会自动替你判定“发现”。</p>
+<p class="steps"><a href="#observe">① 看变化</a> → <a href="#fold">② 试周期</a> → <a href="#verify">③ 换时段核对</a> → <a href="#source">④ 检查来源</a> → <a href="#notes">⑤ 写结论</a></p>
+<section id="observe"><h2>① 先看亮度怎样变化</h2>
+<p>先看左图，不急着看算法。数一数明显的深谷：相邻两次深谷大约隔几天？深谷之间是否还有较浅的下降？纵轴越高，收到的光越多；这里没有使用“数值越小越亮”的星等。</p>
+<div class="controls">
+<label>观测时段<select id="sector"><option value="79">Sector 79</option><option value="25">Sector 25</option></select></label>
+<label>光变产品<select id="product"><option value="PDCSAP_FLUX">PDCSAP：经过系统效应校正</option><option value="SAP_FLUX">SAP：孔径内测光</option></select></label>
+<label>质量处理<select id="quality"><option value="good">只保留 QUALITY=0</option><option value="all">保留带质量标记的有效测量</option></select></label>
+</div>
+<p id="dataStatus" class="muted"></p>
+<div class="grid"><div><h3>光变曲线：横轴是时间</h3><canvas id="lightcurve" role="img" aria-label="亮度随时间变化图"></canvas></div><div><h3>相位图：按你设定的周期叠起来</h3><canvas id="phase" role="img" aria-label="按选定周期折叠后的相位图"></canvas></div></div>
+<p class="muted">图上使用 10 分钟平均值；这是为了便于观察，窄于分箱宽度的变化可能被削弱。两种产品和质量处理对应的周期搜索已各自预先计算。校正产品也可能改变真实信号，不能只看哪张更平滑。</p>
+</section>
+<section id="fold"><h2>② 自己试一个周期</h2>
+<p>“周期”是完整重复一次需要的时间。相位折叠相当于把时间轴按这个长度剪成一段段，再叠在一起。周期合适时，同类变化会落在相近的位置。</p>
+<div class="controls"><label>尝试周期（天，输入后按 Enter）<input id="period" type="number" min="0.05" max="8" step="0.0001" value="1"></label><button id="half">÷ 2</button><button id="twice">× 2</button><button id="ls">采用 LS 最强峰</button><button id="bls">采用 BLS 最强峰</button><button id="reset">回到 1 天</button></div>
+<p><input id="slider" type="range" min="0.05" max="8" step="0.0001" value="1" aria-label="调整尝试周期"> <span id="periodReadout" class="readout" aria-live="polite"></span></p>
+<p id="message" role="status"></p>
+<p>先试 1 天，再点“采用 LS 最强峰”，然后点“× 2”。注意：一团挤在一起的深浅谷，是否分开了？最后再试 BLS。LS 偏向寻找类似波浪的重复成分，BLS 寻找反复变暗的片段；它们都可能选错。</p>
+<h3>周期图：每个试验周期得到的统计量</h3><canvas id="periodogram" role="img" aria-label="Lomb Scargle 周期图"></canvas>
+<p id="searchStatus" class="muted"></p>
+<p class="muted">周期图的峰高不是“变星概率”。当前显示的红线只是你正在试的周期。周期相近还不够：要留意半周期、倍周期、采样造成的假峰和搜索边界。</p>
+</section>
+<section id="verify"><h2>③ 用另一个时段核对</h2>
+<p>记下自己认为合理的周期，然后把顶部观测时段改成 Sector 25。页面会保留你输入的周期。检查另一段观测是否也有深浅不同的两次下降，以及周期是否仍能把同类变化叠在一起。</p>
+<p>再切换 SAP / PDCSAP，或保留质量标记，观察结论对处理方法是否敏感。某一种清理方式中才出现的漂亮曲线需要格外复核；真实食也不能仅因是离群点就删掉。</p>
+<p class="notice">本练习各时段以自己的起点作为相位零点，因此只能直接比较重复形状。两幅图的谷在横轴上的位置不同，并不自动说明周期不稳定；本页面没有检验跨年相位能否接上，也没有估计正式周期误差。</p>
+<details><summary>完成自己的尝试后，再打开参考答案</summary><p>参考研究给出的周期约为 <b>2.2669 天</b>，约 54.41 小时。一圈有深浅不同的两次食。基准 LS 搜索在两个时段都选到了约 1.1356–1.1358 天，约是完整周期的一半；BLS 得到约 2.26656 天。</p><p>将 LS 周期乘二适合发现歧义，但不等于得到了精确轨道周期。两次下降间隔也不一定总是半个周期；不同双星可以有不同几何形状。</p><p>参考值来自<a href="https://arxiv.org/html/2506.05631v1">已有 TESS 研究</a>。这颗星本来就是已知对象；知道答案的练习不能当作独立测试。</p></details>
+</section>
+<section id="source"><h2>④ 确认变化来自哪颗星</h2>
+<p>走到这里，你已经找到一条重复变光的时间序列。还要看像素图、孔径、附近恒星、背景与质心，确认变化来自目标。换时段和漂亮的相位图都不能单独完成这一步。</p>
+<p>这个练习没有下载 TIC 9473243 的像素数据，也没有重新完成来源定位。可用现成的<a href="../../runs/sector94-100-v02/report/294052132.html">邻星污染案例 TIC 294052132</a>学习：它的周期重复得很好，但信号峰偏离目标，接近一颗周期相符的已知邻星。那是一颗不同的星，不能把它的定位结论移用到本例。</p>
+<p>若怀疑仪器，通常还会看同一探测器其他恒星是否同步出现异常、变化是否跟背景或指向漂移相关，以及不同孔径测光是否保留信号。</p>
+</section>
+<section id="notes"><h2>⑤ 写下你自己的判断</h2>
+<p>写下：我试了哪些周期？为什么选现在这个？另一个时段和另一种处理方式是否支持？哪些证据还没检查？不要只写“看起来像”。</p>
+<textarea id="notebook" aria-label="我的观察记录" placeholder="我认为完整周期约为……天。依据是……。另一个时段……。来源定位尚未完成，因此我目前只能确认……"></textarea>
+<p><button id="save">下载我的观察记录</button> <span class="muted">记录只在本页内存中；刷新前请下载。页面不向服务器发送记录。</span></p>
+<p><a id="csv" href="tic9473243-sector79.csv" download>下载当前时段原始测量 CSV</a> · <a href="provenance.json">观测来源与校验值</a> · <a href="../../../doc/10-human-walkthrough.md">完整操作说明</a></p>
+<p class="muted">CSV 的 TIME_BTJD_TDB_d 是 BJD_TDB 减去 2457000 天，BJD_TDB_d 是加回零点后的时间，两者都不是 HJD。光通量单位为电子/秒。CSV 保留质量标记和无效值，导入其他软件前要按所选方案处理。</p>
+</section></main>
+<script>
+const DATA=__LAB_DATA__;
+const el=id=>document.getElementById(id);let currentPeriod=1;
+function chosen(){return DATA.sectors[el('sector').value].scenarios[el('product').value+'_'+el('quality').value]}
+function plot(id,x,y,xmin,xmax,ymin,ymax,xlabel,ylabel,line=false,marker=null){
+ const c=el(id),r=c.getBoundingClientRect(),dpr=window.devicePixelRatio||1,w=r.width,h=r.height;c.width=w*dpr;c.height=h*dpr;
+ const ctx=c.getContext('2d');ctx.scale(dpr,dpr);const box={l:64,t:16,r:w-16,b:h-48},W=box.r-box.l,H=box.b-box.t;
+ const xx=v=>box.l+(v-xmin)/(xmax-xmin)*W, yy=v=>box.b-(v-ymin)/(ymax-ymin)*H;
+ ctx.font='12px system-ui';ctx.fillStyle='#52637a';ctx.strokeStyle='#e5eaf0';ctx.lineWidth=1;
+ for(let i=0;i<=4;i++){let yv=ymin+(ymax-ymin)*i/4,xv=xmin+(xmax-xmin)*i/4;ctx.beginPath();ctx.moveTo(box.l,yy(yv));ctx.lineTo(box.r,yy(yv));ctx.stroke();ctx.textAlign='right';ctx.fillText(yv.toFixed(1),box.l-8,yy(yv)+4);ctx.textAlign='center';ctx.fillText(xv.toFixed(xmax<=1?2:1),xx(xv),box.b+21)}
+ ctx.fillText(xlabel,(box.l+box.r)/2,h-9);ctx.save();ctx.translate(15,(box.t+box.b)/2);ctx.rotate(-Math.PI/2);ctx.fillText(ylabel,0,0);ctx.restore();
+ ctx.save();ctx.beginPath();ctx.rect(box.l,box.t,W,H);ctx.clip();ctx.fillStyle='#176f9b99';ctx.strokeStyle='#176f9b';
+ if(line){ctx.beginPath();for(let i=0;i<x.length;i++){if(i===0)ctx.moveTo(xx(x[i]),yy(y[i]));else ctx.lineTo(xx(x[i]),yy(y[i]))}ctx.stroke()}
+ else for(let i=0;i<x.length;i++)ctx.fillRect(xx(x[i])-1,yy(y[i])-1,2,2);
+ if(marker!==null){ctx.strokeStyle='#c34f38';ctx.beginPath();ctx.moveTo(xx(marker),box.t);ctx.lineTo(xx(marker),box.b);ctx.stroke()}ctx.restore();
+}
+function render(){
+ const s=chosen(),info=DATA.sectors[el('sector').value],time=s.time.map(t=>t-s.time_zero),phase=time.map(t=>((t/currentPeriod)%1+1)%1),lo=Math.min(...s.flux_pct),hi=Math.max(...s.flux_pct),pad=(hi-lo)*.06||1;
+ plot('lightcurve',time,s.flux_pct,0,Math.max(...time),lo-pad,hi+pad,'本时段起点之后的天数','相对亮度（%）');
+ plot('phase',phase,s.flux_pct,0,1,lo-pad,hi+pad,'相位：一个周期内的位置','相对亮度（%）');
+ plot('periodogram',s.periods,s.power,.05,8,0,Math.max(...s.power)*1.05,'尝试周期（天）','LS power',true,currentPeriod);
+ el('periodReadout').textContent=currentPeriod.toFixed(6)+' 天 ≈ '+(currentPeriod*24).toFixed(3)+' 小时';
+ el('dataStatus').textContent='源文件 '+info.original_points+' 个测量点 → 当前方案保留 '+s.used_points+' 点 → 10 分钟分箱后 '+s.time.length+' 点。分箱后典型单点形式误差约 '+s.median_error_pct.toFixed(4)+'%，不含全部系统误差。';
+ el('searchStatus').textContent='当前数据方案：LS 最强峰 '+s.ls_period.toFixed(6)+' 天；BLS 最强峰 '+s.bls_period.toFixed(6)+' 天。搜索范围为 0.05–8 天。';
+ el('csv').href=info.csv;
+}
+function setPeriod(value){if(!Number.isFinite(value)||value<.05||value>8){el('message').textContent='请输入 0.05–8 天之间的周期。';return}currentPeriod=value;el('message').textContent='';el('period').value=value.toFixed(8);el('slider').value=value;render()}
+for(const id of ['sector','product','quality'])el(id).addEventListener('change',render);
+el('period').addEventListener('change',e=>setPeriod(Number(e.target.value)));el('period').addEventListener('keydown',e=>{if(e.key==='Enter')setPeriod(Number(e.target.value))});el('slider').addEventListener('input',e=>setPeriod(Number(e.target.value)));
+el('half').onclick=()=>setPeriod(currentPeriod/2);el('twice').onclick=()=>setPeriod(currentPeriod*2);el('ls').onclick=()=>setPeriod(chosen().ls_period);el('bls').onclick=()=>setPeriod(chosen().bls_period);el('reset').onclick=()=>setPeriod(1);
+el('save').onclick=()=>{let text='TIC 9473243 手动练习\n观测区：'+el('sector').value+'\n产品：'+el('product').value+'\n质量方案：'+el('quality').value+'\n尝试周期：'+currentPeriod+' 天\n\n'+el('notebook').value+'\n\n本练习不等于来源定位或新发现确认。\n';let url=URL.createObjectURL(new Blob([text],{type:'text/plain;charset=utf-8'})),a=document.createElement('a');a.href=url;a.download='my-variable-star-notes.txt';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};
+window.addEventListener('resize',render);render();
+</script></html>
