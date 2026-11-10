@@ -24,6 +24,12 @@ def period_search(lc: LightCurve, config: AnalysisConfig):
 
 def analyze(path: Path, config: AnalysisConfig):
     raw = read_lightcurve(path)
+    sap = read_lightcurve(path, "SAP_FLUX")
+    return analyze_series(raw, config, sap)
+
+
+def analyze_series(raw: LightCurve, config: AnalysisConfig, sap: LightCurve):
+    """Apply the same screening to normalized measured or explicitly simulated series."""
     if len(raw.time) < config.min_points:
         raise ValueError(f"Only {len(raw.time)} usable points; need {config.min_points}")
     lc = bin_lightcurve(raw, config.bin_minutes)
@@ -44,7 +50,7 @@ def analyze(path: Path, config: AnalysisConfig):
             for i in range(50) if np.any((phase >= i / 50) & (phase < (i + 1) / 50))]
     result["phase_amplitude_pct"] = float(100 * (np.percentile(bins, 95) - np.percentile(bins, 5)))
     result["phot_scatter_pct"] = float(100 * np.std(lc.flux))
-    sap = bin_lightcurve(read_lightcurve(path, "SAP_FLUX"), config.bin_minutes)
+    sap = bin_lightcurve(sap, config.bin_minutes)
     result["sap_power_at_period"] = float(LombScargle(sap.time, sap.flux, sap.error).power(1 / period))
     result["harmonics_d"] = [period / 2, period, period * 2]
     if config.use_bls:
