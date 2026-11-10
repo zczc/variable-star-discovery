@@ -17,7 +17,7 @@
 | `tic-neighbors-*.json`、`products-*.json` | 邻近目标和产品查询结果 |
 | `localization.json`、`pixels-*.npz` | 像素定位结果及用于图表的数组 |
 | `*.png`、`lightcurve-display.json` | 历史图表和展示数据；以项目文档中的当前结论为准 |
-| `*.fits` | 38 个原始观测或诊断文件，按用户要求随私有仓库保存 |
+| `*.fits` | 38 个原始观测或诊断文件，按用户要求随公开仓库保存 |
 | `migration-manifest.json` | 已迁移文件的来源、字节数、SHA-256 和路径调整说明 |
 | `requirements.txt`、`environment.json` | 前期运行和迁移检查所用的主要依赖版本与 Python 环境 |
 | `migration-verification.json` | 迁移后的数据完整性和离线重算检查结果 |
@@ -76,7 +76,7 @@ PY
 
 `followup.py` 和 `localize.py` 在导入时也会执行工作，不要把它们当作没有副作用的通用模块。`localize.py` 需要两个已保存的像素文件，当前脚本不负责下载它们。
 
-从私有 GitHub 仓库克隆时会带有这 38 个 FITS。需要单独恢复文件时，也可以按 `migration-manifest.json` 的 `mast_uri`，向清单记录的下载接口传递 `uri` 参数重新下载，再用 SHA-256 检查。下载恢复尚未封装成独立脚本。
+从公开 GitHub 仓库克隆时会带有这 38 个 FITS。需要单独恢复文件时，也可以按 `migration-manifest.json` 的 `mast_uri`，向清单记录的下载接口传递 `uri` 参数重新下载，再用 SHA-256 检查。下载恢复尚未封装成独立脚本。
 
 ## 已知局限
 

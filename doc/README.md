@@ -14,6 +14,7 @@
 | [分析流程与下一步](04-workflow.md) | 数据选择、周期分析、污染排查、文献查重和下一轮建议 |
 | [前期试验记录](05-pilot-2026-11-09.md) | 33 个目标的试验，以及三个重点对象的结论 |
 | [VSX、发现者与命名](06-vsx-and-credit.md) | 如何提交、审核时间、发现者记录和命名限制 |
+| [系统框架与执行计划](07-architecture-and-plan.md) | 第一版架构、数据与任务状态、质量验证和分阶段验收 |
 
 文档中的论文结论、本地计算结果和未来建议分别标明，不把候选写成已确认发现。
 
@@ -27,7 +28,7 @@ variable-star-discovery/
 ├── .gitattributes
 ├── doc/
 │   ├── README.md
-│   └── 01…06 文档
+│   └── 01…07 文档
 └── repo/
     ├── README.md
     ├── .gitignore
@@ -35,6 +36,6 @@ variable-star-discovery/
         └── 2026-11-09-pilot/
 ```
 
-`repo/` 已保存前期试验材料，使用方式见 [代码与实验说明](../repo/README.md)。原始观测文件与代码、图表一起纳入私有仓库，避免后续工作依赖临时目录。
+`repo/` 已保存前期试验材料，使用方式见 [代码与实验说明](../repo/README.md)。原始观测文件与代码、图表一起纳入公开仓库，避免后续工作依赖临时目录。
 
-按用户 2026-11-10 的要求，整个工作空间由私有仓库 [zczc/variable-star-discovery](https://github.com/zczc/variable-star-discovery) 管理，同时包含 `doc/` 和 `repo/`。这次备份到私有 GitHub 仓库不代表对外发表研究成果。
+按用户 2026-11-10 的要求，整个工作空间由公开仓库 [zczc/variable-star-discovery](https://github.com/zczc/variable-star-discovery) 管理，同时包含 `doc/` 和 `repo/`。仓库内容现在可公开访问；其中的候选分析不代表已经确认或获得 VSX 认可的新发现。
