@@ -32,9 +32,17 @@ def main(argv=None):
         review.add_argument("lightcurves", nargs="+", type=Path)
         review.add_argument("--output", required=True, type=Path)
         review.add_argument("--neighbors", type=Path, help="可选 VSX 邻域条目 JSON 列表")
+    products = commands.add_parser("review-products", help="SAP 与 PDCSAP 各自搜索，再检查产品差异")
+    products.add_argument("lightcurves", nargs="+", type=Path)
+    products.add_argument("--output", required=True, type=Path)
     args = parser.parse_args(argv)
     try:
-        if args.command in {"review-v2", "review-v3"}:
+        if args.command == "review-products":
+            from .products import review_products
+            row = review_products(args.lightcurves, args.output)
+            print(args.output.resolve()/"index.html")
+            return 2 if row["errors"] else 0
+        elif args.command in {"review-v2", "review-v3"}:
             from .review import review_files
             row = review_files(args.lightcurves, args.output, read_json(args.neighbors) if args.neighbors else None, revision=args.command.removeprefix("review-"))
             print(args.output.resolve()/"index.html")

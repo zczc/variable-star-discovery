@@ -1,0 +1,104 @@
+{
+  "frozen_at": "2026-11-11T02:55:46.590998+00:00",
+  "stage": "development product diagnosis; W UMa, U Sge and RT Aur SAP outcomes already inspected",
+  "cases": [
+    "known-9473243",
+    "known-159717514",
+    "known-81709032",
+    "unavailable-2597145",
+    "unavailable-403072759",
+    "contamination-259238257",
+    "contamination-294052132",
+    "w-uma",
+    "rz-cas",
+    "u-sge",
+    "rt-aur",
+    "sz-lyn",
+    "rs-boo"
+  ],
+  "event_cases": [
+    "w-uma",
+    "u-sge"
+  ],
+  "analysis": {
+    "min_period_days": 0.05,
+    "max_period_days": 8.0,
+    "bin_minutes": 10.0,
+    "samples_per_peak": 8,
+    "min_points": 500,
+    "period_tolerance": 0.05,
+    "use_bls": true
+  },
+  "screening": {
+    "phase_bins": 96,
+    "refinement_points": 31,
+    "refinement_rounds": 2,
+    "frequency_half_width_over_span": 0.4,
+    "min_template_coverage": 0.8,
+    "min_cv_gain": 0.2,
+    "min_fold_gain": 0.1,
+    "indistinguishable_gain": 0.02,
+    "min_cycles": 3,
+    "epoch_period_tolerance": 0.01,
+    "auxiliary_correlation": 0.8,
+    "min_auxiliary_gain": 0.2,
+    "min_sap_gain": 0.1,
+    "eclipse_duty_limit": 0.25,
+    "min_secondary_snr": 5.0,
+    "max_harmonic": 8,
+    "harmonic_tolerance": 0.015,
+    "min_conditional_variance": 0.05,
+    "min_predictive_cycles": 3
+  },
+  "event_config": {
+    "core_half_width": 0.06,
+    "side_inner": 0.35,
+    "side_outer": 0.45,
+    "min_core_points": 3,
+    "min_side_points": 3,
+    "bootstrap_draws": 2000,
+    "bootstrap_seed": 6137
+  },
+  "algorithm": [
+    "Search SAP and PDCSAP independently with unchanged v3.0. Match epochs within each product; do not inject catalog periods.",
+    "Keep all originally selected real development cases, including unavailable inputs and contamination cases. No unknown-object discovery search.",
+    "Record disagreements; no automatic choice of the clearer product, no source confirmation.",
+    "Event diagnostic uses the data-derived SAP phase minimum and per-epoch SAP period; measure at P/2 and P with local side windows. Bootstrap adjacent even/odd depth differences descriptively, with no significance classification."
+  ],
+  "limitations": [
+    "SAP and PDCSAP are derived from the same pixels. Agreement is not independent replication or source attribution.",
+    "Neither this diagnosis nor prior seen samples measure population accuracy.",
+    "Local baseline windows assume approximate linear baseline and may include stellar structure; depth comparison is not a complete binary model.",
+    "Short epochs retain original minimum-cycle requirements."
+  ],
+  "code_files": [
+    {
+      "path": "repo/src/vstar/products.py",
+      "sha256": "69745e38f5df3bfa80bdc190d0284e03ea4f3c5fd3cceb7d509cd9e3a6eb248a"
+    },
+    {
+      "path": "repo/src/vstar/eclipse_events.py",
+      "sha256": "9b8f988d48d6bf146dd6aa205f0f514cc6729194ffb85cebb5248c6b6f24d926"
+    },
+    {
+      "path": "repo/src/vstar/screening_v3.py",
+      "sha256": "b1b40e1c15e3f5661c59e7ab99377db02d5cb9d1c605adc7f65ed95c1f24aa81"
+    },
+    {
+      "path": "repo/src/vstar/screening.py",
+      "sha256": "2d47d095994fc9a58b90c435208ce0d559c604f385ad185d0499d544d299f304"
+    },
+    {
+      "path": "repo/src/vstar/review.py",
+      "sha256": "639c9001864cb035e0fcf146741174f4708326520619339a6d8e01ebaa5b6260"
+    },
+    {
+      "path": "repo/benchmarks/review_products.py",
+      "sha256": "4ae8aac98e56e83f62565b46b9e9a9a4909d14bf289b7b316271734b7d734793"
+    },
+    {
+      "path": "repo/benchmarks/review_eclipse_events.py",
+      "sha256": "52cd28e2fed1098ba30fa6188699b241864130b11134f821e64ca594e345d308"
+    }
+  ]
+}
