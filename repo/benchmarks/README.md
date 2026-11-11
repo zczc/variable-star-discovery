@@ -36,3 +36,7 @@ RR Lyr 的 TIC 星等字段与其 V 星等明显不一致，身份对应也保�
 ## 第三版开发对照
 
 [原开发集重跑](mixed-v04/index.html)与[原 6 星测试组重跑](former-pilot-v3/index.html)已完成。六颗旧测试星已用于调试，现为开发样本；不将重跑称为独立测试。规则见 `v3-protocol-v01.json`，完整性记录见 `v3-integrity-audit.json`，结果与投稿条件见[第三版说明](../../doc/14-v3-and-submission-readiness.md)。
+
+## 测光产品与逐次极小
+
+[products-v01](products-v01/index.html)保留 13 个原有真实案例，11 个完成、2 个不可用。24 段观测各分析 SAP/PDCSAP，附 W UMa、U Sge 的逐次极小诊断；属于开发分析。[实测反例资料筛查](quiet-controls-research-v01/README.md)尚未产生可计入 TESS 验收的安静星。

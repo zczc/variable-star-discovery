@@ -33,3 +33,7 @@ repo/.venv/bin/python repo/benchmarks/evaluate_v3.py --mode former-pilot-develop
 在项目根目录运行，输出目录必须尚不存在。`review-v3` 保留第二版搜索，并增加残余周期证据、整数谐波分组、跨时段歧义处理和窄食逐循环预测；批量 `run` 保持原行为。
 
 [36 个开发案例报告](benchmarks/mixed-v04/index.html)、[原 6 星测试组的开发重跑](benchmarks/former-pilot-v3/index.html)、[完整验收与投稿条件](../doc/14-v3-and-submission-readiness.md)。`v3-integrity-audit.json` 核对 82 段观测、评分前预测、来源及图片校验值和旧结果未改动；它是完整性检查，不是准确率认证。原 `audit_v2.py` 验证历史冻结版本，应在对应 Git 版本运行。
+
+## 两种测光产品的独立检查
+
+`vstar review-products first_lc.fits second_lc.fits --output path/to/new-review` 对 SAP 和 PDCSAP 各自完整搜索，再分别比较观测时段。产品分歧保留人工复核，两种产品一致不自动确认来源。[最新报告](benchmarks/products-v01/index.html)与[说明](../doc/15-products-and-real-controls.md)。

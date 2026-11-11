@@ -53,3 +53,5 @@ variable-star-discovery/
 按用户 2026-11-10 的要求，整个工作空间由公开仓库 [zczc/variable-star-discovery](https://github.com/zczc/variable-star-discovery) 管理，同时包含 `doc/` 和 `repo/`。仓库内容现在可公开访问；其中的候选分析不代表已经确认或获得 VSX 认可的新发现。
 
 - [第三版改进与提交条件](14-v3-and-submission-readiness.md)：全部开发重跑、真实星退步，以及筛选验收与 VSX 单星投稿的区别。
+
+- [测光产品为何影响周期判断](15-products-and-real-controls.md)：SAP/PDCSAP 完整比较、逐次深浅极小、实测反例资料的适用范围。

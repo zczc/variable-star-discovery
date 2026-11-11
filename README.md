@@ -32,3 +32,5 @@ repo/.venv/bin/vstar run --config repo/configs/historical.toml --offline
 2026-11-11：[第二版识别结果](doc/13-v2-recognition-results.md)已保存。开发集有改善；6 颗新加入的真实已知星中，最终周期 3 颗正确、1 颗双周期错误、2 颗未选择，尚未达到可靠识别的验收目标。
 
 同日完成[第三版改进与投稿条件](doc/14-v3-and-submission-readiness.md)：模拟深浅食与平滑周期分别达到 4/4，真实星仍有弃选和漏检。原 6 星测试组现用于开发，最终正确仍为 3/6；没有新的独立验收结果。
+
+最新进展：[测光产品与真实对照复核](doc/15-products-and-real-controls.md)。新增 SAP/PDCSAP 独立搜索，旧 6 星组的 SAP 分支选对 5/6，PDCSAP 仍为 3/6；这是开发诊断，没有新的独立验收结果。
