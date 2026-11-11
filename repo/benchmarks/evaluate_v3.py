@@ -92,7 +92,7 @@ def evaluate(mode, out, protocol_path):
         cases, sources = read_json(path)["cases"], [path, BENCH/"independent-pilot-protocol-v01.json"]
         previous = {r["id"]: r for r in read_json(BENCH/"independent-pilot-v01/evaluation/results.json")["results"]}
         for case in cases:
-            case["baseline_observations"] = [dict(o["baseline"], sector=o["sector"]) for o in previous[case["id"]]["observations"]
+            case["baseline_observations"] = [dict(o["baseline"], sector=o["sector"]) for o in previous[case["id"]]["observations"]]
         sources.append(BENCH/"independent-pilot-v01/evaluation/results.json")
     output = {"algorithm_revision": "v3.0-development", "schema_note": "The observation key v2 is retained for report compatibility; algorithm_revision identifies the actual method.", "created_at": now(), "complete": False, "mode": mode, "code_fingerprint": code_fingerprint(),
               "git_head": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
