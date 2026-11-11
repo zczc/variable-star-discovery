@@ -28,3 +28,5 @@ repo/.venv/bin/vstar run --config repo/configs/historical.toml --offline
 已完成 [100 个目标的筛选](repo/runs/sector94-100-v02/README.md) 和 [已知变星的周期对照](repo/benchmarks/README.md)。对照发现食双星的半周期误判；100 个目标中另有邻星污染和搜索边界造成的误报。结果用于验证、改进流程，尚不能宣布新发现。
 
 新增[第一轮混合验证解读](doc/12-mixed-validation-results.md)与[图文报告](repo/benchmarks/mixed-v01/index.html)：教学对象 TU Her 的基础来源检查支持信号在目标附近；混合测试同时发现窄食漏检、漂移误报和仪器周期进入候选。识别能力仍未充分验证。
+
+2026-11-11：[第二版识别结果](doc/13-v2-recognition-results.md)已保存。开发集有改善；6 颗新加入的真实已知星中，最终周期 3 颗正确、1 颗双周期错误、2 颗未选择，尚未达到可靠识别的验收目标。

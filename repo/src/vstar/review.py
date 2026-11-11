@@ -19,7 +19,7 @@ import matplotlib.pyplot as plt
 
 DECISIONS = {"no_stable_signal": "未建立稳定周期", "not_repeated_in_all_epochs": "并非所有时段都支持重复变化",
              "insufficient_epochs": "观测时段不足", "competing_periods": "不同观测时段的周期仍有分歧",
-             "period_ambiguous": "亮度重复，完整绕转周期有歧义", "periodic_source_unchecked": "有重复信号，来源尚未充分检查",
+             "period_ambiguous": "亮度重复，周期尚有歧义", "periodic_source_unchecked": "有重复信号，来源尚未充分检查",
              "periodic_target_supported": "周期与基础定位支持目标，仍待复核", "likely_contaminated": "疑似邻星污染",
              "source_caution": "存在来源疑点，保留人工复核"}
 
@@ -63,7 +63,11 @@ def write_case_report(folder, row):
         body += f'<pre>{escape(str(row["errors"]))}</pre>'
     if conclusion.get("photometric_period_d"):
         body += f'<p>亮度重复周期约 {conclusion["photometric_period_d"]:.8f} 天。'
-        body += '仍保留完整绕转周期的歧义。</p>' if conclusion["selected_period_d"] is None else '这是优选亮度周期，未给出正式误差或物理分类。</p>'
+        if conclusion["selected_period_d"] is None:
+            body += ('完全相同的食可能每半圈重复，完整绕转周期仍有歧义。</p>' if conclusion["period_status"] == "half_double_ambiguous"
+                     else '多组周期候选尚未排清，未选择最终周期；这不证明存在多种独立物理变化。</p>')
+        else:
+            body += '这是优选亮度周期，未给出正式误差或物理分类。</p>'
     for obs in row.get("observations", []):
         result = obs["v2"]
         body += f'<h2>观测时段 {obs["sector"]}</h2><p>第二版周期：{result["photometric_period_d"]} 天；状态：{escape(result["period_status"])}。</p>'

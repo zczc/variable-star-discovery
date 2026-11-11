@@ -26,3 +26,9 @@ RR Lyr 的 TIC 星等字段与其 V 星等明显不一致，身份对应也保�
 - [结果与下一步](../../doc/12-mixed-validation-results.md)：目前不能宣称识别准确率已确定。
 
 方法在 `mixed-protocol-v01.json`、`simulate_controls.py`、`run_mixed_controls.py`，输入与结果分别保存。复跑命令见 [mixed-v01/README.md](mixed-v01/README.md)。
+
+## 第二版与新样本
+
+[第二版新旧对照](mixed-v03/index.html) · [6 颗新加入的真实已知星](independent-pilot-v01/evaluation/index.html) · [通俗解释](../../doc/13-v2-recognition-results.md)。
+
+第一轮第二版结果保留在 `mixed-v02/`；修正版规则在 `v2-protocol-v02.json`，冻结后运行的开发结果在 `mixed-v03/`。随后没有按新真实样本的成绩再次调参。`independent-pilot-v01/` 保存身份与原始观测来源；独立性仅指这些目标未参与此前算法调试，并不代表随机总体抽样或有足够反例。

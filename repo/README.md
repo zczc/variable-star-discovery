@@ -17,3 +17,7 @@
 每次提交或推送前，检查远端是否正确、当前 GitHub 账号是否为 `zczc`，以及作者和提交者邮箱是否均为 `zc3930155@gmail.com`。如果远端已有内容，先检查并整合，不能用强制推送覆盖。
 
 历史脚本保留为原始试验记录。新的可安装工程位于 `src/vstar/`，运行入口、实际进度和限制见 [实现进度](../doc/08-implementation-status.md)，整体方向见 [分析流程与下一步](../doc/04-workflow.md)。
+
+## 第二版开发入口
+
+`vstar review-v2 first_lc.fits second_lc.fits --output path/to/new-review` 检查同一 TIC 的不同观测时段，输出周期候选、来源疑点和 HTML 报告。当前仍是开发版，原批量命令不自动采用它。[实际对照及限制](../doc/13-v2-recognition-results.md)。
