@@ -24,11 +24,16 @@ DECISIONS = {"no_stable_signal": "未建立稳定周期", "not_repeated_in_all_e
              "source_caution": "存在来源疑点，保留人工复核"}
 
 
-def review_epoch(raw, sap=None, auxiliary=None, baseline=None, analysis=None, config=None):
-    analysis, config = analysis or AnalysisConfig(use_bls=True), config or ScreeningConfig()
+def review_epoch(raw, sap=None, auxiliary=None, baseline=None, analysis=None, config=None, revision="v2"):
+    from . import screening as backend
+    if revision == "v3":
+        from . import screening_v3 as backend
+    elif revision != "v2":
+        raise ValueError("Unknown review revision")
+    analysis, config = analysis or AnalysisConfig(use_bls=True), config or backend.ScreeningConfig()
     if baseline is None:
         baseline, _ = analyze_series(raw, analysis, sap if sap is not None else raw)
-    result, diagnostic = analyze_epoch(raw, baseline, analysis, config)
+    result, diagnostic = backend.analyze_epoch(raw, baseline, analysis, config)
     if result["periodic_detected"]:
         period = result["photometric_period_d"]
         result["auxiliary"] = check_auxiliary(diagnostic[1], auxiliary or {}, period, config)
@@ -58,7 +63,8 @@ def plot_review(diagnostic, result, path):
 def write_case_report(folder, row):
     conclusion = row.get("conclusion", {})
     body = f'<h1>{escape(row["id"])}</h1><p>{DECISIONS.get(conclusion.get("decision"), "数据不足或分析失败")}</p>'
-    body += '<div class="notice">第二版开发结果。检出周期、选择完整亮度周期、判断来源是三件事；这里没有确认新变星。</div>'
+    version = '第三版' if conclusion.get('algorithm_revision', '').startswith('v3') else '第二版'
+    body += f'<div class="notice">{version}开发结果。检出周期、选择完整亮度周期、判断来源是三件事；这里没有确认新变星。</div>'
     if row.get("errors"):
         body += f'<pre>{escape(str(row["errors"]))}</pre>'
     if conclusion.get("photometric_period_d"):
@@ -70,11 +76,13 @@ def write_case_report(folder, row):
             body += '这是优选亮度周期，未给出正式误差或物理分类。</p>'
     for obs in row.get("observations", []):
         result = obs["v2"]
-        body += f'<h2>观测时段 {obs["sector"]}</h2><p>第二版周期：{result["photometric_period_d"]} 天；状态：{escape(result["period_status"])}。</p>'
+        body += f'<h2>观测时段 {obs["sector"]}</h2><p>{version}周期：{result["photometric_period_d"]} 天；状态：{escape(result["period_status"])}。</p>'
         body += f'<img src="{obs["plot"]}" alt="原始变化及按优选周期和两倍周期折叠后的图"><p>左图红线是缓慢基线；右面两图去除该基线。若未通过周期要求，两图只展示得分最高的竞争解释。</p>'
-        body += '<table><tr><th>竞争周期（天）</th><th>交替周期预测改善</th><th>两组各自改善</th><th>通过初筛</th></tr>'
+        body += '<table><tr><th>竞争周期（天）</th><th>预测方法与改善</th><th>各组改善</th><th>通过初筛</th></tr>'
         for c in result["candidates"][:8]:
-            body += f'<tr><td>{c["period_d"]:.7f}</td><td>{c["gain"]:.1%}</td><td>{c["fold_gains"][0]:.1%} / {c["fold_gains"][1]:.1%}</td><td>{"是" if c["qualifies"] else "否"}</td></tr>'
+            method = "每次留出一个循环" if c.get("score_method") == "leave_one_cycle_out" else "交替循环"
+            fold_text = " / ".join(f"{gain:.1%}" for gain in c["fold_gains"])
+            body += f'<tr><td>{c["period_d"]:.7f}</td><td>{method}：{c["gain"]:.1%}</td><td>{fold_text}</td><td>{"是" if c["qualifies"] else "否"}</td></tr>'
         body += '</table><p>“预测改善”衡量用一组周期的形状预测另一组，比只有缓慢基线好多少；负数表示更差。搜索和预测共用了资料，因此这不是可信概率，也不是独立验证。</p>'
         channels = result.get("auxiliary", [])
         if channels:
@@ -92,9 +100,14 @@ def write_case_report(folder, row):
     (folder/"index.html").write_text(page(row["id"], body))
 
 
-def review_files(paths, out, neighbors=None):
+def review_files(paths, out, neighbors=None, revision="v2"):
+    from . import screening as backend
+    if revision == "v3":
+        from . import screening_v3 as backend
+    elif revision != "v2":
+        raise ValueError("Unknown review revision")
     out = out.resolve(); out.mkdir(parents=True, exist_ok=False)
-    analysis, config = AnalysisConfig(use_bls=True), ScreeningConfig()
+    analysis, config = AnalysisConfig(use_bls=True), backend.ScreeningConfig()
     row = {"id": "Supplied light-curve review", "created_at": now(), "code_fingerprint": code_fingerprint(),
            "analysis_config": asdict(analysis), "screening_config": asdict(config), "observations": [], "errors": []}
     evidence, identities, sectors = [], set(), set()
@@ -107,7 +120,7 @@ def review_files(paths, out, neighbors=None):
             if len(identities) != 1 or sector in sectors:
                 raise ValueError("Supply different sectors of the same TIC; duplicates are not independent epochs")
             sectors.add(sector)
-            result, diagnostic, baseline = review_epoch(raw, sap, read_auxiliary(path), analysis=analysis, config=config)
+            result, diagnostic, baseline = review_epoch(raw, sap, read_auxiliary(path), analysis=analysis, config=config, revision=revision)
             plot = f"sector-{sector}.png"; plot_review(diagnostic, result, out/plot)
             row["observations"].append({"sector": sector, "input": {"path": str(path), "sha256": sha256(path)}, "baseline": baseline, "v2": result, "plot": plot})
             pixels = path.with_name(path.name.replace("_lc.fits", "_tp.fits"))
@@ -119,7 +132,7 @@ def review_files(paths, out, neighbors=None):
                 source.update(sector=sector, plot=pixelplot, input_sha256=sha256(pixels)); evidence.append(source)
         except Exception as exc:
             row["errors"].append({"path": str(path), "error": str(exc)})
-    row["conclusion"] = combine_epochs([o["v2"] for o in row["observations"]], config, evidence)
+    row["conclusion"] = backend.combine_epochs([o["v2"] for o in row["observations"]], config, evidence)
     if row["errors"]:
         row["conclusion"].update(decision="failed", periodic_detected=False, selected_period_d=None, target_candidate=False)
     write_json(out/"case.json", row); write_case_report(out, row)

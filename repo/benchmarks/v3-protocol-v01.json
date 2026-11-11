@@ -1,0 +1,108 @@
+{
+  "frozen_at": "2026-11-11T02:08:56.858920+00:00",
+  "stage": "development algorithm comparison, not independent population validation",
+  "analysis": {
+    "min_period_days": 0.05,
+    "max_period_days": 8.0,
+    "bin_minutes": 10.0,
+    "samples_per_peak": 8,
+    "min_points": 500,
+    "period_tolerance": 0.05,
+    "use_bls": true
+  },
+  "screening": {
+    "phase_bins": 96,
+    "refinement_points": 31,
+    "refinement_rounds": 2,
+    "frequency_half_width_over_span": 0.4,
+    "min_template_coverage": 0.8,
+    "min_cv_gain": 0.2,
+    "min_fold_gain": 0.1,
+    "indistinguishable_gain": 0.02,
+    "min_cycles": 3,
+    "epoch_period_tolerance": 0.01,
+    "auxiliary_correlation": 0.8,
+    "min_auxiliary_gain": 0.2,
+    "min_sap_gain": 0.1,
+    "eclipse_duty_limit": 0.25,
+    "min_secondary_snr": 5.0,
+    "max_harmonic": 8,
+    "harmonic_tolerance": 0.015,
+    "min_conditional_variance": 0.05,
+    "min_predictive_cycles": 3
+  },
+  "development_inputs": "mixed-v01/input-manifest.json",
+  "baseline_results": "mixed-v01/results.json",
+  "algorithm": [
+    "Quadratic plus offsets across gaps >0.5 d, without flux clipping.",
+    "Original and detrended top 3 LS peaks plus original/detrended BLS winners; test half, original and double within 0.05–8 d.",
+    "Two rounds of local frequency refinement using full-data phase templates.",
+    "96-bin periodic interpolation; alternate cycles train/predict each other. Gain >=20%, both folds >=10%, coverage >=80%, at least 3 cycles. These scores are not calibrated false-alarm probabilities.",
+    "Choose the highest-gain refinement within each alias; prefer its half alias only within 2 percentage points of its gain.",
+    "Narrow dip with secondary noise proxy below 5 or unresolved half-cycle difference retains orbital ambiguity.",
+    "Match every supported candidate across all epochs within 1%; nonharmonic alternatives preserve ambiguity.",
+    "Auxiliary periodic correlation |r|>=0.8 and predictive gain >=20%, or SAP disagreement, causes source-review status. Correlation is not proof of instrumental origin.",
+    "Existing pixel localization checks supplied TPF data and known neighbors. No new catalog lookup is required for offline decisions.",
+    "Preserve the original v2 search, refinement, detrending and normal alternating-cycle qualification.",
+    "For otherwise unqualified eclipse-shaped candidates with insufficient training phase coverage, >=3 periods of baseline and no boundary flag: leave one observed cycle out at a time; require total gain>=0.20, every training template coverage>=0.80 and at least three held cycles with gain>=0.10. Keep all partial/negative cycles in the total statistic.",
+    "Treat integer period ratios 1..8 within1.5% as harmonic families; choose the smallest integer alias within0.02 of best gain, keeping maximum gain within a peak.",
+    "For every pair of nonharmonic qualified periods, subtract the full-data base template and test the trial against that residual. Retain a competing group only if residual gain>=0.20, fold gains>=0.10, coverage>=0.80 and gain times residual/original weighted squared flux>=0.05 in every epoch. These diagnostics do not prove separate physical modes.",
+    "Do not average away cross-epoch preference for different integer aliases; retain periodic detection but abstain on final period.",
+    "Preserve auxiliary/source caution and equal-eclipse orbital ambiguity. No new target discovery or official submission."
+  ],
+  "metrics": [
+    "periodic-signal detection, by real/synthetic family",
+    "preferred cycle accuracy (1%); abstentions stay in the denominator",
+    "photometric P/2 recovery of equal eclipses separately from orbital ambiguity",
+    "source cautions, confirmed-variable count always zero",
+    "per-case old/new outcomes, all errors and unavailable inputs"
+  ],
+  "limitations": [
+    "Development thresholds are motivated by observed v1 failures and software fixtures, not learned from an untouched test sample.",
+    "Both candidate search and refinement reuse the cross-cycle data; no frequentist significance claim.",
+    "No independently labeled quiet real-star negatives yet; population false-positive rate unavailable.",
+    "Results and input hashes from v1 must remain unchanged.",
+    "LOCO and alternate-cycle scores differ; used only under the predeclared low-coverage eclipse fallback. Selection effect is not calibrated.",
+    "Phase templates and detrending remain approximate. Formal period errors, joint baseline fitting, calibrated photometry and real quiet controls are unfinished.",
+    "No fresh independent v3 evaluation is implied by this development comparison."
+  ],
+  "previous_protocol": "v2-protocol-v02.json",
+  "previous_results": "mixed-v03/results.json",
+  "revision": "v3.0 development; all old pilot labels already seen",
+  "changes": [
+    "Conditional residual evidence replaces any-qualified-peak ambiguity.",
+    "Integer families include third/fourth and up to eighth aliases.",
+    "Cross-epoch harmonic preference conflicts force abstention.",
+    "Sparse eclipse candidates gain explicit leave-one-cycle-out recovery with three predictive cycles."
+  ],
+  "development_samples": [
+    "mixed-v01/input-manifest.json",
+    "independent-pilot-v01/input-manifest.json"
+  ],
+  "sample_reclassification": {
+    "effective_at": "2026-11-11T02:08:56.858961+00:00",
+    "samples": [
+      "W UMa",
+      "RZ Cas",
+      "U Sge",
+      "RT Aur",
+      "SZ Lyn",
+      "RS Boo"
+    ],
+    "reason": "Former independent pilot outcomes are now used for development; no v3 result on them is independent validation. Original frozen v2.1 outcomes remain unchanged."
+  },
+  "code_files": [
+    {
+      "path": "repo/src/vstar/screening_v3.py",
+      "sha256": "b1b40e1c15e3f5661c59e7ab99377db02d5cb9d1c605adc7f65ed95c1f24aa81"
+    },
+    {
+      "path": "repo/src/vstar/review.py",
+      "sha256": "639c9001864cb035e0fcf146741174f4708326520619339a6d8e01ebaa5b6260"
+    },
+    {
+      "path": "repo/benchmarks/evaluate_v3.py",
+      "sha256": "63695402cfbaac533b6667fa01b86562f1f9f87e71d6bf378c223f01bb71758d"
+    }
+  ]
+}
