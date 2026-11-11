@@ -34,3 +34,5 @@ repo/.venv/bin/vstar run --config repo/configs/historical.toml --offline
 同日完成[第三版改进与投稿条件](doc/14-v3-and-submission-readiness.md)：模拟深浅食与平滑周期分别达到 4/4，真实星仍有弃选和漏检。原 6 星测试组现用于开发，最终正确仍为 3/6；没有新的独立验收结果。
 
 最新进展：[测光产品与真实对照复核](doc/15-products-and-real-controls.md)。新增 SAP/PDCSAP 独立搜索，旧 6 星组的 SAP 分支选对 5/6，PDCSAP 仍为 3/6；这是开发诊断，没有新的独立验收结果。
+
+[第四版与新的六星测试](doc/16-adjudication-and-new-test.md)：固定产品/极小规则后，4 个可分析新对象均检出变化，3 个最终周期正确、1 个弃选，另 2 个预选对象不可用；未按这批结果调参。

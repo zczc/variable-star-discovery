@@ -40,3 +40,7 @@ RR Lyr 的 TIC 星等字段与其 V 星等明显不一致，身份对应也保�
 ## 测光产品与逐次极小
 
 [products-v01](products-v01/index.html)保留 13 个原有真实案例，11 个完成、2 个不可用。24 段观测各分析 SAP/PDCSAP，附 W UMa、U Sge 的逐次极小诊断；属于开发分析。[实测反例资料筛查](quiet-controls-research-v01/README.md)尚未产生可计入 TESS 验收的安静星。
+
+## 第四版与第二次独立小测试
+
+[原开发复核](adjudication-v01/index.html)和[新六星测试](independent-pilot-v02/evaluation/index.html)分别保存。新批共 6 个预选，4 个完成、2 个不可用，3 个最终选对、1 个保留多周期；规则和名单先冻结，未据此调参。

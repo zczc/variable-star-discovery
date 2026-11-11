@@ -55,3 +55,5 @@ variable-star-discovery/
 - [第三版改进与提交条件](14-v3-and-submission-readiness.md)：全部开发重跑、真实星退步，以及筛选验收与 VSX 单星投稿的区别。
 
 - [测光产品为何影响周期判断](15-products-and-real-controls.md)：SAP/PDCSAP 完整比较、逐次深浅极小、实测反例资料的适用范围。
+
+- [固定周期规则后的新测试](16-adjudication-and-new-test.md)：第四版规则、新的六星测试、RT Aur 短时段失败与验收缺口。

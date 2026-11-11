@@ -37,3 +37,7 @@ repo/.venv/bin/python repo/benchmarks/evaluate_v3.py --mode former-pilot-develop
 ## 两种测光产品的独立检查
 
 `vstar review-products first_lc.fits second_lc.fits --output path/to/new-review` 对 SAP 和 PDCSAP 各自完整搜索，再分别比较观测时段。产品分歧保留人工复核，两种产品一致不自动确认来源。[最新报告](benchmarks/products-v01/index.html)与[说明](../doc/15-products-and-real-controls.md)。
+
+## 第四版周期复核
+
+`vstar review-v4 first_lc.fits second_lc.fits --output path/to/new-review` 按固定的产品与逐次极小规则选择亮度周期；输出保留来源疑点。见[新测试结果](../doc/16-adjudication-and-new-test.md)。短时段预测只是诊断，不升级为独立周期测量。
