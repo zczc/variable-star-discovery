@@ -14,7 +14,7 @@ def main():
     ids={c['tic'] for c in targets};assert len(ids)==len(targets)==1000
     assert not ids&set(read_json(OUT/'selection-pools.json')['previous_tics'])
     assert all(c['inputs'][1]['t_min_mjd']-c['inputs'][0]['t_min_mjd']>=180 for c in targets)
-    checked=set();plots=0;predictions=0;source_records=0;acquisitions=0;source_states=Counter()
+    checked=set();released=set();plots=0;predictions=0;source_records=0;acquisitions=0;source_states=Counter()
     for case in targets:
         a=OUT/'acquisition'/(case['id']+'.json')
         if a.exists():acquisitions+=1
@@ -46,7 +46,16 @@ def main():
                     m=obs['pixels'];assert sha256(OUT/'evaluation'/case['id']/'source'/m['plot'])==m['plot_sha256'];plots+=1
         for item in inputs:
             if item['path'] in checked:continue
-            path=ROOT/item['path'];assert sha256(path)==item['sha256']
+            path=ROOT/item['path']
+            if not path.exists():
+                receipt=read_json(OUT/'cache-release'/(path.name+'.json'))
+                assert receipt['released'] and receipt['compressed_and_original_bytes_verified']
+                assert receipt['case_id']==case['id'] and receipt['input']==item
+                assert receipt['receipt']['sha256']==item['sha256'] and receipt['receipt']['raw_sha256']==item['raw_sha256']
+                assert receipt['source_result_sha256']==sha256(OUT/'source-results'/(case['id']+'.json'))
+                assert receipt['source_manifest_sha256']==sha256(manifest)
+                released.add(item['path']);checked.add(item['path']);continue
+            assert sha256(path)==item['sha256']
             if item.get('raw_sha256'):
                 with gzip.open(path,'rb') as f:assert hashlib.file_digest(f,'sha256').hexdigest()==item['raw_sha256']
             checked.add(item['path'])
@@ -82,7 +91,7 @@ def main():
         expected={c['id'] for c in targets if eligible(c,read_json(OUT/'evaluation'/(c['id']+'-prediction.json')))}
         assert {c['id'] for c in full['cases']}==expected
         full_checked=True
-    result={'checked_at':now(),'target_count':1000,'acquisition_records':acquisitions,'prediction_records':predictions,'source_records':source_records,'source_record_states':dict(source_states),'source_records_meaning':'Includes deferred and not-requested records; these are not completed source reviews.','original_products_verified':len(checked),'plots_verified':plots,'old_files_unchanged':len(old),'frozen_code_unchanged':True,'frozen_source_sample_and_predictions_verified':sample_checked,'frozen_full_source_cohort_and_predictions_verified':full_checked,'independent_truth_adjudication_complete':False,'population_precision_validated':False}
+    result={'checked_at':now(),'target_count':1000,'acquisition_records':acquisitions,'prediction_records':predictions,'source_records':source_records,'source_record_states':dict(source_states),'source_records_meaning':'Includes deferred and not-requested records; these are not completed source reviews.','original_products_verified_now':len(checked-released),'released_original_products_verified_previously':len(released),'plots_verified':plots,'old_files_unchanged':len(old),'frozen_code_unchanged':True,'frozen_source_sample_and_predictions_verified':sample_checked,'frozen_full_source_cohort_and_predictions_verified':full_checked,'independent_truth_adjudication_complete':False,'population_precision_validated':False}
     write_json(OUT/'integrity-audit.json',result);print(json.dumps(result,indent=2))
     class Links(HTMLParser):
         def __init__(self):super().__init__();self.links=[]

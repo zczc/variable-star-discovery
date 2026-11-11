@@ -2,6 +2,8 @@
 
 2026-11-11 固定名单。按照用户要求扩大验证集，继续采用精确率优先的取向；检测与来源审查规则保持不变。
 
+**当前范围：**千星光变全部完成，306 个选出周期。用户随后明确选择逐一复核全部选中和高风险对象，因此实际来源名单是 `source-all.json` 的 349 个对象（265 个目录、50 个风险、34 个普通目标）。此前 100 个抽样仅为提出的资源方案，已取消，未生成或执行 `source-sample.json`。70 个预取对象均属于全量名单。
+
 ## 样本与范围
 
 共 1,000 个新的 TIC 目标：400 个 TESS-EBs 目录食双星、50 个目录食双星附近的目标、550 个普通观测目标。每个选最早和最晚的非 fast、SPOC 标准光变，起始时间至少相隔 180 天。排除之前所有已用 TIC，也排除仍封存的独立测试对象。抽样种子为 2026111101。
@@ -37,9 +39,9 @@
 ```sh
 # 原冻结检测入口，可恢复已有预测
 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 repo/.venv/bin/python repo/benchmarks/run_scale_validation.py run --workers 6
-# 千星预测全部保存后只执行一次，生成名单后先提交 Git
-repo/.venv/bin/python repo/benchmarks/run_scale_source_sample.py prepare
-OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 repo/.venv/bin/python repo/benchmarks/run_scale_source_sample.py run --workers 6
+# 千星预测全部保存后只执行一次，生成全量名单后先提交 Git
+repo/.venv/bin/python repo/benchmarks/run_scale_all_sources.py prepare
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 repo/.venv/bin/python repo/benchmarks/run_scale_all_sources.py run --workers 6
 # 报告与输入、规则、历史文件、抽样、链接核验
 repo/.venv/bin/python repo/benchmarks/report_scale_validation.py
 repo/.venv/bin/python repo/benchmarks/audit_scale_validation.py
