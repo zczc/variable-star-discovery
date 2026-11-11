@@ -29,6 +29,9 @@ def release(free_bytes):
         raise ValueError('Retain at least the existing 6 GB reserve')
     cohort = read_json(OUT / 'source-all.json')
     prefetch = {c['id'] for c in read_json(OUT / 'source-prefetch.json')['cases']}
+    extra = OUT / 'source-extra-prefetch.json'
+    if extra.exists():
+        prefetch.update(c['id'] for c in read_json(extra)['cases'])
     tracked = set(subprocess.check_output(['git', 'ls-files'], cwd=ROOT, text=True).splitlines())
     ledger = OUT / 'cache-release'
     ledger.mkdir(exist_ok=True)
