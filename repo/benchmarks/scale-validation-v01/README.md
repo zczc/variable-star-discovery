@@ -16,7 +16,7 @@
 
 1. 保存目录、观测清单、目标名单与代码校验值，先提交 Git，再下载和分析光变。
 2. 全部 1,000 个对象运行原 v4：SAP/PDCSAP 各自搜索、跨时段比较、周期判断。搜索函数只接收文件与 ID，不接收参考周期、分组或标签。
-3. 保存预测。下载所有选出周期对象的两个像素产品；风险组即使没选出周期，也可使用最近目录邻星的周期作单独来源诊断，明确不提升周期检出。
+3. 保存预测。初始方案为下载所有选出周期对象的两个像素产品；实测传输与磁盘开销后改为分阶段抽取 100 个，具体规则见下。风险组即使没选出周期，也可使用最近目录邻星的周期作单独来源诊断，明确不提升周期检出。
 4. 运行原来源审查，保留背景/指向/质心提示、各时段像素位置、缺失证据、下载失败和错误。邻星信息仅用冻结 TESS-EBs 目录，不是完整邻星查重。
 5. 按组报告完成、不可用、弃选、目录周期吻合、半/双周期差异、其他周期、来源去向。逐例人工核验未完成时，不计算总体 precision 或不变星误报率。不同目标共享邻星或观测系统误差时也不是独立样本。
 
@@ -30,9 +30,19 @@
 
 原始 FITS 字节以无损 gzip 保存，记录原始 SHA-256、压缩文件 SHA-256、字节数与 MAST URI。可从公开档案重新下载并校验；大批缓存不重复放入普通 Git 历史。当前保存策略延续已有缓存与重建方式，报告和证据清单公开。单个像素产品上限 400 MB，单个光变上限 16 MB，始终预留 6 GB 磁盘空间；触及限制明确记为证据未完成。
 
+实际采用的来源抽样规则在 `source-sampling-policy.json`，先定规则再看来源结果：目录组 40、风险组 30、普通组选出周期的对象 30；组内不足时按相同哈希排序补足。全部 1,000 个周期预测保存后冻结 `source-sample.json`，包括全部预测校验值，然后提交到 GitHub，再运行新增像素分析。最初 4 个已开始的来源案例保留；若不在抽样中，计为额外对照。延期记录不是完成或通过。
+
+70 个保证属于最终配额的对象另有 `source-prefetch.json`，提前只下载字节，不分析新增像素。传输使用固定版本的 HTTP 分段请求、产品锁和完整性检查；与原下载器的字节一致性实测见 `range-transport-verification.json`。
+
 ```sh
+# 原冻结检测入口，可恢复已有预测
 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 repo/.venv/bin/python repo/benchmarks/run_scale_validation.py run --workers 6
-OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 repo/.venv/bin/python repo/benchmarks/run_scale_validation.py sources --workers 3
+# 千星预测全部保存后只执行一次，生成名单后先提交 Git
+repo/.venv/bin/python repo/benchmarks/run_scale_source_sample.py prepare
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 repo/.venv/bin/python repo/benchmarks/run_scale_source_sample.py run --workers 6
+# 报告与输入、规则、历史文件、抽样、链接核验
+repo/.venv/bin/python repo/benchmarks/report_scale_validation.py
+repo/.venv/bin/python repo/benchmarks/audit_scale_validation.py
 ```
 
 首批可用 `--limit 20` 检查批量运行是否正常，再运行无 limit 的命令继续。已保存预测复用而不覆盖；残缺案例目录要求审计后恢复。这个首批检查不能用于改阈值。

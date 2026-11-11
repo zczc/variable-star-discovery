@@ -1,0 +1,161 @@
+{
+  "id": "tic-199716041",
+  "started_at": "2026-11-11T10:21:09.818463+00:00",
+  "inputs": [
+    {
+      "sector": 14,
+      "uri": "mast:TESS/product/tess2019198215352-s0014-0000000199716041-0150-s_lc.fits",
+      "t_min_mjd": 58682.85274184028,
+      "t_max_mjd": 58709.70361212963,
+      "path": "repo/data/scale-validation-v01/fits/tess2019198215352-s0014-0000000199716041-0150-s_lc.fits.gz",
+      "sha256": "55f51782de34407e116c2c5c2c9cddaa6c5954f986f3c8d2a9cca70973b55ccc",
+      "raw_sha256": "0cd8e693e1a3c1372bfa74bd776ac20050fc8436979888c8fe7f9e15e2810829",
+      "raw_bytes": 1964160,
+      "compressed_bytes": 1175145
+    },
+    {
+      "sector": 86,
+      "uri": "mast:TESS/product/tess2024326142117-s0086-0000000199716041-0283-s_lc.fits",
+      "t_min_mjd": 60635.758363009256,
+      "t_max_mjd": 60662.32528402778,
+      "path": "repo/data/scale-validation-v01/fits/tess2024326142117-s0086-0000000199716041-0283-s_lc.fits.gz",
+      "sha256": "ab49bccd55e176904f2778bba2f062d51894c2a450f0d80ce371f84a6cbc0d93",
+      "raw_sha256": "95dbfe824a1549e71397f13adcc7e39dbf8548d46cb02dd21e70a782751e6153",
+      "raw_bytes": 1944000,
+      "compressed_bytes": 1120308
+    }
+  ],
+  "status": "completed",
+  "decision": {
+    "created_at": "2026-11-11T10:21:11.168001+00:00",
+    "config": {
+      "period_tolerance": 0.01,
+      "minimum_pairs": 3,
+      "minimum_relative_difference": 0.01,
+      "minimum_standard_error_ratio": 3.0,
+      "minimum_same_sign_fraction": 0.75,
+      "phase_grid": 256
+    },
+    "selected_period_d": null,
+    "preferred_product": null,
+    "status": "nonharmonic_or_missing_product_support",
+    "source_status": "needs_independent_source_review",
+    "confirmed_variable": false,
+    "target_candidate": false,
+    "event_checks": [],
+    "short_epoch_checks": [],
+    "note": "Selection concerns a photometric period only; source, novelty and submission readiness are not assessed."
+  },
+  "preliminary_source": {
+    "created_at": "2026-11-11T10:21:11.168702+00:00",
+    "config": {
+      "harmonics": 4,
+      "min_segment_cycles": 3.0,
+      "target_radius_pixels": 1.0,
+      "neighbor_radius_pixels": 0.75,
+      "peak_stability_pixels": 1.0,
+      "neighbor_period_tolerance": 0.02
+    },
+    "period_d": null,
+    "selected_period_d": null,
+    "period_usage": "diagnostic_only_not_selected",
+    "observations": [
+      {
+        "sector": 14,
+        "input": {
+          "sector": 14,
+          "uri": "mast:TESS/product/tess2019198215352-s0014-0000000199716041-0150-s_lc.fits",
+          "t_min_mjd": 58682.85274184028,
+          "t_max_mjd": 58709.70361212963,
+          "path": "repo/data/scale-validation-v01/fits/tess2019198215352-s0014-0000000199716041-0150-s_lc.fits.gz",
+          "sha256": "55f51782de34407e116c2c5c2c9cddaa6c5954f986f3c8d2a9cca70973b55ccc",
+          "raw_sha256": "0cd8e693e1a3c1372bfa74bd776ac20050fc8436979888c8fe7f9e15e2810829",
+          "raw_bytes": 1964160,
+          "compressed_bytes": 1175145
+        },
+        "auxiliary": {},
+        "pixels": null
+      },
+      {
+        "sector": 86,
+        "input": {
+          "sector": 86,
+          "uri": "mast:TESS/product/tess2024326142117-s0086-0000000199716041-0283-s_lc.fits",
+          "t_min_mjd": 60635.758363009256,
+          "t_max_mjd": 60662.32528402778,
+          "path": "repo/data/scale-validation-v01/fits/tess2024326142117-s0086-0000000199716041-0283-s_lc.fits.gz",
+          "sha256": "ab49bccd55e176904f2778bba2f062d51894c2a450f0d80ce371f84a6cbc0d93",
+          "raw_sha256": "95dbfe824a1549e71397f13adcc7e39dbf8548d46cb02dd21e70a782751e6153",
+          "raw_bytes": 1944000,
+          "compressed_bytes": 1120308
+        },
+        "auxiliary": {},
+        "pixels": null
+      }
+    ],
+    "errors": [],
+    "conclusion": {
+      "route": "period_review_required",
+      "source_status": "source_evidence_incomplete",
+      "eligible_for_manual_target_review": false,
+      "instrument_cautions": [],
+      "centroid_cautions": [],
+      "missing_auxiliary": [],
+      "confirmed_variable": false,
+      "submission_ready": false,
+      "novelty_assessed": false,
+      "note": "No warning does not prove an astrophysical origin. Pixel agreement is limited by TESS resolution; catalog completeness and unresolved blends need manual review."
+    }
+  },
+  "product_conclusions": {
+    "SAP": {
+      "periodic_detected": true,
+      "selected_period_d": 0.055556514116135394,
+      "photometric_period_d": 0.055556514116135394,
+      "period_status": "preferred_lightcurve_cycle",
+      "decision": "source_caution",
+      "source_status": "needs_review",
+      "confirmed_variable": false,
+      "source_evidence": [],
+      "warnings": [
+        "Periodic auxiliary correlation or SAP/PDC disagreement; cannot attribute the signal automatically."
+      ],
+      "fractional_period_spread": 0.001015866154319473,
+      "supported_period_groups": [
+        {
+          "period_d": 0.055556514116135394,
+          "gain": 0.4606692648540642,
+          "members": [
+            0.055584733107306675,
+            0.05552829512496412
+          ],
+          "fractional_spread": 0.001015866154319473,
+          "harmonic_of_preferred": true,
+          "conditional_checks": [],
+          "independent_competitor": false
+        }
+      ],
+      "target_candidate": false,
+      "algorithm_revision": "v3.0-development",
+      "epoch_preferred_periods_d": [
+        0.055584733107306675,
+        0.05552829512496412
+      ]
+    },
+    "PDCSAP": {
+      "periodic_detected": false,
+      "selected_period_d": null,
+      "photometric_period_d": null,
+      "period_status": "not_established",
+      "decision": "not_repeated_in_all_epochs",
+      "source_status": "unchecked",
+      "confirmed_variable": false,
+      "source_evidence": [],
+      "warnings": [],
+      "algorithm_revision": "v3.0-development"
+    }
+  },
+  "errors": [],
+  "elapsed_seconds": 1.3725562910549343,
+  "completed_at": "2026-11-11T10:21:11.191024+00:00"
+}
