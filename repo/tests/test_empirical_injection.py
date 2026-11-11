@@ -76,3 +76,16 @@ def test_runner_passes_paths_without_truth_to_detector(tmp_path, monkeypatch):
     monkeypatch.setattr(runner, 'adjudicate', lambda *args: {'selected_period_d': None})
     result = runner.analyze_case({'id': 'case', 'inputs': [{'path': 'example.fits', 'sha256': sha256(source)}]})
     assert result['status'] == 'completed' and received
+
+
+def test_scoring_keeps_wrong_period_abstention_and_zeros_distinct():
+    from report_empirical_injection import score_case
+    case = {'base_id':'base','signal':{'shape':'sine','period_d':2.,'amplitude_fraction':.01,'phase':.13}}
+    row = {'id':'case','status':'completed','decision':{'selected_period_d':1.},'products':{}}
+    assert score_case(row,case,.01)['score'] == 'half_period'
+    row['decision']['selected_period_d'] = None
+    assert score_case(row,case,.01)['score'] == 'abstained'
+    case['signal'].update(shape='zero',period_d=None,amplitude_fraction=0)
+    assert score_case(row,case,.01)['score'] == 'baseline_abstained'
+    row['decision']['selected_period_d'] = .37
+    assert score_case(row,case,.01)['score'] == 'baseline_period_selected'

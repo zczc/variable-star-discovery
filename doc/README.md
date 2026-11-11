@@ -57,3 +57,5 @@ variable-star-discovery/
 - [测光产品为何影响周期判断](15-products-and-real-controls.md)：SAP/PDCSAP 完整比较、逐次深浅极小、实测反例资料的适用范围。
 
 - [固定周期规则后的新测试](16-adjudication-and-new-test.md)：第四版规则、新的六星测试、RT Aur 短时段失败与验收缺口。
+
+- [实测背景中的信号能找回多少](17-real-residuals-and-standard-controls.md)：34 个实测残差案例、三颗标准星检查、弱信号与原星残留周期的错误。

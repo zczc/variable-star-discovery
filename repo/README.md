@@ -41,3 +41,9 @@ repo/.venv/bin/python repo/benchmarks/evaluate_v3.py --mode former-pilot-develop
 ## 第四版周期复核
 
 `vstar review-v4 first_lc.fits second_lc.fits --output path/to/new-review` 按固定的产品与逐次极小规则选择亮度周期；输出保留来源疑点。见[新测试结果](../doc/16-adjudication-and-new-test.md)。短时段预测只是诊断，不升级为独立周期测量。
+
+### 实测残差注入与标准星对照
+
+[实测残差实验](benchmarks/empirical-injection-v01/README.md) 使用冻结 v4，对两颗旧开发星的剩余变化加入已知信号；[结果报告](benchmarks/empirical-injection-v01/evaluation/index.html) 保存 32 个非零注入、2 个零注入的全部预测和评分。输入压缩 FITS 为人工构造，带 `SYNTHET=T`。首次执行脚本的路径错误保留在 `execution-attempt01-failed/`；正式重跑使用唯一的 `execution-amendment.json`，未改检测规则。
+
+[三颗标准星](benchmarks/standard-star-check-v01/README.md) 的六段真实观测已完成，[检查报告](benchmarks/standard-star-check-v01/evaluation/index.html) 未建立重复周期。它们有独立文献依据，但标签限制尚不足以计入正式 TESS 安静星分母。背景和下一步详见 [中文说明](../doc/17-real-residuals-and-standard-controls.md)。
