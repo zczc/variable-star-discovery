@@ -11,7 +11,7 @@ ROOT=Path(__file__).resolve().parents[2];OUT=ROOT/'repo/benchmarks/scale-validat
 GROUPS={'catalog_eb':'目录食双星','neighbor_risk':'邻星风险对象','field_unlabelled':'未标注普通目标'}
 RELATIONS={'not_evaluable':'未能评估周期','catalog_period_match':'与目录周期一致','half_catalog_period':'约为目录一半','double_catalog_period':'约为目录两倍','other_period':'与目录不同','no_reference':'暂无参考周期','abstained':'未选定周期','pending':'尚未分析'}
 RUNLABEL={'completed':'分析完成','pending':'等待分析','unavailable':'数据不可用','failed':'分析失败'}
-ROUTES={'not_reviewed':'尚未复核','manual_target_review':'目标位置获支持，待人工复核','period_review_required':'周期待查','instrument_review_required':'仪器复核','source_evidence_required':'来源证据不足','exclude_signal_from_target':'信号不归属目标','analysis_failed':'来源分析失败'}
+ROUTES={'not_reviewed':'尚未复核','manual_target_review':'目标位置获支持，待人工复核','period_review_required':'周期待查','instrument_review_required':'仪器复核','source_evidence_required':'来源证据不足','exclude_signal_from_target':'信号不归属目标','analysis_failed':'来源分析未完成，见原因'}
 
 def main():
     targets=read_json(OUT/'targets.json');rows=[];groups={g:Counter() for g in GROUPS};times=[]
@@ -41,6 +41,8 @@ def main():
             entry+='<p><a href="../'+ident+'-prediction.json">保存的周期预测</a></p>'
             if (folder/'period/index.html').exists():entry+='<p><a href="period/index.html">两产品光变和周期图</a></p>'
         if s:entry+='<p><a href="../../source-results/'+ident+'.json">来源任务状态及获取问题</a></p>'
+        if s and s.get('source_review',{}).get('errors'):
+            entry+='<p>未完成原因：'+escape('; '.join(e['error'] for e in s['source_review']['errors']))+'</p>'
         if s and (folder/'source/source-review.json').exists():
             entry+='<p><a href="source/source-review.json">完整来源判据</a> · <a href="source/source-manifest.json">来源复现输入</a></p>'
             for obs in source.get('observations',[]):
@@ -67,6 +69,19 @@ def main():
             subset=[r for r in selected_rows if r['group']==group]
             strata[group]={'requested':len(subset),'period_selected':sum(r['selected_period_d'] is not None for r in subset),'states':dict(Counter(r['pixel_review_status'] for r in subset)),'routes':dict(Counter(r['source_route'] for r in subset))}
         summary['source_cohort']={'scope':'all_selected_and_all_risk' if full_cohort else 'fixed_sample','requested':len(sample_ids),'groups':dict(Counter(r['group'] for r in selected_rows)),'states':dict(Counter(r['pixel_review_status'] for r in selected_rows)),'routes':dict(Counter(r['source_route'] for r in selected_rows)),'strata':strata,'additional_source_cases':[r['id'] for r in rows if r['id'] not in sample_ids and r['pixel_review_status'] in {'completed','incomplete','transport_failed'}]}
+        returned=[r for r in selected_rows if r['pixel_review_status'] in {'completed','incomplete','transport_failed'}]
+        summary['source_cohort']['returned_routes_by_period_usage']={
+            'selected_by_detector':dict(Counter(r['source_route'] for r in returned if r['selected_period_d'] is not None)),
+            'neighbor_period_diagnostic_only':dict(Counter(r['source_route'] for r in returned if r['selected_period_d'] is None))}
+        issues=Counter()
+        for ident in sample_ids:
+            path=OUT/'source-results'/(ident+'.json')
+            if not path.exists():continue
+            saved=read_json(path);errors=saved.get('source_review',{}).get('errors',[])
+            if any('Insufficient pixel segment cycles:' in e['error'] for e in errors):issues['insufficient_pixel_segment_cycles']+=1
+            if any('Insufficient pixel segment cycles:' not in e['error'] for e in errors):issues['other_source_analysis_errors']+=1
+            if saved.get('acquisition_errors'):issues['acquisition_errors']+=1
+        summary['source_cohort']['incomplete_reasons_nonexclusive']=dict(issues)
     prefetched=[read_json(p) for p in (OUT/'prefetch-results').glob('*.json')]
     summary['pixel_prefetch']={'records':len(prefetched),'fully_cached_cases':sum(all(x['status']=='cached' for x in r['products']) for r in prefetched),'source_flux_analyzed_by_prefetch':False}
     write_json(OUT/'summary.json',summary)
@@ -83,6 +98,8 @@ def main():
         body+='</table><p>运行完成仍只表示程序产生了结果。来源去向：</p><ul>'
         for route,count in summary['source_cohort']['routes'].items():body+='<li>'+escape(ROUTES.get(route,route))+f'：{count}</li>'
         body+='</ul><p>名单以外另有 '+str(len(summary['source_cohort']['additional_source_cases']))+' 个已启动的来源案例，分别保留。</p>'
+        coverage=summary['source_cohort']['incomplete_reasons_nonexclusive'].get('insufficient_pixel_segment_cycles',0)
+        body+=f'<p>其中 {coverage} 个对象因每半段覆盖不足三次周期而不能完成像素来源复核。这是证据覆盖不足，不表示确认了污染。</p>'
     body+='<p>像素预取已保存 '+str(summary['pixel_prefetch']['fully_cached_cases'])+' 组完整文件。预取不产生来源结论。</p>'
     body+='<p>这里的“分析完成”只表示程序成功运行。科学结论分列显示，不等同于验证通过。半/双目录周期单独列出，尚未直接记成正确或错误。</p><p><a href="summary.json">汇总 JSON</a> · <a href="summary.csv">CSV</a> · <a href="README.md">预定方案</a> · <a href="targets.json">冻结名单</a></p><input id="filter" placeholder="筛选 TIC、状态或组别"><table id="results"><thead><tr><th>TIC</th><th>组别</th><th>运行</th><th>选定周期（天）</th><th>目录周期比较</th><th>来源处理</th></tr></thead><tbody>'+''.join(table)+'</tbody></table><script>document.getElementById("filter").addEventListener("input",e=>{const q=e.target.value.toLowerCase();document.querySelectorAll("#results tbody tr").forEach(r=>r.hidden=!r.textContent.toLowerCase().includes(q));});</script>'
     (OUT/'index.html').write_text(page('千星实测验证',body))

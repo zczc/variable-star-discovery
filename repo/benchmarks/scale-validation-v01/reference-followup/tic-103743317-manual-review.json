@@ -1,0 +1,96 @@
+{
+  "reviewed_at": "2026-11-11T11:16:17.250135+00:00",
+  "reviewer": "assistant visual plus post-output catalog position review",
+  "scope": "source attribution of selected signal; not exhaustive target variability or population precision adjudication",
+  "finding": "Both epochs show a coherent peak displaced from the target. The post-output VSX query finds an EB about 28 arcsec away with matching period; projecting that catalog position into both pixel frames places it near the measured peaks. Strong evidence for an off-target EB even though the target TIC itself appears in the initial TESS-EBs catalog. The original source output was not recomputed with VSX neighbors.",
+  "selected_period_d": 1.539543965891056,
+  "vsx_reference": {
+    "Name": "ASASSN-V J102648.30+690405.8",
+    "RA2000": "156.70125",
+    "Declination2000": "69.06828",
+    "VariabilityType": "EA",
+    "Period": "1.5397",
+    "Epoch": "2456994.092",
+    "MaxMag": "14.91 V",
+    "MinMag": "16.27 V",
+    "Category": "Variable",
+    "OID": "1507407",
+    "Constellation": "UMa",
+    "sep_arcsec": 27.952293473252876
+  },
+  "projected_catalog_positions": [
+    {
+      "sector": 14,
+      "vsx_pixel": [
+        4.317989888219088,
+        4.278339775186259
+      ],
+      "distances_to_peak_pixels": [
+        0.42259981005713376,
+        0.42259981005713376,
+        0.42259981005713376
+      ],
+      "fits_position_metadata": {
+        "RA_OBJ": 156.722351025718,
+        "DEC_OBJ": 69.0701413071984,
+        "PMRA": 11.2609,
+        "PMDEC": 37.9145
+      },
+      "pixel_input": {
+        "uri": "mast:TESS/product/tess2019198215352-s0014-0000000103743317-0150-s_tp.fits",
+        "path": "repo/data/scale-validation-v01/fits/tess2019198215352-s0014-0000000103743317-0150-s_tp.fits.gz",
+        "sha256": "41675ad990181f23bb75fb8e6d1db656cefd4264445e7ec4b4c7bf01f2db83e4",
+        "raw_sha256": "36a56ff0d293a90c227d31922d9bdc8c75e7dc6f175151457d44724ebbd8ec97",
+        "raw_bytes": 47376000,
+        "compressed_bytes": 21483494
+      }
+    },
+    {
+      "sector": 75,
+      "vsx_pixel": [
+        6.088274836826741,
+        5.370311434458033
+      ],
+      "distances_to_peak_pixels": [
+        0.38068754288412693,
+        0.38068754288412693,
+        0.38068754288412693
+      ],
+      "fits_position_metadata": {
+        "RA_OBJ": 156.722351025718,
+        "DEC_OBJ": 69.0701413071984,
+        "PMRA": 11.2609,
+        "PMDEC": 37.9145
+      },
+      "pixel_input": {
+        "uri": "mast:TESS/product/tess2024030031500-s0075-0000000103743317-0270-s_tp.fits",
+        "path": "repo/data/scale-validation-v01/fits/tess2024030031500-s0075-0000000103743317-0270-s_tp.fits.gz",
+        "sha256": "93af7024ff5aae655e8d5e995799eccdcae3f273686b7686df4cccf5611c0f0e",
+        "raw_sha256": "be01a02d34b0912fd8f176be121c9628adbb30e01a6aeedf2ad9f6bd9d6b1e84",
+        "raw_bytes": 48867840,
+        "compressed_bytes": 19524862
+      }
+    }
+  ],
+  "projection_method": "astropy.wcs.WCS(TPF extension 2 header).world_to_pixel_values(VSX RA2000, Declination2000), compared to the unchanged stored whole/half peak pixels; no PRF fit or error calibration.",
+  "evidence": [
+    {
+      "path": "source-results/tic-103743317.json",
+      "sha256": "6167e1e03643471eeb6d68807b14f93b291039f3665a75b9781dde824a5594ef"
+    },
+    {
+      "path": "reference-followup/tic-103743317-source-vsx.json",
+      "sha256": "6051c2c5c1b223abd12143fbb276c5787629b82d31d4e7795fba7c7af214ab1d"
+    },
+    {
+      "path": "evaluation/tic-103743317/source/s14-pixels.png",
+      "sha256": "1aee11f41b3093d6fb9190745e283e9b3eda5f28dae55a64571ba7be90c76e0f"
+    },
+    {
+      "path": "evaluation/tic-103743317/source/s75-pixels.png",
+      "sha256": "ded2d5e56210160e345038bb738a0f55695d96437034095eac22c77e4b868491"
+    }
+  ],
+  "independent_population_precision_estimate": false,
+  "detector_modified": false
+}
