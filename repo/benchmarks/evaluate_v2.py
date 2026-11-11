@@ -81,9 +81,9 @@ def score(rows, mode):
     return groups
 
 
-def evaluate(mode, out):
+def evaluate(mode, out, protocol_path):
     out.mkdir(parents=True, exist_ok=False)
-    protocol = read_json(BENCH/"v2-protocol-v01.json")
+    protocol = read_json(protocol_path)
     analysis, config = AnalysisConfig(**protocol["analysis"]), ScreeningConfig(**protocol["screening"])
     if mode == "development":
         cases, sources = development_inputs()
@@ -92,7 +92,7 @@ def evaluate(mode, out):
         cases, sources = read_json(path)["cases"], [path, BENCH/"independent-pilot-protocol-v01.json"]
     output = {"created_at": now(), "complete": False, "mode": mode, "code_fingerprint": code_fingerprint(),
               "git_head": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
-              "runner_sha256": sha256(Path(__file__)), "protocol_sha256": sha256(BENCH/"v2-protocol-v01.json"),
+              "runner_sha256": sha256(Path(__file__)), "protocol_sha256": sha256(protocol_path), "protocol_path": str(protocol_path.relative_to(ROOT)),
               "analysis": asdict(analysis), "screening": asdict(config),
               "sources": [{"path": str(p.relative_to(ROOT)), "sha256": sha256(p)} for p in sources], "results": [],
               "limitations": ["Development rules; cross-cycle scores are not false-alarm probabilities.",
@@ -127,10 +127,12 @@ def evaluate(mode, out):
                     plot = f"s{item['sector']:04d}.png"; plot_review(diagnostic, result, folder/plot)
                     row["observations"].append({"sector": item["sector"], "input": item, "baseline": baseline, "v2": result, "plot": plot, "plot_sha256": sha256(folder/plot)})
                     pixel = next((p for p in case.get("pixel_inputs", []) if p["sector"] == item["sector"]), None)
-                    if pixel and result["periodic_detected"]:
+                    if pixel:
                         pixelplot = f"s{item['sector']:04d}-pixels.png"
-                        source = localize(verified(pixel), path, case["target"], result["photometric_period_d"], folder/pixelplot)
-                        source.update(plot=pixelplot, sector=item["sector"], input=pixel); evidence.append(source)
+                        trial_period = result["photometric_period_d"] or result["candidates"][0]["period_d"]
+                        source = localize(verified(pixel), path, case["target"], trial_period, folder/pixelplot)
+                        source.update(plot=pixelplot, sector=item["sector"], input=pixel, period_d=trial_period,
+                                      periodic_screen_passed=result["periodic_detected"]); evidence.append(source)
                 except Exception as exc:
                     row["errors"].append({"sector": item["sector"], "error": str(exc)})
             row["conclusion"] = combine_epochs([o["v2"] for o in row["observations"]], config, evidence)
@@ -165,5 +167,6 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--mode", choices=["development", "independent-pilot"], default="development")
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--protocol", type=Path, default=BENCH/"v2-protocol-v02.json")
     args = parser.parse_args()
-    evaluate(args.mode, args.output.resolve())
+    evaluate(args.mode, args.output.resolve(), args.protocol.resolve())

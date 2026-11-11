@@ -4,7 +4,7 @@ from vstar.models import AnalysisConfig
 from vstar.photometry import LightCurve, bin_lightcurve
 from vstar.periods import analyze_series
 from vstar.review import review_epoch
-from vstar.screening import ScreeningConfig, detrend, template_score, check_auxiliary, combine_epochs
+from vstar.screening import ScreeningConfig, detrend, template_score, check_auxiliary, combine_epochs, prefer_smallest_harmonic
 
 
 def test_quadratic_drift_does_not_gain_a_repeatable_template():
@@ -60,3 +60,21 @@ def test_missing_and_inconsistent_epochs_do_not_become_confirmations():
     assert combine_epochs([a, dict(a, photometric_period_d=1.5)])["decision"] == "competing_periods"
     assert combine_epochs([a, dict(a, periodic_detected=False)])["periodic_detected"] is False
     assert combine_epochs([a, a])["source_status"] == "unchecked"
+
+
+def test_harmonic_tie_break_does_not_bias_one_peak_shorter():
+    peak = {"period_d": 5.1, "gain": .52}
+    assert prefer_smallest_harmonic([peak, {"period_d": 5.06, "gain": .51}], .02) is peak
+    half = {"period_d": 2.55, "gain": .51}
+    assert prefer_smallest_harmonic([peak, half], .02) is half
+
+
+def test_switching_dominant_modes_preserves_periodicity_and_ambiguity():
+    first = {"periodic_detected": True, "photometric_period_d": .11, "period_status": "preferred_lightcurve_cycle",
+             "candidates": [{"period_d": .11, "gain": .6, "qualifies": True}, {"period_d": .086, "gain": .5, "qualifies": True}]}
+    second = dict(first, photometric_period_d=.086,
+                  candidates=[{"period_d": .11001, "gain": .5, "qualifies": True}, {"period_d": .08601, "gain": .6, "qualifies": True}])
+    result = combine_epochs([first, second])
+    assert result["periodic_detected"] and result["selected_period_d"] is None
+    assert result["period_status"] == "multiple_supported_periods"
+    assert len(result["supported_period_groups"]) == 2

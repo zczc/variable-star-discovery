@@ -27,7 +27,7 @@ class ScreeningConfig:
     min_auxiliary_gain: float = .2
     min_sap_gain: float = .1
     eclipse_duty_limit: float = .25
-    min_secondary_depth_fraction: float = .15
+    min_secondary_snr: float = 5.
 
     def __post_init__(self):
         if self.phase_bins < 16 or self.refinement_points < 3 or self.refinement_rounds < 1:
@@ -125,9 +125,25 @@ def morphology(lc, period, config):
     opposite = ((grid-grid[primary]+.5) % 1-.5)
     secondary = model[abs(opposite) > .30]
     secondary_ratio = (baseline-float(secondary.min()))/depth if depth > 0 and len(secondary) else 0.
+    prediction, _ = template_predict(phase, lc.flux, lc.error, phase, config.phase_bins)
+    residual = lc.flux-prediction
+    noise = max(float(np.median(lc.error)), float(1.4826*np.median(abs(residual-np.median(residual)))))
+    bin_error = noise/np.sqrt(max(len(lc.time)/config.phase_bins, 1))
+    secondary_snr = max(0., secondary_ratio*depth)/max(bin_error, 1e-30)
     return {"eclipse_like": bool(duty < config.eclipse_duty_limit), "low_flux_duty": duty,
-            "secondary_depth_fraction": float(secondary_ratio),
-            "note": "Shape heuristic, not a physical classification. Secondary search covers phase separations 0.3–0.5."}
+            "secondary_depth_fraction": float(secondary_ratio), "secondary_snr_proxy": float(secondary_snr),
+            "note": "Shape and secondary-noise diagnostics, not calibrated significance or classification. Secondary search covers phase separations 0.3–0.5."}
+
+
+def prefer_smallest_harmonic(candidates, margin):
+    """Compare distinct half/double aliases, never prefer the short edge of one peak."""
+    best = max(candidates, key=lambda c: c["gain"])
+    chosen = best
+    for row in candidates:
+        if row["gain"] >= best["gain"]-margin and abs(row["period_d"]/(best["period_d"]*.5)-1) < .015:
+            if chosen is best or row["gain"] > chosen["gain"]:
+                chosen = row
+    return chosen
 
 
 def analyze_epoch(raw, baseline, analysis=None, config=None):
@@ -165,12 +181,12 @@ def analyze_epoch(raw, baseline, analysis=None, config=None):
         best_gain = good[0]["gain"]
         # Prefer the smallest repeating pattern among statistically unresolved aliases.
         near = [c for c in good if c["gain"] >= best_gain-config.indistinguishable_gain]
-        chosen = min((c for c in near if min(abs(c["period_d"]/(good[0]["period_d"]*h)-1) for h in [.5, 1, 2]) < .015), key=lambda c: c["period_d"])
+        chosen = prefer_smallest_harmonic(near, config.indistinguishable_gain)
         p = chosen["period_d"]
         competing = any(min(abs(c["period_d"]/(p*h)-1) for h in [.5, 1, 2]) >= .015 for c in near)
         shape = morphology(clean, p, config)
         half = template_score(clean, p/2, config)
-        ambiguous = shape["eclipse_like"] and (shape["secondary_depth_fraction"] < config.min_secondary_depth_fraction or
+        ambiguous = shape["eclipse_like"] and (shape["secondary_snr_proxy"] < config.min_secondary_snr or
                                                chosen["gain"]-half["gain"] < config.indistinguishable_gain)
         result.update(photometric_period_d=p, selected_period_d=None if ambiguous or competing else p,
                       period_status="competing_aliases" if competing else "half_double_ambiguous" if ambiguous else "preferred_lightcurve_cycle",
@@ -213,20 +229,42 @@ def combine_epochs(epochs, config=None, source_evidence=None):
     result = {"periodic_detected": False, "selected_period_d": None, "photometric_period_d": None,
               "period_status": "not_established", "decision": "no_stable_signal", "source_status": "unchecked",
               "confirmed_variable": False, "source_evidence": source_evidence or [], "warnings": []}
+    if any(s.get("status") == "likely_contaminated" for s in source_evidence or []):
+        result["source_status"] = "likely_contaminated"
     if len(epochs) < 2:
         result["decision"] = "insufficient_epochs"; return result
     if len(detected) != len(epochs):
         result["decision"] = "not_repeated_in_all_epochs"; return result
-    periods = [r["photometric_period_d"] for r in epochs]
-    spread = (max(periods)-min(periods))/np.median(periods)
-    result["fractional_period_spread"] = float(spread)
-    if spread > config.epoch_period_tolerance:
+    # Match all supported peaks. A star's strongest mode can change by epoch.
+    pools = [[c for c in r.get("candidates", []) if c["qualifies"]] or
+             [{"period_d": r["photometric_period_d"], "gain": 1.}] for r in epochs]
+    groups = []
+    for seed in [c for pool in pools for c in pool]:
+        matches = [[c for c in pool if abs(c["period_d"]/seed["period_d"]-1) <= config.epoch_period_tolerance] for pool in pools]
+        if not all(matches):
+            continue
+        members = [max(m, key=lambda c: c["gain"]) for m in matches]
+        periods = [m["period_d"] for m in members]
+        spread = (max(periods)-min(periods))/np.median(periods)
+        p = float(np.median(periods))
+        if spread <= config.epoch_period_tolerance and not any(abs(p/g["period_d"]-1) < config.epoch_period_tolerance for g in groups):
+            groups.append({"period_d": p, "gain": float(np.mean([m["gain"] for m in members])), "members": periods,
+                           "fractional_spread": float(spread)})
+    if not groups:
         result["decision"] = "competing_periods"; return result
+    group = prefer_smallest_harmonic(groups, config.indistinguishable_gain)
+    periods, spread = group["members"], group["fractional_spread"]
+    result["fractional_period_spread"] = float(spread)
+    multiple = any(min(abs(g["period_d"]/(group["period_d"]*h)-1) for h in [.5, 1, 2]) >= .015 for g in groups)
+    result["supported_period_groups"] = groups
     ambiguous = any(r["period_status"] != "preferred_lightcurve_cycle" for r in epochs)
     p = float(np.median(periods))
+    ambiguous = ambiguous or multiple
     result.update(periodic_detected=True, photometric_period_d=p, selected_period_d=None if ambiguous else p,
-                  period_status="competing_aliases" if any(r["period_status"] == "competing_aliases" for r in epochs) else "half_double_ambiguous" if ambiguous else "preferred_lightcurve_cycle",
+                  period_status="multiple_supported_periods" if multiple else "competing_aliases" if any(r["period_status"] == "competing_aliases" for r in epochs) else "half_double_ambiguous" if ambiguous else "preferred_lightcurve_cycle",
                   decision="period_ambiguous" if ambiguous else "periodic_source_unchecked")
+    if multiple:
+        result["warnings"].append("Several nonharmonic periods have cross-epoch support; no unique final cycle selected. Source diagnostics refer to each epoch's individually preferred period.")
     cautions = [a for r in epochs for a in r.get("auxiliary", []) if a.get("source_caution")]
     product_disagreement = any(r.get("sap_check", {}).get("gain", 1) < config.min_sap_gain for r in epochs)
     evidence = source_evidence or []
