@@ -26,6 +26,9 @@ def prepare():
         diagnostic=c['group']=='neighbor_risk' and any(n.get('period_d') and .1<=n['period_d']<=8 for n in c['catalog_neighbors'])
         if r['status']=='completed' and (r.get('decision',{}).get('selected_period_d') is not None or diagnostic):eligible.append(c)
     sample=choose(eligible,policy['quota'],policy['seed'],policy['target_sample_size'])
+    prefetch=OUT/'source-prefetch.json'
+    if prefetch.exists():
+        assert {c['id'] for c in read_json(prefetch)['cases']} <= {c['id'] for c in sample},'Prefetch subset guarantee violated'
     write_json(path,{'created_at':now(),'policy_sha256':sha256(OUT/'source-sampling-policy.json'),'sampler_sha256':sha256(Path(__file__)),'transport_sha256':sha256(Path(__file__).with_name('scale_range_transport.py')),'eligible_count':len(eligible),'eligible_ids':[c['id'] for c in eligible],'cases':sample,'prediction_hashes':predictions})
     print('Prepared source sample',len(sample),'eligible',len(eligible),flush=True)
 

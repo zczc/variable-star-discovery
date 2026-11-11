@@ -2,7 +2,7 @@
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor,as_completed
 from urllib.parse import urlparse
-import gzip,hashlib,json,os,re,shutil,time
+import gzip,hashlib,json,os,re,shutil,time,fcntl
 import requests
 from vstar.io import read_json,write_json,sha256,now
 from scale_validation_support import checked_product,MIN_FREE
@@ -32,7 +32,7 @@ def fetch_range(url,start,end,total,etag,part):
             if attempt==2:raise
             time.sleep(2**attempt)
 
-def fetch_ranged(uri,tic,sector,cache):
+def _fetch_ranged(uri,tic,sector,cache):
     name=uri.rsplit('/',1)[-1]
     if not uri.startswith('mast:TESS/product/') or not re.fullmatch(r'tess\d+-s\d+-\d+-\d+-s_(lc|tp)\.fits',name):raise ValueError('Unsupported URI')
     cache.mkdir(parents=True,exist_ok=True);path=cache/(name+'.gz');receipt=cache/(name+'.receipt.json')
@@ -77,6 +77,15 @@ def fetch_ranged(uri,tic,sector,cache):
         manifest.unlink();directory.rmdir()
         return path,record
     finally:temporary.unlink(missing_ok=True);packed.unlink(missing_ok=True)
+
+def fetch_ranged(uri,tic,sector,cache):
+    name=uri.rsplit('/',1)[-1]
+    if not re.fullmatch(r'tess\d+-s\d+-\d+-\d+-s_(lc|tp)\.fits',name):raise ValueError('Unsupported product name')
+    cache.mkdir(parents=True,exist_ok=True)
+    with (cache/(name+'.range.lock')).open('a') as lock:
+        fcntl.flock(lock,fcntl.LOCK_EX)
+        try:return _fetch_ranged(uri,tic,sector,cache)
+        finally:fcntl.flock(lock,fcntl.LOCK_UN)
 
 if __name__=='__main__':
     import argparse

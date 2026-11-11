@@ -26,3 +26,21 @@ def test_resume_verifies_saved_chunk_hash(tmp_path,monkeypatch):
     fetch_range('https://example.invalid',0,3,8,'"version"',p)
     p.write_bytes(b'bad!')
     with pytest.raises(ValueError,match='Corrupt'):fetch_range('https://example.invalid',0,3,8,'"version"',p)
+
+def test_product_lock_serializes_overlapping_prefetch(tmp_path,monkeypatch):
+    from concurrent.futures import ThreadPoolExecutor
+    import threading,time
+    import scale_range_transport as module
+    active=0;peak=0;guard=threading.Lock()
+    def fake(*args):
+        nonlocal active,peak
+        with guard:active+=1;peak=max(peak,active)
+        time.sleep(.03)
+        with guard:active-=1
+        return ('cached',{})
+    monkeypatch.setattr(module,'_fetch_ranged',fake)
+    uri='mast:TESS/product/tess2019198215352-s0014-0000000164674992-0150-s_tp.fits'
+    with ThreadPoolExecutor(max_workers=2) as pool:
+        futures=[pool.submit(module.fetch_ranged,uri,'164674992',14,tmp_path) for _ in range(2)]
+        assert all(f.result()[0]=='cached' for f in futures)
+    assert peak==1
