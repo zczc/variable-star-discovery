@@ -59,3 +59,5 @@ variable-star-discovery/
 - [固定周期规则后的新测试](16-adjudication-and-new-test.md)：第四版规则、新的六星测试、RT Aur 短时段失败与验收缺口。
 
 - [实测背景中的信号能找回多少](17-real-residuals-and-standard-controls.md)：34 个实测残差案例、三颗标准星检查、弱信号与原星残留周期的错误。
+
+- [标准星背景下的识别边界](18-standard-star-injection-results.md)：144 个直接注入、不同食持续时间的恢复表现，以及预测门槛和三倍周期分歧导致的弃选。

@@ -47,3 +47,9 @@ repo/.venv/bin/python repo/benchmarks/evaluate_v3.py --mode former-pilot-develop
 [实测残差实验](benchmarks/empirical-injection-v01/README.md) 使用冻结 v4，对两颗旧开发星的剩余变化加入已知信号；[结果报告](benchmarks/empirical-injection-v01/evaluation/index.html) 保存 32 个非零注入、2 个零注入的全部预测和评分。输入压缩 FITS 为人工构造，带 `SYNTHET=T`。首次执行脚本的路径错误保留在 `execution-attempt01-failed/`；正式重跑使用唯一的 `execution-amendment.json`，未改检测规则。
 
 [三颗标准星](benchmarks/standard-star-check-v01/README.md) 的六段真实观测已完成，[检查报告](benchmarks/standard-star-check-v01/evaluation/index.html) 未建立重复周期。它们有独立文献依据，但标签限制尚不足以计入正式 TESS 安静星分母。背景和下一步详见 [中文说明](../doc/17-real-residuals-and-standard-controls.md)。
+
+### 标准星原始测光上的直接注入
+
+[标准星注入实验](benchmarks/standard-injection-v01/README.md) 在三颗星的两个时段中加入不同周期、幅度及食持续时间的信号；147 个案例均已完成，检测规则保持 v4。[完整报告](benchmarks/standard-injection-v01/evaluation/index.html) 与 [失败诊断](benchmarks/standard-injection-v01/evaluation/diagnostics.html) 区分重复信号、合格周期候选和最终选择。
+
+人工输入缓存可以用 `repo/.venv/bin/python repo/benchmarks/run_standard_injection.py rebuild --case all` 从已公开的六份原始观测重建并核对哈希。标准星背景、同星注入均有明确的统计限制，不能当作总体准确率或误报率。详见 [中文说明](../doc/18-standard-star-injection-results.md)。
