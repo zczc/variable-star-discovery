@@ -63,3 +63,5 @@ variable-star-discovery/
 - [标准星背景下的识别边界](18-standard-star-injection-results.md)：144 个直接注入、不同食持续时间的恢复表现，以及预测门槛和三倍周期分歧导致的弃选。
 
 - [先检查选出的信号是否可靠](19-precision-first-source-review.md)：精确率优先的新取向、来源审查、仪器耦合挑战、真实邻星污染和目标对照。
+
+- [千星验证怎么判断结果](20-thousand-target-validation.md)：1,000 个新对象的分组、100 个来源复核抽样、真实周期分歧和数据成本。

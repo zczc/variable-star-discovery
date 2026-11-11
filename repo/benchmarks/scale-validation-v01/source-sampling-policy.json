@@ -1,0 +1,16 @@
+{
+  "created_at": "2026-11-11T10:00:12.513280+00:00",
+  "reason": "Measured pixel transport is much slower and larger than LC transport; default to proposed staged resource plan after optional preference question. No scientific thresholds change.",
+  "target_sample_size": 100,
+  "seed": "scale-source-sample-20261111-v1",
+  "quota": {
+    "catalog_eb": 40,
+    "neighbor_risk": 30,
+    "field_unlabelled": 30
+  },
+  "eligibility": "Completed period analysis: selected period for catalog/field, or selected period/nearest catalog neighbor diagnostic in 0.1–8 d for risk. No exclusion by source outcome, apparent image quality, or period agreement.",
+  "selection": "Within each group sort SHA256(seed+\":\"+tic); take quota; fill shortfall from all remaining eligible targets by same key. Freeze actual list after all1000 predictions, before running its new source reviews.",
+  "pilot_handling": "Source jobs already in flight may finish; retain them as additional convenience controls if not sampled. Do not replace sampled targets with successful pilot cases.",
+  "interpretation": "100 sampled source reviews are not100 independent truth labels; no population precision claim. Deferred objects do not pass.",
+  "complete_results_immutable": true
+}

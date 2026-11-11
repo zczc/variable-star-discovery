@@ -1,0 +1,1279 @@
+{
+  "id": "tic-219765652",
+  "created_at": "2026-11-11T10:02:55.395085+00:00",
+  "code_fingerprint": "6f80ead013a3781f71cbcde609381af5375cb02839b2de286d7e839b6fce9d78",
+  "analysis": {
+    "min_period_days": 0.05,
+    "max_period_days": 8.0,
+    "bin_minutes": 10.0,
+    "samples_per_peak": 8,
+    "min_points": 500,
+    "period_tolerance": 0.05,
+    "use_bls": true
+  },
+  "screening": {
+    "phase_bins": 96,
+    "refinement_points": 31,
+    "refinement_rounds": 2,
+    "frequency_half_width_over_span": 0.4,
+    "min_template_coverage": 0.8,
+    "min_cv_gain": 0.2,
+    "min_fold_gain": 0.1,
+    "indistinguishable_gain": 0.02,
+    "min_cycles": 3,
+    "epoch_period_tolerance": 0.01,
+    "auxiliary_correlation": 0.8,
+    "min_auxiliary_gain": 0.2,
+    "min_sap_gain": 0.1,
+    "eclipse_duty_limit": 0.25,
+    "min_secondary_snr": 5.0,
+    "max_harmonic": 8,
+    "harmonic_tolerance": 0.015,
+    "min_conditional_variance": 0.05,
+    "min_predictive_cycles": 3
+  },
+  "observations": [
+    {
+      "sector": 14,
+      "tic": 219765652,
+      "input": {
+        "path": "repo/data/scale-validation-v01/fits/tess2019198215352-s0014-0000000219765652-0150-s_lc.fits.gz",
+        "sha256": "6bf6bd9311942b536c2f923f94291968f204a208bc4facfa010ffd65636aeac7"
+      },
+      "products": {
+        "SAP": {
+          "result": {
+            "candidates": [
+              {
+                "period_d": 0.6658642641898072,
+                "seed_period_d": 0.6660992368540014,
+                "gain": 0.25745916106404276,
+                "fold_gains": [
+                  0.27330812545996397,
+                  0.2429820091840964
+                ],
+                "coverage": 1.0,
+                "cycles": 40.31707858903279,
+                "at_boundary": false,
+                "qualifies": true,
+                "score_method": "alternate_cycles"
+              },
+              {
+                "period_d": 1.3319792201976555,
+                "seed_period_d": 1.3304536111737795,
+                "gain": 0.2531159248194367,
+                "fold_gains": [
+                  0.25012858952109407,
+                  0.25655740743422606
+                ],
+                "coverage": 1.0,
+                "cycles": 20.154745255699446,
+                "at_boundary": false,
+                "qualifies": true,
+                "score_method": "alternate_cycles"
+              },
+              {
+                "period_d": 0.3334835668358897,
+                "seed_period_d": 0.3330496184270007,
+                "gain": 0.052806667907073335,
+                "fold_gains": [
+                  -0.15115180705527997,
+                  0.195753278277758
+                ],
+                "coverage": 1.0,
+                "cycles": 80.50082384473224,
+                "at_boundary": false,
+                "qualifies": false,
+                "score_method": "alternate_cycles"
+              },
+              {
+                "period_d": 0.08329239501173318,
+                "seed_period_d": 0.08325244431971944,
+                "gain": -0.02276129025662854,
+                "fold_gains": [
+                  -0.027524841877934136,
+                  -0.019288303475178514
+                ],
+                "coverage": 1.0,
+                "cycles": 322.30675880057555,
+                "at_boundary": false,
+                "qualifies": false,
+                "score_method": "alternate_cycles"
+              },
+              {
+                "period_d": 0.16674546581980762,
+                "seed_period_d": 0.16652480921350035,
+                "gain": -0.4967530084587004,
+                "fold_gains": [
+                  -0.6581727185430066,
+                  -0.36853664505344597
+                ],
+                "coverage": 1.0,
+                "cycles": 160.9980921339089,
+                "at_boundary": false,
+                "qualifies": false,
+                "score_method": "alternate_cycles"
+              }
+            ],
+            "periodic_detected": true,
+            "selected_period_d": 0.6658642641898072,
+            "photometric_period_d": 0.6658642641898072,
+            "period_status": "preferred_lightcurve_cycle",
+            "shape": {
+              "eclipse_like": true,
+              "low_flux_duty": 0.1875,
+              "secondary_depth_fraction": 0.4439771788068273,
+              "secondary_snr_proxy": 6.364330067147153,
+              "note": "Shape and secondary-noise diagnostics, not calibrated significance or classification. Secondary search covers phase separations 0.3–0.5."
+            },
+            "trend_fraction_of_variance": 0.05258713438701845,
+            "notes": [
+              "Diagnostic cross-cycle prediction reuses discovery data; not a calibrated significance or period uncertainty.",
+              "A quadratic and gap offsets may attenuate long signals; no samples were removed as flux outliers.",
+              "Integer aliases through order 8 share a family; this does not identify a physical mode.",
+              "Conditional residual checks require >=5% of original weighted variance; weaker real modes can be missed.",
+              "Sparse eclipses can use leave-one-cycle-out coverage with at least three predictive cycles."
+            ],
+            "chosen_candidate": {
+              "period_d": 0.6658642641898072,
+              "seed_period_d": 0.6660992368540014,
+              "gain": 0.25745916106404276,
+              "fold_gains": [
+                0.27330812545996397,
+                0.2429820091840964
+              ],
+              "coverage": 1.0,
+              "cycles": 40.31707858903279,
+              "at_boundary": false,
+              "qualifies": true,
+              "score_method": "alternate_cycles"
+            },
+            "half_period_gain": 0.014170116765974461,
+            "cycle_alternatives_d": [
+              0.6658642641898072
+            ],
+            "algorithm_revision": "v3.0-development",
+            "v2_period_status": "preferred_lightcurve_cycle",
+            "conditional_comparisons": [],
+            "auxiliary": [
+              {
+                "name": "SAP_BKG",
+                "status": "no_strong_correlation",
+                "correlation": -0.009376889446993456,
+                "periodic_gain": -0.0016561319760617366,
+                "source_caution": false,
+                "note": "Correlation motivates source review; stellar variability can itself shift centroids. This is not proof of instrumental origin."
+              },
+              {
+                "name": "POS_CORR1",
+                "status": "no_strong_correlation",
+                "correlation": -0.19225989653294567,
+                "periodic_gain": -0.018464397145336653,
+                "source_caution": false,
+                "note": "Correlation motivates source review; stellar variability can itself shift centroids. This is not proof of instrumental origin."
+              },
+              {
+                "name": "POS_CORR2",
+                "status": "no_strong_correlation",
+                "correlation": -0.020109486089637044,
+                "periodic_gain": -0.025009242646174767,
+                "source_caution": false,
+                "note": "Correlation motivates source review; stellar variability can itself shift centroids. This is not proof of instrumental origin."
+              },
+              {
+                "name": "MOM_CENTR1",
+                "status": "no_strong_correlation",
+                "correlation": -0.06281239312059568,
+                "periodic_gain": 0.014873566010777162,
+                "source_caution": false,
+                "note": "Correlation motivates source review; stellar variability can itself shift centroids. This is not proof of instrumental origin."
+              },
+              {
+                "name": "MOM_CENTR2",
+                "status": "no_strong_correlation",
+                "correlation": -0.024677187195776277,
+                "periodic_gain": -0.019545402724157945,
+                "source_caution": false,
+                "note": "Correlation motivates source review; stellar variability can itself shift centroids. This is not proof of instrumental origin."
+              }
+            ],
+            "sap_check": {
+              "status": "not_independently_available"
+            }
+          },
+          "baseline": {
+            "period_d": 0.3330496184270007,
+            "power": 0.17624077584125283,
+            "n": 18422,
+            "n_bin": 3730,
+            "period_at_search_boundary": false,
+            "span_d": 26.849868511068507,
+            "metadata": {
+              "TICID": 219765652,
+              "SECTOR": 14,
+              "TESSMAG": 9.33248043,
+              "TEFF": 6140.0,
+              "CROWDSAP": 0.99291575,
+              "FLFRCSAP": 0.94898909,
+              "CAMERA": 3,
+              "CCD": 1,
+              "TIMESYS": "TDB",
+              "TIMEREF": "SOLARSYSTEM",
+              "TIMEUNIT": "d",
+              "BJDREFI": 2457000,
+              "BJDREFF": 0.0,
+              "flux_column": "SAP_FLUX",
+              "original_points": 19337,
+              "usable_points": 18422,
+              "normalization_median": 28910.9501953125
+            },
+            "peaks": [
+              {
+                "period_d": 0.3330496184270007,
+                "power": 0.17624077584125283
+              },
+              {
+                "period_d": 0.6652268055868897,
+                "power": 0.039269750089000806
+              },
+              {
+                "period_d": 0.16650488863943888,
+                "power": 0.023860321176352492
+              },
+              {
+                "period_d": 3.529676022379506,
+                "power": 0.017746044011670174
+              },
+              {
+                "period_d": 0.32696509140680063,
+                "power": 0.0166664460568602
+              }
+            ],
+            "period_error_d": null,
+            "epoch": null,
+            "warnings": [
+              "Screening peak only; no correlated-noise false-alarm calibration or physical classification."
+            ],
+            "first_period": 0.3329641700049651,
+            "second_period": 0.33303580002751093,
+            "phase_amplitude_pct": 0.08507815941955044,
+            "phot_scatter_pct": 0.058264746302398446,
+            "sap_power_at_period": 0.17624077584126216,
+            "harmonics_d": [
+              0.16652480921350035,
+              0.3330496184270007,
+              0.6660992368540014
+            ],
+            "bls": {
+              "period_d": 0.6660717523214208,
+              "duration_d": 0.1,
+              "power": 1312.1231602590367,
+              "depth_fraction": 0.0007154142305190147,
+              "note": "Auxiliary box-shaped signal search on binned data; limited duration grid, no false-alarm calibration or classification."
+            }
+          }
+        },
+        "PDCSAP": {
+          "result": {
+            "candidates": [
+              {
+                "period_d": 0.6656881434544097,
+                "seed_period_d": 0.6660992368540014,
+                "gain": 0.3890521109646433,
+                "fold_gains": [
+                  0.394372512790371,
+                  0.38366119709447843
+                ],
+                "coverage": 1.0,
+                "cycles": 40.32774525569945,
+                "at_boundary": false,
+                "qualifies": true,
+                "score_method": "alternate_cycles"
+              },
+              {
+                "period_d": 1.3312929969361724,
+                "seed_period_d": 1.334587435560583,
+                "gain": 0.3783318119601905,
+                "fold_gains": [
+                  0.38889300562868123,
+                  0.3671585788360704
+                ],
+                "coverage": 1.0,
+                "cycles": 20.165134144588336,
+                "at_boundary": false,
+                "qualifies": true,
+                "score_method": "alternate_cycles"
+              },
+              {
+                "period_d": 0.3329101126348776,
+                "seed_period_d": 0.3330496184270007,
+                "gain": 0.029259225768751063,
+                "fold_gains": [
+                  -0.3244665138420171,
+                  0.23847222877839291
+                ],
+                "coverage": 1.0,
+                "cycles": 80.63949051139889,
+                "at_boundary": false,
+                "qualifies": false,
+                "score_method": "alternate_cycles"
+              },
+              {
+                "period_d": 0.08323363026523392,
+                "seed_period_d": 0.08325244431971944,
+                "gain": -0.10127634476182101,
+                "fold_gains": [
+                  -0.14386898743706045,
+                  -0.07759030244235521
+                ],
+                "coverage": 1.0,
+                "cycles": 322.5343143561311,
+                "at_boundary": false,
+                "qualifies": false,
+                "score_method": "alternate_cycles"
+              },
+              {
+                "period_d": 0.16648258337352803,
+                "seed_period_d": 0.16652480921350035,
+                "gain": -0.8400338742519122,
+                "fold_gains": [
+                  -1.1883841093342569,
+                  -0.5981327318074317
+                ],
+                "coverage": 1.0,
+                "cycles": 161.25231435613108,
+                "at_boundary": false,
+                "qualifies": false,
+                "score_method": "alternate_cycles"
+              }
+            ],
+            "periodic_detected": true,
+            "selected_period_d": 0.6656881434544097,
+            "photometric_period_d": 0.6656881434544097,
+            "period_status": "preferred_lightcurve_cycle",
+            "shape": {
+              "eclipse_like": true,
+              "low_flux_duty": 0.1875,
+              "secondary_depth_fraction": 0.3862060647079212,
+              "secondary_snr_proxy": 7.1592396968660275,
+              "note": "Shape and secondary-noise diagnostics, not calibrated significance or classification. Secondary search covers phase separations 0.3–0.5."
+            },
+            "trend_fraction_of_variance": 0.0005459347638231415,
+            "notes": [
+              "Diagnostic cross-cycle prediction reuses discovery data; not a calibrated significance or period uncertainty.",
+              "A quadratic and gap offsets may attenuate long signals; no samples were removed as flux outliers.",
+              "Integer aliases through order 8 share a family; this does not identify a physical mode.",
+              "Conditional residual checks require >=5% of original weighted variance; weaker real modes can be missed.",
+              "Sparse eclipses can use leave-one-cycle-out coverage with at least three predictive cycles."
+            ],
+            "chosen_candidate": {
+              "period_d": 0.6656881434544097,
+              "seed_period_d": 0.6660992368540014,
+              "gain": 0.3890521109646433,
+              "fold_gains": [
+                0.394372512790371,
+                0.38366119709447843
+              ],
+              "coverage": 1.0,
+              "cycles": 40.32774525569945,
+              "at_boundary": false,
+              "qualifies": true,
+              "score_method": "alternate_cycles"
+            },
+            "half_period_gain": 0.029261388916791198,
+            "cycle_alternatives_d": [
+              0.6656881434544097
+            ],
+            "algorithm_revision": "v3.0-development",
+            "v2_period_status": "preferred_lightcurve_cycle",
+            "conditional_comparisons": [],
+            "auxiliary": [
+              {
+                "name": "SAP_BKG",
+                "status": "no_strong_correlation",
+                "correlation": -0.002818340376950733,
+                "periodic_gain": -0.0015631829340914116,
+                "source_caution": false,
+                "note": "Correlation motivates source review; stellar variability can itself shift centroids. This is not proof of instrumental origin."
+              },
+              {
+                "name": "POS_CORR1",
+                "status": "no_strong_correlation",
+                "correlation": -0.02203261890590585,
+                "periodic_gain": -0.02023124116985131,
+                "source_caution": false,
+                "note": "Correlation motivates source review; stellar variability can itself shift centroids. This is not proof of instrumental origin."
+              },
+              {
+                "name": "POS_CORR2",
+                "status": "no_strong_correlation",
+                "correlation": 0.0002187990455980152,
+                "periodic_gain": -0.02892842776435467,
+                "source_caution": false,
+                "note": "Correlation motivates source review; stellar variability can itself shift centroids. This is not proof of instrumental origin."
+              },
+              {
+                "name": "MOM_CENTR1",
+                "status": "no_strong_correlation",
+                "correlation": 0.07066990477865039,
+                "periodic_gain": 0.013592349326073783,
+                "source_caution": false,
+                "note": "Correlation motivates source review; stellar variability can itself shift centroids. This is not proof of instrumental origin."
+              },
+              {
+                "name": "MOM_CENTR2",
+                "status": "no_strong_correlation",
+                "correlation": 0.05878718330532988,
+                "periodic_gain": -0.018361167690566838,
+                "source_caution": false,
+                "note": "Correlation motivates source review; stellar variability can itself shift centroids. This is not proof of instrumental origin."
+              }
+            ],
+            "sap_check": {
+              "status": "not_independently_available"
+            }
+          },
+          "baseline": {
+            "period_d": 0.3330496184270007,
+            "power": 0.2768172751275389,
+            "n": 18422,
+            "n_bin": 3730,
+            "period_at_search_boundary": false,
+            "span_d": 26.849868511068507,
+            "metadata": {
+              "TICID": 219765652,
+              "SECTOR": 14,
+              "TESSMAG": 9.33248043,
+              "TEFF": 6140.0,
+              "CROWDSAP": 0.99291575,
+              "FLFRCSAP": 0.94898909,
+              "CAMERA": 3,
+              "CCD": 1,
+              "TIMESYS": "TDB",
+              "TIMEREF": "SOLARSYSTEM",
+              "TIMEUNIT": "d",
+              "BJDREFI": 2457000,
+              "BJDREFF": 0.0,
+              "flux_column": "PDCSAP_FLUX",
+              "original_points": 19337,
+              "usable_points": 18422,
+              "normalization_median": 30248.02734375
+            },
+            "peaks": [
+              {
+                "period_d": 0.3330496184270007,
+                "power": 0.2768172751275389
+              },
+              {
+                "period_d": 0.6672937177802915,
+                "power": 0.06823854172956947
+              },
+              {
+                "period_d": 0.16650488863943888,
+                "power": 0.031136496120527983
+              },
+              {
+                "period_d": 0.32696509140680063,
+                "power": 0.02082374691969842
+              },
+              {
+                "period_d": 0.3388294884993142,
+                "power": 0.019854575316733142
+              }
+            ],
+            "period_error_d": null,
+            "epoch": null,
+            "warnings": [
+              "Screening peak only; no correlated-noise false-alarm calibration or physical classification."
+            ],
+            "first_period": 0.3329641700049651,
+            "second_period": 0.33303580002751093,
+            "phase_amplitude_pct": 0.07951693647377733,
+            "phot_scatter_pct": 0.04763106852704118,
+            "sap_power_at_period": 0.2768172751275657,
+            "harmonics_d": [
+              0.16652480921350035,
+              0.3330496184270007,
+              0.6660992368540014
+            ],
+            "bls": {
+              "period_d": 0.6660717523214208,
+              "duration_d": 0.1,
+              "power": 1358.1676981908533,
+              "depth_fraction": 0.0007330794744680212,
+              "note": "Auxiliary box-shaped signal search on binned data; limited duration grid, no false-alarm calibration or classification."
+            }
+          }
+        }
+      },
+      "plot": "s0014-products.png",
+      "plot_sha256": "ce9d2de31678f86843c67732f96b432412ea5e27bfda892b1bf4445d107ac7b6"
+    },
+    {
+      "sector": 85,
+      "tic": 219765652,
+      "input": {
+        "path": "repo/data/scale-validation-v01/fits/tess2024300212641-s0085-0000000219765652-0282-s_lc.fits.gz",
+        "sha256": "7d81a3cfce3f82db8107d867bd3c97dc90d3677ed7e288e5069800eea7853dd9"
+      },
+      "products": {
+        "SAP": {
+          "result": {
+            "candidates": [
+              {
+                "period_d": 6.653723864242698,
+                "seed_period_d": 6.687870017609808,
+                "gain": 0.37595141641644314,
+                "fold_gains": [
+                  0.42589359053550613,
+                  0.3438355057029493,
+                  0.11111322933331802,
+                  0.5067392956977111
+                ],
+                "coverage": 0.9895833333333334,
+                "cycles": 3.8301536419524065,
+                "at_boundary": false,
+                "qualifies": true,
+                "score_method": "leave_one_cycle_out",
+                "leave_cycle_check": {
+                  "gain": 0.37595141641644314,
+                  "coverage": 0.9895833333333334,
+                  "fold_gains": [
+                    0.42589359053550613,
+                    0.3438355057029493,
+                    0.11111322933331802,
+                    0.5067392956977111
+                  ],
+                  "cycles": [
+                    {
+                      "cycle": 0,
+                      "samples": 600,
+                      "gain": 0.42589359053550613,
+                      "coverage": 0.9895833333333334
+                    },
+                    {
+                      "cycle": 1,
+                      "samples": 929,
+                      "gain": 0.3438355057029493,
+                      "coverage": 1.0
+                    },
+                    {
+                      "cycle": 2,
+                      "samples": 439,
+                      "gain": 0.11111322933331802,
+                      "coverage": 1.0
+                    },
+                    {
+                      "cycle": 3,
+                      "samples": 796,
+                      "gain": 0.5067392956977111,
+                      "coverage": 1.0
+                    }
+                  ],
+                  "predictive_cycles": 4
+                },
+                "alternate_cycle_score": {
+                  "gain": 0.32238635249079484,
+                  "coverage": 0.6666666666666666,
+                  "fold_gains": [
+                    0.46744869204925,
+                    0.17052585015460842
+                  ]
+                }
+              },
+              {
+                "period_d": 0.6658342919065318,
+                "seed_period_d": 0.6657415257497289,
+                "gain": 0.3212650297313985,
+                "fold_gains": [
+                  0.3155900073540876,
+                  0.3284077577507213
+                ],
+                "coverage": 1.0,
+                "cycles": 38.27496570986509,
+                "at_boundary": false,
+                "qualifies": true,
+                "score_method": "alternate_cycles"
+              },
+              {
+                "period_d": 1.3316637888080263,
+                "seed_period_d": 1.3294408238808624,
+                "gain": 0.31542713361136876,
+                "fold_gains": [
+                  0.2679598561560679,
+                  0.3909732350763624
+                ],
+                "coverage": 1.0,
+                "cycles": 19.13755176446321,
+                "at_boundary": false,
+                "qualifies": true,
+                "score_method": "alternate_cycles"
+              },
+              {
+                "period_d": 0.3336765701942096,
+                "seed_period_d": 0.33287076287486445,
+                "gain": 0.13338243368987512,
+                "fold_gains": [
+                  0.09896656319171471,
+                  0.1658522694804787
+                ],
+                "coverage": 1.0,
+                "cycles": 76.37570919750797,
+                "at_boundary": false,
+                "qualifies": false,
+                "score_method": "alternate_cycles"
+              },
+              {
+                "period_d": 1.6640436198863953,
+                "seed_period_d": 1.6853683002292796,
+                "gain": -0.16326236493814128,
+                "fold_gains": [
+                  -0.2247625489618299,
+                  -0.12101204168182877
+                ],
+                "coverage": 1.0,
+                "cycles": 15.314973950571478,
+                "at_boundary": false,
+                "qualifies": false,
+                "score_method": "alternate_cycles"
+              },
+              {
+                "period_d": 3.3284068225455123,
+                "seed_period_d": 3.343935008804904,
+                "gain": -0.22105537463426916,
+                "fold_gains": [
+                  -0.5761489943646405,
+                  -0.04082929720748285
+                ],
+                "coverage": 1.0,
+                "cycles": 7.656751728349256,
+                "at_boundary": false,
+                "qualifies": false,
+                "score_method": "alternate_cycles"
+              },
+              {
+                "period_d": 0.16647403759373305,
+                "seed_period_d": 0.16643538143743222,
+                "gain": -0.54153927121921,
+                "fold_gains": [
+                  -0.39141037041383053,
+                  -0.7589150296235465
+                ],
+                "coverage": 1.0,
+                "cycles": 153.08564061723814,
+                "at_boundary": false,
+                "qualifies": false,
+                "score_method": "alternate_cycles"
+              }
+            ],
+            "periodic_detected": true,
+            "selected_period_d": 6.653723864242698,
+            "photometric_period_d": 6.653723864242698,
+            "period_status": "preferred_lightcurve_cycle",
+            "shape": {
+              "eclipse_like": true,
+              "low_flux_duty": 0.15625,
+              "secondary_depth_fraction": 0.38672118377700393,
+              "secondary_snr_proxy": 11.401062898253103,
+              "note": "Shape and secondary-noise diagnostics, not calibrated significance or classification. Secondary search covers phase separations 0.3–0.5."
+            },
+            "trend_fraction_of_variance": 0.19988163437601403,
+            "notes": [
+              "Diagnostic cross-cycle prediction reuses discovery data; not a calibrated significance or period uncertainty.",
+              "A quadratic and gap offsets may attenuate long signals; no samples were removed as flux outliers.",
+              "Integer aliases through order 8 share a family; this does not identify a physical mode.",
+              "Conditional residual checks require >=5% of original weighted variance; weaker real modes can be missed.",
+              "Sparse eclipses can use leave-one-cycle-out coverage with at least three predictive cycles."
+            ],
+            "chosen_candidate": {
+              "period_d": 6.653723864242698,
+              "seed_period_d": 6.687870017609808,
+              "gain": 0.37595141641644314,
+              "fold_gains": [
+                0.42589359053550613,
+                0.3438355057029493,
+                0.11111322933331802,
+                0.5067392956977111
+              ],
+              "coverage": 0.9895833333333334,
+              "cycles": 3.8301536419524065,
+              "at_boundary": false,
+              "qualifies": true,
+              "score_method": "leave_one_cycle_out",
+              "leave_cycle_check": {
+                "gain": 0.37595141641644314,
+                "coverage": 0.9895833333333334,
+                "fold_gains": [
+                  0.42589359053550613,
+                  0.3438355057029493,
+                  0.11111322933331802,
+                  0.5067392956977111
+                ],
+                "cycles": [
+                  {
+                    "cycle": 0,
+                    "samples": 600,
+                    "gain": 0.42589359053550613,
+                    "coverage": 0.9895833333333334
+                  },
+                  {
+                    "cycle": 1,
+                    "samples": 929,
+                    "gain": 0.3438355057029493,
+                    "coverage": 1.0
+                  },
+                  {
+                    "cycle": 2,
+                    "samples": 439,
+                    "gain": 0.11111322933331802,
+                    "coverage": 1.0
+                  },
+                  {
+                    "cycle": 3,
+                    "samples": 796,
+                    "gain": 0.5067392956977111,
+                    "coverage": 1.0
+                  }
+                ],
+                "predictive_cycles": 4
+              },
+              "alternate_cycle_score": {
+                "gain": 0.32238635249079484,
+                "coverage": 0.6666666666666666,
+                "fold_gains": [
+                  0.46744869204925,
+                  0.17052585015460842
+                ]
+              }
+            },
+            "half_period_gain": -0.22840600228728536,
+            "cycle_alternatives_d": [
+              6.653723864242698
+            ],
+            "algorithm_revision": "v3.0-development",
+            "v2_period_status": "preferred_lightcurve_cycle",
+            "conditional_comparisons": [
+              {
+                "base_period_d": 6.653723864242698,
+                "trial_period_d": 0.6658342919065318,
+                "gain": 0.029479750628701118,
+                "fold_gains": [
+                  0.040881902713759355,
+                  0.017633138067955745
+                ],
+                "coverage": 1.0,
+                "original_variance_gain": 0.012411232424411488,
+                "supported": false
+              },
+              {
+                "base_period_d": 0.6658342919065318,
+                "trial_period_d": 6.653723864242698,
+                "gain": 0.08105458290673351,
+                "fold_gains": [
+                  0.35491005551231225,
+                  -0.3283185845700649
+                ],
+                "coverage": 0.6666666666666666,
+                "original_variance_gain": 0.052869014061965675,
+                "supported": false
+              }
+            ],
+            "auxiliary": [
+              {
+                "name": "SAP_BKG",
+                "status": "no_strong_correlation",
+                "correlation": -0.034975671050175905,
+                "periodic_gain": -2.5320653451048725,
+                "source_caution": false,
+                "note": "Correlation motivates source review; stellar variability can itself shift centroids. This is not proof of instrumental origin."
+              },
+              {
+                "name": "POS_CORR1",
+                "status": "no_strong_correlation",
+                "correlation": 0.15043989167300115,
+                "periodic_gain": -1.336134876892523,
+                "source_caution": false,
+                "note": "Correlation motivates source review; stellar variability can itself shift centroids. This is not proof of instrumental origin."
+              },
+              {
+                "name": "POS_CORR2",
+                "status": "no_strong_correlation",
+                "correlation": 0.23217608986086624,
+                "periodic_gain": -1.5425026960385182,
+                "source_caution": false,
+                "note": "Correlation motivates source review; stellar variability can itself shift centroids. This is not proof of instrumental origin."
+              },
+              {
+                "name": "MOM_CENTR1",
+                "status": "no_strong_correlation",
+                "correlation": 0.1270720666472959,
+                "periodic_gain": -1.282454404981181,
+                "source_caution": false,
+                "note": "Correlation motivates source review; stellar variability can itself shift centroids. This is not proof of instrumental origin."
+              },
+              {
+                "name": "MOM_CENTR2",
+                "status": "no_strong_correlation",
+                "correlation": 0.1681936148230291,
+                "periodic_gain": -1.818378368217647,
+                "source_caution": false,
+                "note": "Correlation motivates source review; stellar variability can itself shift centroids. This is not proof of instrumental origin."
+              }
+            ],
+            "sap_check": {
+              "status": "not_independently_available"
+            }
+          },
+          "baseline": {
+            "period_d": 0.33287076287486445,
+            "power": 0.2027308733609512,
+            "n": 13638,
+            "n_bin": 2764,
+            "period_at_search_boundary": false,
+            "span_d": 25.488951366534366,
+            "metadata": {
+              "TICID": 219765652,
+              "SECTOR": 85,
+              "TESSMAG": 9.33248043,
+              "TEFF": 6140.0,
+              "CROWDSAP": 0.99173224,
+              "FLFRCSAP": 0.94165641,
+              "CAMERA": 4,
+              "CCD": 3,
+              "TIMESYS": "TDB",
+              "TIMEREF": "SOLARSYSTEM",
+              "TIMEUNIT": "d",
+              "BJDREFI": 2457000,
+              "BJDREFF": 0.0,
+              "flux_column": "SAP_FLUX",
+              "original_points": 18357,
+              "usable_points": 13638,
+              "normalization_median": 28070.1708984375
+            },
+            "peaks": [
+              {
+                "period_d": 0.33287076287486445,
+                "power": 0.2027308733609512
+              },
+              {
+                "period_d": 6.687870017609808,
+                "power": 0.14136182623709861
+              },
+              {
+                "period_d": 3.3707366004585593,
+                "power": 0.07652992431507874
+              },
+              {
+                "period_d": 0.665215004832405,
+                "power": 0.037660935193349794
+              },
+              {
+                "period_d": 0.3259524172599351,
+                "power": 0.03260162520630613
+              }
+            ],
+            "period_error_d": null,
+            "epoch": null,
+            "warnings": [
+              "Screening peak only; no correlated-noise false-alarm calibration or physical classification."
+            ],
+            "first_period": 7.4148730864298065,
+            "second_period": 0.3329555887834166,
+            "phase_amplitude_pct": 0.09724628098771282,
+            "phot_scatter_pct": 0.069475044128995,
+            "sap_power_at_period": 0.20273087336075873,
+            "harmonics_d": [
+              0.16643538143743222,
+              0.33287076287486445,
+              0.6657415257497289
+            ],
+            "bls": {
+              "period_d": 0.6647204119404312,
+              "duration_d": 0.1,
+              "power": 1425.9906188357713,
+              "depth_fraction": 0.0008122646504401636,
+              "note": "Auxiliary box-shaped signal search on binned data; limited duration grid, no false-alarm calibration or classification."
+            }
+          }
+        },
+        "PDCSAP": {
+          "result": {
+            "candidates": [
+              {
+                "period_d": 0.6655869729171746,
+                "seed_period_d": 0.6657415257497289,
+                "gain": 0.5004222630574424,
+                "fold_gains": [
+                  0.5069915719965444,
+                  0.49307592299377867
+                ],
+                "coverage": 1.0,
+                "cycles": 38.289187932087316,
+                "at_boundary": false,
+                "qualifies": true,
+                "score_method": "alternate_cycles"
+              },
+              {
+                "period_d": 1.3312948996036165,
+                "seed_period_d": 1.33043000966481,
+                "gain": 0.49993597437215564,
+                "fold_gains": [
+                  0.47248509664470806,
+                  0.5295473017654633
+                ],
+                "coverage": 1.0,
+                "cycles": 19.14285459875398,
+                "at_boundary": false,
+                "qualifies": true,
+                "score_method": "alternate_cycles"
+              },
+              {
+                "period_d": 0.16311645249438822,
+                "seed_period_d": 0.1632371856987853,
+                "gain": 0.18534410557184444,
+                "fold_gains": [
+                  0.22912136029742491,
+                  0.13942689771686967
+                ],
+                "coverage": 0.96875,
+                "cycles": 156.23675172834928,
+                "at_boundary": false,
+                "qualifies": false,
+                "score_method": "alternate_cycles"
+              },
+              {
+                "period_d": 0.6601654591102089,
+                "seed_period_d": 0.6529487427951411,
+                "gain": 0.10725154558077588,
+                "fold_gains": [
+                  0.10889624435158829,
+                  0.10536938199665502
+                ],
+                "coverage": 1.0,
+                "cycles": 38.603632376531756,
+                "at_boundary": false,
+                "qualifies": false,
+                "score_method": "alternate_cycles"
+              },
+              {
+                "period_d": 0.32623661715125973,
+                "seed_period_d": 0.3264743713975706,
+                "gain": 0.10187452355363857,
+                "fold_gains": [
+                  0.07032081554438907,
+                  0.1366729890245555
+                ],
+                "coverage": 1.0,
+                "cycles": 78.11748697528573,
+                "at_boundary": false,
+                "qualifies": false,
+                "score_method": "alternate_cycles"
+              },
+              {
+                "period_d": 0.33287849249037743,
+                "seed_period_d": 0.33287076287486445,
+                "gain": 0.08556444482870806,
+                "fold_gains": [
+                  0.25050789327079115,
+                  -0.19421220476453804
+                ],
+                "coverage": 1.0,
+                "cycles": 76.55882030861908,
+                "at_boundary": false,
+                "qualifies": false,
+                "score_method": "alternate_cycles"
+              },
+              {
+                "period_d": 0.16651271171070484,
+                "seed_period_d": 0.16643538143743222,
+                "gain": -1.0385976724251704,
+                "fold_gains": [
+                  -0.7677119836498225,
+                  -1.444812879599481
+                ],
+                "coverage": 1.0,
+                "cycles": 153.0500850616826,
+                "at_boundary": false,
+                "qualifies": false,
+                "score_method": "alternate_cycles"
+              }
+            ],
+            "periodic_detected": true,
+            "selected_period_d": 0.6655869729171746,
+            "photometric_period_d": 0.6655869729171746,
+            "period_status": "preferred_lightcurve_cycle",
+            "shape": {
+              "eclipse_like": false,
+              "low_flux_duty": 0.25,
+              "secondary_depth_fraction": 0.424766342497694,
+              "secondary_snr_proxy": 7.569935883158896,
+              "note": "Shape and secondary-noise diagnostics, not calibrated significance or classification. Secondary search covers phase separations 0.3–0.5."
+            },
+            "trend_fraction_of_variance": 0.007967355996576053,
+            "notes": [
+              "Diagnostic cross-cycle prediction reuses discovery data; not a calibrated significance or period uncertainty.",
+              "A quadratic and gap offsets may attenuate long signals; no samples were removed as flux outliers.",
+              "Integer aliases through order 8 share a family; this does not identify a physical mode.",
+              "Conditional residual checks require >=5% of original weighted variance; weaker real modes can be missed.",
+              "Sparse eclipses can use leave-one-cycle-out coverage with at least three predictive cycles."
+            ],
+            "chosen_candidate": {
+              "period_d": 0.6655869729171746,
+              "seed_period_d": 0.6657415257497289,
+              "gain": 0.5004222630574424,
+              "fold_gains": [
+                0.5069915719965444,
+                0.49307592299377867
+              ],
+              "coverage": 1.0,
+              "cycles": 38.289187932087316,
+              "at_boundary": false,
+              "qualifies": true,
+              "score_method": "alternate_cycles"
+            },
+            "half_period_gain": 0.06461493524107831,
+            "cycle_alternatives_d": [
+              0.6655869729171746
+            ],
+            "algorithm_revision": "v3.0-development",
+            "v2_period_status": "preferred_lightcurve_cycle",
+            "conditional_comparisons": [],
+            "auxiliary": [
+              {
+                "name": "SAP_BKG",
+                "status": "no_strong_correlation",
+                "correlation": -0.10843121528162361,
+                "periodic_gain": -0.03596103532571826,
+                "source_caution": false,
+                "note": "Correlation motivates source review; stellar variability can itself shift centroids. This is not proof of instrumental origin."
+              },
+              {
+                "name": "POS_CORR1",
+                "status": "no_strong_correlation",
+                "correlation": 0.04471053343082775,
+                "periodic_gain": -0.021207350025505667,
+                "source_caution": false,
+                "note": "Correlation motivates source review; stellar variability can itself shift centroids. This is not proof of instrumental origin."
+              },
+              {
+                "name": "POS_CORR2",
+                "status": "no_strong_correlation",
+                "correlation": 0.11541941653523757,
+                "periodic_gain": -0.04120026898323648,
+                "source_caution": false,
+                "note": "Correlation motivates source review; stellar variability can itself shift centroids. This is not proof of instrumental origin."
+              },
+              {
+                "name": "MOM_CENTR1",
+                "status": "no_strong_correlation",
+                "correlation": 0.02892983153446475,
+                "periodic_gain": -0.022133532447553117,
+                "source_caution": false,
+                "note": "Correlation motivates source review; stellar variability can itself shift centroids. This is not proof of instrumental origin."
+              },
+              {
+                "name": "MOM_CENTR2",
+                "status": "no_strong_correlation",
+                "correlation": 0.15045750936890406,
+                "periodic_gain": -0.0463731187365215,
+                "source_caution": false,
+                "note": "Correlation motivates source review; stellar variability can itself shift centroids. This is not proof of instrumental origin."
+              }
+            ],
+            "sap_check": {
+              "status": "not_independently_available"
+            }
+          },
+          "baseline": {
+            "period_d": 0.33287076287486445,
+            "power": 0.36115721763330083,
+            "n": 13638,
+            "n_bin": 2764,
+            "period_at_search_boundary": false,
+            "span_d": 25.488951366534366,
+            "metadata": {
+              "TICID": 219765652,
+              "SECTOR": 85,
+              "TESSMAG": 9.33248043,
+              "TEFF": 6140.0,
+              "CROWDSAP": 0.99173224,
+              "FLFRCSAP": 0.94165641,
+              "CAMERA": 4,
+              "CCD": 3,
+              "TIMESYS": "TDB",
+              "TIMEREF": "SOLARSYSTEM",
+              "TIMEUNIT": "d",
+              "BJDREFI": 2457000,
+              "BJDREFF": 0.0,
+              "flux_column": "PDCSAP_FLUX",
+              "original_points": 18357,
+              "usable_points": 13638,
+              "normalization_median": 29561.681640625
+            },
+            "peaks": [
+              {
+                "period_d": 0.33287076287486445,
+                "power": 0.36115721763330083
+              },
+              {
+                "period_d": 0.665215004832405,
+                "power": 0.08039705554617477
+              },
+              {
+                "period_d": 0.3264743713975706,
+                "power": 0.06101615183847544
+              },
+              {
+                "period_d": 0.33952280345329927,
+                "power": 0.053742213471764395
+              },
+              {
+                "period_d": 0.16650127472250975,
+                "power": 0.0490814008700835
+              }
+            ],
+            "period_error_d": null,
+            "epoch": null,
+            "warnings": [
+              "Screening peak only; no correlated-noise false-alarm calibration or physical classification."
+            ],
+            "first_period": 0.33274438705083065,
+            "second_period": 0.3329555887834166,
+            "phase_amplitude_pct": 0.09169545589296968,
+            "phot_scatter_pct": 0.049247686730345526,
+            "sap_power_at_period": 0.36115721763342284,
+            "harmonics_d": [
+              0.16643538143743222,
+              0.33287076287486445,
+              0.6657415257497289
+            ],
+            "bls": {
+              "period_d": 0.6647204119404312,
+              "duration_d": 0.1,
+              "power": 1401.6758435950003,
+              "depth_fraction": 0.0008120569124442057,
+              "note": "Auxiliary box-shaped signal search on binned data; limited duration grid, no false-alarm calibration or classification."
+            }
+          }
+        }
+      },
+      "plot": "s0085-products.png",
+      "plot_sha256": "e92586386a578e06a2768cfbc1e6eaab586ee9dc72f0da4195c9e05bb9f238ee"
+    }
+  ],
+  "errors": [],
+  "conclusions": {
+    "SAP": {
+      "periodic_detected": true,
+      "selected_period_d": 0.6658492780481695,
+      "photometric_period_d": 0.6658492780481695,
+      "period_status": "preferred_lightcurve_cycle",
+      "decision": "periodic_source_unchecked",
+      "source_status": "unchecked",
+      "confirmed_variable": false,
+      "source_evidence": [],
+      "warnings": [],
+      "fractional_period_spread": 4.5013615338371034e-05,
+      "supported_period_groups": [
+        {
+          "period_d": 0.6658492780481695,
+          "gain": 0.2893620953977206,
+          "members": [
+            0.6658642641898072,
+            0.6658342919065318
+          ],
+          "fractional_spread": 4.5013615338371034e-05,
+          "harmonic_of_preferred": true,
+          "conditional_checks": [],
+          "independent_competitor": false
+        },
+        {
+          "period_d": 1.331821504502841,
+          "gain": 0.2842715292154027,
+          "members": [
+            1.3319792201976555,
+            1.3316637888080263
+          ],
+          "fractional_spread": 0.00023684209074769603,
+          "harmonic_of_preferred": true,
+          "conditional_checks": [],
+          "independent_competitor": false
+        }
+      ],
+      "target_candidate": true,
+      "algorithm_revision": "v3.0-development",
+      "epoch_preferred_periods_d": [
+        0.6658642641898072,
+        6.653723864242698
+      ]
+    },
+    "PDCSAP": {
+      "periodic_detected": true,
+      "selected_period_d": 0.6656375581857922,
+      "photometric_period_d": 0.6656375581857922,
+      "period_status": "preferred_lightcurve_cycle",
+      "decision": "periodic_source_unchecked",
+      "source_status": "unchecked",
+      "confirmed_variable": false,
+      "source_evidence": [],
+      "warnings": [],
+      "fractional_period_spread": 0.0001519904278101002,
+      "supported_period_groups": [
+        {
+          "period_d": 0.6656375581857922,
+          "gain": 0.44473718701104287,
+          "members": [
+            0.6656881434544097,
+            0.6655869729171746
+          ],
+          "fractional_spread": 0.0001519904278101002,
+          "harmonic_of_preferred": true,
+          "conditional_checks": [],
+          "independent_competitor": false
+        },
+        {
+          "period_d": 1.3312939482698944,
+          "gain": 0.4391338931661731,
+          "members": [
+            1.3312929969361724,
+            1.3312948996036165
+          ],
+          "fractional_spread": 1.4291865793540135e-06,
+          "harmonic_of_preferred": true,
+          "conditional_checks": [],
+          "independent_competitor": false
+        }
+      ],
+      "target_candidate": true,
+      "algorithm_revision": "v3.0-development",
+      "epoch_preferred_periods_d": [
+        0.6656881434544097,
+        0.6655869729171746
+      ]
+    }
+  },
+  "comparison": {
+    "status": "both_products_agree",
+    "period_hypotheses": [
+      {
+        "product": "SAP",
+        "photometric_period_d": 0.6658492780481695,
+        "selected_period_d": 0.6658492780481695,
+        "period_status": "preferred_lightcurve_cycle",
+        "source_status": "unchecked"
+      },
+      {
+        "product": "PDCSAP",
+        "photometric_period_d": 0.6656375581857922,
+        "selected_period_d": 0.6656375581857922,
+        "period_status": "preferred_lightcurve_cycle",
+        "source_status": "unchecked"
+      }
+    ],
+    "agreed_period_d": 0.6657434181169808,
+    "confirmed_variable": false,
+    "target_candidate": false,
+    "source_status": "not_assessed_by_product_comparison",
+    "note": "SAP and PDCSAP are reductions of the same pixels, not independent observations. Agreement cannot exclude common contamination; disagreement is not automatically proof of overcorrection."
+  }
+}

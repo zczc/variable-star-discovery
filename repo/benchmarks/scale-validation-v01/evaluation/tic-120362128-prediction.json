@@ -1,0 +1,208 @@
+{
+  "id": "tic-120362128",
+  "started_at": "2026-11-11T09:52:00.489538+00:00",
+  "inputs": [
+    {
+      "sector": 14,
+      "uri": "mast:TESS/product/tess2019198215352-s0014-0000000120362128-0150-s_lc.fits",
+      "t_min_mjd": 58682.85542539352,
+      "t_max_mjd": 58709.70644325232,
+      "path": "repo/data/scale-validation-v01/fits/tess2019198215352-s0014-0000000120362128-0150-s_lc.fits.gz",
+      "sha256": "93de27068522a5dc47a54e68f664237febc60d06839be76d48fd76192eaa5845",
+      "raw_sha256": "02a3ecb96291cef93e8f2d2080f8f7120a6eedaeffc82497740b548dcc9249d7",
+      "raw_bytes": 1964160,
+      "compressed_bytes": 1105723
+    },
+    {
+      "sector": 81,
+      "uri": "mast:TESS/product/tess2024196212429-s0081-0000000120362128-0276-s_lc.fits",
+      "t_min_mjd": 60506.05418422454,
+      "t_max_mjd": 60532.678887835646,
+      "path": "repo/data/scale-validation-v01/fits/tess2024196212429-s0081-0000000120362128-0276-s_lc.fits.gz",
+      "sha256": "50db37c61f72054e6b16c30a5fbcba176491c5ebb5315569db3ed88836680cf5",
+      "raw_sha256": "f7795d0a1dffef12d890e18b9a20c086aad03396a65197054b370eaff53314e3",
+      "raw_bytes": 1946880,
+      "compressed_bytes": 1119710
+    }
+  ],
+  "status": "completed",
+  "decision": {
+    "created_at": "2026-11-11T09:52:01.624140+00:00",
+    "config": {
+      "period_tolerance": 0.01,
+      "minimum_pairs": 3,
+      "minimum_relative_difference": 0.01,
+      "minimum_standard_error_ratio": 3.0,
+      "minimum_same_sign_fraction": 0.75,
+      "phase_grid": 256
+    },
+    "selected_period_d": null,
+    "preferred_product": null,
+    "status": "unresolved",
+    "source_status": "needs_independent_source_review",
+    "confirmed_variable": false,
+    "target_candidate": false,
+    "event_checks": [],
+    "short_epoch_checks": [],
+    "note": "Selection concerns a photometric period only; source, novelty and submission readiness are not assessed."
+  },
+  "preliminary_source": {
+    "created_at": "2026-11-11T09:52:01.625176+00:00",
+    "config": {
+      "harmonics": 4,
+      "min_segment_cycles": 3.0,
+      "target_radius_pixels": 1.0,
+      "neighbor_radius_pixels": 0.75,
+      "peak_stability_pixels": 1.0,
+      "neighbor_period_tolerance": 0.02
+    },
+    "period_d": null,
+    "selected_period_d": null,
+    "period_usage": "diagnostic_only_not_selected",
+    "observations": [
+      {
+        "sector": 14,
+        "input": {
+          "sector": 14,
+          "uri": "mast:TESS/product/tess2019198215352-s0014-0000000120362128-0150-s_lc.fits",
+          "t_min_mjd": 58682.85542539352,
+          "t_max_mjd": 58709.70644325232,
+          "path": "repo/data/scale-validation-v01/fits/tess2019198215352-s0014-0000000120362128-0150-s_lc.fits.gz",
+          "sha256": "93de27068522a5dc47a54e68f664237febc60d06839be76d48fd76192eaa5845",
+          "raw_sha256": "02a3ecb96291cef93e8f2d2080f8f7120a6eedaeffc82497740b548dcc9249d7",
+          "raw_bytes": 1964160,
+          "compressed_bytes": 1105723
+        },
+        "auxiliary": {},
+        "pixels": null
+      },
+      {
+        "sector": 81,
+        "input": {
+          "sector": 81,
+          "uri": "mast:TESS/product/tess2024196212429-s0081-0000000120362128-0276-s_lc.fits",
+          "t_min_mjd": 60506.05418422454,
+          "t_max_mjd": 60532.678887835646,
+          "path": "repo/data/scale-validation-v01/fits/tess2024196212429-s0081-0000000120362128-0276-s_lc.fits.gz",
+          "sha256": "50db37c61f72054e6b16c30a5fbcba176491c5ebb5315569db3ed88836680cf5",
+          "raw_sha256": "f7795d0a1dffef12d890e18b9a20c086aad03396a65197054b370eaff53314e3",
+          "raw_bytes": 1946880,
+          "compressed_bytes": 1119710
+        },
+        "auxiliary": {},
+        "pixels": null
+      }
+    ],
+    "errors": [],
+    "conclusion": {
+      "route": "period_review_required",
+      "source_status": "source_evidence_incomplete",
+      "eligible_for_manual_target_review": false,
+      "instrument_cautions": [],
+      "centroid_cautions": [],
+      "missing_auxiliary": [],
+      "confirmed_variable": false,
+      "submission_ready": false,
+      "novelty_assessed": false,
+      "note": "No warning does not prove an astrophysical origin. Pixel agreement is limited by TESS resolution; catalog completeness and unresolved blends need manual review."
+    }
+  },
+  "product_conclusions": {
+    "SAP": {
+      "periodic_detected": true,
+      "selected_period_d": null,
+      "photometric_period_d": 1.6431633358337128,
+      "period_status": "cross_epoch_harmonic_conflict",
+      "decision": "source_caution",
+      "source_status": "needs_review",
+      "confirmed_variable": false,
+      "source_evidence": [],
+      "warnings": [
+        "Periodic auxiliary correlation or SAP/PDC disagreement; cannot attribute the signal automatically.",
+        "Epochs prefer different integer aliases; averaged scores cannot resolve the full cycle."
+      ],
+      "fractional_period_spread": 0.00031419525811776124,
+      "supported_period_groups": [
+        {
+          "period_d": 1.6431633358337128,
+          "gain": 0.7737249808932904,
+          "members": [
+            1.642905198769497,
+            1.6434214728979288
+          ],
+          "fractional_spread": 0.00031419525811776124,
+          "harmonic_of_preferred": true,
+          "conditional_checks": [],
+          "independent_competitor": false
+        },
+        {
+          "period_d": 3.286325073225366,
+          "gain": 0.7826577772998333,
+          "members": [
+            3.286167924533098,
+            3.2864822219176335
+          ],
+          "fractional_spread": 9.563794741313329e-05,
+          "harmonic_of_preferred": true,
+          "conditional_checks": [],
+          "independent_competitor": false
+        }
+      ],
+      "target_candidate": false,
+      "algorithm_revision": "v3.0-development",
+      "epoch_preferred_periods_d": [
+        1.642905198769497,
+        3.2864822219176335
+      ]
+    },
+    "PDCSAP": {
+      "periodic_detected": true,
+      "selected_period_d": null,
+      "photometric_period_d": 1.6431633358337128,
+      "period_status": "half_double_ambiguous",
+      "decision": "source_caution",
+      "source_status": "needs_review",
+      "confirmed_variable": false,
+      "source_evidence": [],
+      "warnings": [
+        "Periodic auxiliary correlation or SAP/PDC disagreement; cannot attribute the signal automatically."
+      ],
+      "fractional_period_spread": 0.00031419525811776124,
+      "supported_period_groups": [
+        {
+          "period_d": 1.6431633358337128,
+          "gain": 0.7856846620570164,
+          "members": [
+            1.642905198769497,
+            1.6434214728979288
+          ],
+          "fractional_spread": 0.00031419525811776124,
+          "harmonic_of_preferred": true,
+          "conditional_checks": [],
+          "independent_competitor": false
+        },
+        {
+          "period_d": 3.286325073225366,
+          "gain": 0.7859555009956285,
+          "members": [
+            3.286167924533098,
+            3.2864822219176335
+          ],
+          "fractional_spread": 9.563794741313329e-05,
+          "harmonic_of_preferred": true,
+          "conditional_checks": [],
+          "independent_competitor": false
+        }
+      ],
+      "target_candidate": false,
+      "algorithm_revision": "v3.0-development",
+      "epoch_preferred_periods_d": [
+        1.642905198769497,
+        1.6434214728979288
+      ]
+    }
+  },
+  "errors": [],
+  "elapsed_seconds": 1.1595979999983683,
+  "completed_at": "2026-11-11T09:52:01.649124+00:00"
+}
