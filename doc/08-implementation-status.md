@@ -99,3 +99,9 @@ repo/.venv/bin/python repo/benchmarks/build_mixed_report.py --run repo/benchmark
 57 项软件测试通过。[最终开发对照](../repo/benchmarks/mixed-v03/index.html) 使用原 36 个案例，34 个完成、2 个不可用。模拟漂移误报 1→0，深浅食检出 2→3（共 4 个），3 个模拟仪器周期均转入来源复核；同时产生过度周期歧义。第一轮第二版的回退结果保留在 `mixed-v02/`。
 
 [新加入的 6 颗真实已知星](../repo/benchmarks/independent-pilot-v01/evaluation/index.html) 在冻结算法后分析，5 颗检出；最终周期 3 颗正确、1 颗双周期错误、1 颗保留歧义、1 颗未通过。新获取的 12 个 FITS、VSX/TIC 身份与 MAST 查询快照已保存。未按这些新结果再次调参，真实安静星反例仍为 0。完整解释见[第二版结果](13-v2-recognition-results.md)。
+
+## 第三版开发重跑（2026-11-11）
+
+第三版已实现 `vstar review-v3`，增加残余周期检查、整数谐波分组、跨时段谐波分歧弃选和窄食逐循环预测。64 项软件测试通过；42 个开发案例、82 段观测已重跑，无运行错误，2 个不可用案例保留。结果见 `doc/14-v3-and-submission-readiness.md`、`repo/benchmarks/mixed-v04/` 与 `repo/benchmarks/former-pilot-v3/`。
+
+原 6 星独立测试组因本轮调试已转为开发样本，旧结果保留。新结果中 SZ Lyn 改为选对，U Sge 的双周期错误改为弃选，但 W UMa 从选对退为弃选；RT Aur 仍漏检。最终正确仍为 3/6；本轮不能作为独立准确率。真实安静星反例仍为零，未知目标筛选和 VSX 投稿仍暂停。下一步复核真实星错误，建立可信实测反例，再冻结规则执行新的独立测试。

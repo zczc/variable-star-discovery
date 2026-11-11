@@ -51,3 +51,5 @@ variable-star-discovery/
 `repo/` 已保存前期试验材料，使用方式见 [代码与实验说明](../repo/README.md)。原始观测文件与代码、图表一起纳入公开仓库，避免后续工作依赖临时目录。
 
 按用户 2026-11-10 的要求，整个工作空间由公开仓库 [zczc/variable-star-discovery](https://github.com/zczc/variable-star-discovery) 管理，同时包含 `doc/` 和 `repo/`。仓库内容现在可公开访问；其中的候选分析不代表已经确认或获得 VSX 认可的新发现。
+
+- [第三版改进与提交条件](14-v3-and-submission-readiness.md)：全部开发重跑、真实星退步，以及筛选验收与 VSX 单星投稿的区别。

@@ -21,3 +21,15 @@
 ## 第二版开发入口
 
 `vstar review-v2 first_lc.fits second_lc.fits --output path/to/new-review` 检查同一 TIC 的不同观测时段，输出周期候选、来源疑点和 HTML 报告。当前仍是开发版，原批量命令不自动采用它。[实际对照及限制](../doc/13-v2-recognition-results.md)。
+
+## 第三版开发入口
+
+```bash
+repo/.venv/bin/vstar review-v3 first_lc.fits second_lc.fits --output path/to/new-review
+repo/.venv/bin/python repo/benchmarks/evaluate_v3.py --mode development --output path/to/new-development
+repo/.venv/bin/python repo/benchmarks/evaluate_v3.py --mode former-pilot-development --output path/to/new-former-pilot
+```
+
+在项目根目录运行，输出目录必须尚不存在。`review-v3` 保留第二版搜索，并增加残余周期证据、整数谐波分组、跨时段歧义处理和窄食逐循环预测；批量 `run` 保持原行为。
+
+[36 个开发案例报告](benchmarks/mixed-v04/index.html)、[原 6 星测试组的开发重跑](benchmarks/former-pilot-v3/index.html)、[完整验收与投稿条件](../doc/14-v3-and-submission-readiness.md)。`v3-integrity-audit.json` 核对 82 段观测、评分前预测、来源及图片校验值和旧结果未改动；它是完整性检查，不是准确率认证。原 `audit_v2.py` 验证历史冻结版本，应在对应 Git 版本运行。

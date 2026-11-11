@@ -32,3 +32,7 @@ RR Lyr 的 TIC 星等字段与其 V 星等明显不一致，身份对应也保�
 [第二版新旧对照](mixed-v03/index.html) · [6 颗新加入的真实已知星](independent-pilot-v01/evaluation/index.html) · [通俗解释](../../doc/13-v2-recognition-results.md)。
 
 第一轮第二版结果保留在 `mixed-v02/`；修正版规则在 `v2-protocol-v02.json`，冻结后运行的开发结果在 `mixed-v03/`。随后没有按新真实样本的成绩再次调参。`independent-pilot-v01/` 保存身份与原始观测来源；独立性仅指这些目标未参与此前算法调试，并不代表随机总体抽样或有足够反例。
+
+## 第三版开发对照
+
+[原开发集重跑](mixed-v04/index.html)与[原 6 星测试组重跑](former-pilot-v3/index.html)已完成。六颗旧测试星已用于调试，现为开发样本；不将重跑称为独立测试。规则见 `v3-protocol-v01.json`，完整性记录见 `v3-integrity-audit.json`，结果与投稿条件见[第三版说明](../../doc/14-v3-and-submission-readiness.md)。

@@ -30,3 +30,5 @@ repo/.venv/bin/vstar run --config repo/configs/historical.toml --offline
 新增[第一轮混合验证解读](doc/12-mixed-validation-results.md)与[图文报告](repo/benchmarks/mixed-v01/index.html)：教学对象 TU Her 的基础来源检查支持信号在目标附近；混合测试同时发现窄食漏检、漂移误报和仪器周期进入候选。识别能力仍未充分验证。
 
 2026-11-11：[第二版识别结果](doc/13-v2-recognition-results.md)已保存。开发集有改善；6 颗新加入的真实已知星中，最终周期 3 颗正确、1 颗双周期错误、2 颗未选择，尚未达到可靠识别的验收目标。
+
+同日完成[第三版改进与投稿条件](doc/14-v3-and-submission-readiness.md)：模拟深浅食与平滑周期分别达到 4/4，真实星仍有弃选和漏检。原 6 星测试组现用于开发，最终正确仍为 3/6；没有新的独立验收结果。
