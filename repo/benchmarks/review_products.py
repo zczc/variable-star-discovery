@@ -42,7 +42,7 @@ def main():
     # Score only after every prediction has been persisted.
     known={c['tic']:c['period_d'] for c in read_json(BENCH/'known-controls.json')['targets']}
     for row,case in zip(record['results'],cases):
-        ref=case.get('reference',{}).get('period_d') or known.get(case.get('tic'))
+        ref=case.get('reference',{}).get('period_d') or known.get(case.get('tic') or case['id'].rsplit('-',1)[-1])
         row['reference_period_d']=ref
         row['score']={name:classify_period(c['selected_period_d'],ref,.01) if ref and c['selected_period_d'] else 'abstained_or_unscored'
                       for name,c in row.get('conclusions',{}).items()}
