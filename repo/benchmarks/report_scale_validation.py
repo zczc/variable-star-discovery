@@ -29,7 +29,7 @@ def main():
         status=p.get('status','pending');g=groups[c['group']];g['selected_inputs']+=1;g[status]+=1
         if selected is not None:g['period_selected']+=1
         if c['group']=='catalog_eb' and p:g[relation]+=1
-        if s and s['status'] in {'completed','incomplete'}:g['source_attempted']+=1;g['source_'+s['status']]+=1
+        if s and s['status'] in {'completed','incomplete','transport_failed'}:g['source_attempted']+=1;g['source_'+s['status']]+=1
         if p:g['route_'+route]+=1
         if p.get('elapsed_seconds'):times.append(p['elapsed_seconds'])
         row={'id':ident,'tic':c['tic'],'group':c['group'],'status':status,'selected_period_d':selected,'catalog_orbital_period_d':reference,'period_relation':relation,'source_route':route,'pixel_review_status':s['status'] if s else 'pending','independent_verdict':'not_completed','confirmed_variable':False,'submission_ready':False}

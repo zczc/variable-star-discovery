@@ -26,6 +26,10 @@ def main():
         if products.exists():
             for obs in read_json(products)['observations']:
                 assert sha256(products.parent/obs['plot'])==obs['plot_sha256'];plots+=1
+        manifest=OUT/'evaluation'/case['id']/'source/source-manifest.json'
+        if manifest.exists():
+            for observation in read_json(manifest)['inputs']:
+                if observation.get('pixels'):inputs.append(observation['pixels'])
         s=OUT/'source-results'/(case['id']+'.json')
         if s.exists():
             source_records+=1;source=read_json(s).get('source_review') or {}
