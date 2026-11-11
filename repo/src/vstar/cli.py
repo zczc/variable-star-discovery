@@ -35,9 +35,17 @@ def main(argv=None):
     products = commands.add_parser("review-products", help="SAP 与 PDCSAP 各自搜索，再检查产品差异")
     products.add_argument("lightcurves", nargs="+", type=Path)
     products.add_argument("--output", required=True, type=Path)
+    adjudication = commands.add_parser("review-v4", help="固定规则下的产品与逐事件周期复核")
+    adjudication.add_argument("lightcurves", nargs="+", type=Path)
+    adjudication.add_argument("--output", required=True, type=Path)
     args = parser.parse_args(argv)
     try:
-        if args.command == "review-products":
+        if args.command == "review-v4":
+            from .adjudication import review_files
+            row, decision = review_files(args.lightcurves, args.output)
+            print(args.output.resolve()/"index.html")
+            return 2 if row["errors"] else 0
+        elif args.command == "review-products":
             from .products import review_products
             row = review_products(args.lightcurves, args.output)
             print(args.output.resolve()/"index.html")

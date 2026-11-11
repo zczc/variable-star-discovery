@@ -1,0 +1,51 @@
+{
+  "frozen_at": "2026-11-11T06:19:29.094886+00:00",
+  "version": "v4.0 period adjudication",
+  "config": {
+    "period_tolerance": 0.01,
+    "minimum_pairs": 3,
+    "minimum_relative_difference": 0.01,
+    "minimum_standard_error_ratio": 3.0,
+    "minimum_same_sign_fraction": 0.75,
+    "phase_grid": 256
+  },
+  "development": "All 13 existing real cases, including unavailable and contaminated targets; outcomes have been inspected during development.",
+  "rules": [
+    "If both products select a period agreeing within1%, retain the median photometric period and source-review status.",
+    "If only one product selects a unique period, require the other product to have a compatible qualified candidate in every epoch and no unresolved nonharmonic decision.",
+    "For that case require positive deep/shallow minima, >=3 adjacent pairs with a mean difference exceeding1% of median depth and3 standard-error proxies, with >=75% same sign. Both same-family sequences must have >=3 pairs and no corresponding alternating-depth evidence, using the SAME local event windows.",
+    "All required event checks must pass every epoch. Source and novelty remain unverified; confirmed_variable and target_candidate remain false.",
+    "Short-epoch diagnostic freezes period/template from a >=3-cycle epoch; phase, amplitude and affine baseline use only the first short cycle. Later brightness is held out. The diagnostic never promotes the final period and is not coherent cycle counting across years."
+  ],
+  "limitations": [
+    "All thresholds are development heuristics, not calibrated false-alarm probabilities or physical binary models.",
+    "Positive minima and no detected same-family alternation do not prove an orbital interpretation.",
+    "No labeled quiet real-star sample. No AAVSO submission."
+  ],
+  "code_files": [
+    {
+      "path": "repo/src/vstar/adjudication.py",
+      "sha256": "2742e78ecdd1eafa7d0cce10b8c73faa0ed715a1d92d0dabeb8c889646de710c"
+    },
+    {
+      "path": "repo/src/vstar/products.py",
+      "sha256": "69745e38f5df3bfa80bdc190d0284e03ea4f3c5fd3cceb7d509cd9e3a6eb248a"
+    },
+    {
+      "path": "repo/src/vstar/screening.py",
+      "sha256": "2d47d095994fc9a58b90c435208ce0d559c604f385ad185d0499d544d299f304"
+    },
+    {
+      "path": "repo/src/vstar/screening_v3.py",
+      "sha256": "b1b40e1c15e3f5661c59e7ab99377db02d5cb9d1c605adc7f65ed95c1f24aa81"
+    },
+    {
+      "path": "repo/src/vstar/review.py",
+      "sha256": "639c9001864cb035e0fcf146741174f4708326520619339a6d8e01ebaa5b6260"
+    },
+    {
+      "path": "repo/src/vstar/eclipse_events.py",
+      "sha256": "9b8f988d48d6bf146dd6aa205f0f514cc6729194ffb85cebb5248c6b6f24d926"
+    }
+  ]
+}
