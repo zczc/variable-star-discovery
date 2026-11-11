@@ -27,9 +27,18 @@ def main(argv=None):
     export.add_argument("tic")
     export.add_argument("--run", type=Path, required=True)
     export.add_argument("--review", type=Path, help="人工复核字段和图片清单 JSON")
+    review = commands.add_parser("review-v2", help="第二版开发规则；分析给定的同一目标多时段 FITS")
+    review.add_argument("lightcurves", nargs="+", type=Path)
+    review.add_argument("--output", required=True, type=Path)
+    review.add_argument("--neighbors", type=Path, help="可选 VSX 邻域条目 JSON 列表")
     args = parser.parse_args(argv)
     try:
-        if args.command == "run":
+        if args.command == "review-v2":
+            from .review import review_files
+            row = review_files(args.lightcurves, args.output, read_json(args.neighbors) if args.neighbors else None)
+            print(args.output.resolve()/"index.html")
+            return 2 if row["errors"] else 0
+        elif args.command == "run":
             root = create_run(load_config(args.config), args.offline, args.limit, args.run_id)
         elif args.command == "resume":
             root = execute_run(args.run)

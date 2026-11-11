@@ -1,0 +1,56 @@
+{
+  "frozen_at": "2026-11-11T01:44:13.716874+00:00",
+  "stage": "development algorithm comparison, not independent population validation",
+  "analysis": {
+    "min_period_days": 0.05,
+    "max_period_days": 8.0,
+    "bin_minutes": 10.0,
+    "samples_per_peak": 8,
+    "min_points": 500,
+    "period_tolerance": 0.05,
+    "use_bls": true
+  },
+  "screening": {
+    "phase_bins": 96,
+    "refinement_points": 31,
+    "refinement_rounds": 2,
+    "frequency_half_width_over_span": 0.4,
+    "min_template_coverage": 0.8,
+    "min_cv_gain": 0.2,
+    "min_fold_gain": 0.1,
+    "indistinguishable_gain": 0.02,
+    "min_cycles": 3,
+    "epoch_period_tolerance": 0.01,
+    "auxiliary_correlation": 0.8,
+    "min_auxiliary_gain": 0.2,
+    "min_sap_gain": 0.1,
+    "eclipse_duty_limit": 0.25,
+    "min_secondary_depth_fraction": 0.15
+  },
+  "development_inputs": "mixed-v01/input-manifest.json",
+  "baseline_results": "mixed-v01/results.json",
+  "algorithm": [
+    "Quadratic plus offsets across gaps >0.5 d, without flux clipping.",
+    "Original and detrended top 3 LS peaks plus original/detrended BLS winners; test half, original and double within 0.05–8 d.",
+    "Two rounds of local frequency refinement using full-data phase templates.",
+    "96-bin periodic interpolation; alternate cycles train/predict each other. Gain >=20%, both folds >=10%, coverage >=80%, at least 3 cycles. These scores are not calibrated false-alarm probabilities.",
+    "Prefer the smallest half/original/double alias within 2 percentage points of best predictive gain; retain nonharmonic competitors.",
+    "Narrow dip without clear secondary, or unresolved half-cycle difference, retains orbital ambiguity.",
+    "Require all observed epochs to detect and agree within 1%; no silent dropping of a failed epoch.",
+    "Auxiliary periodic correlation |r|>=0.8 and predictive gain >=20%, or SAP disagreement, causes source-review status. Correlation is not proof of instrumental origin.",
+    "Existing pixel localization checks supplied TPF data and known neighbors. No new catalog lookup is required for offline decisions."
+  ],
+  "metrics": [
+    "periodic-signal detection, by real/synthetic family",
+    "preferred cycle accuracy (1%); abstentions stay in the denominator",
+    "photometric P/2 recovery of equal eclipses separately from orbital ambiguity",
+    "source cautions, confirmed-variable count always zero",
+    "per-case old/new outcomes, all errors and unavailable inputs"
+  ],
+  "limitations": [
+    "Development thresholds are motivated by observed v1 failures and software fixtures, not learned from an untouched test sample.",
+    "Both candidate search and refinement reuse the cross-cycle data; no frequentist significance claim.",
+    "No independently labeled quiet real-star negatives yet; population false-positive rate unavailable.",
+    "Results and input hashes from v1 must remain unchanged."
+  ]
+}
