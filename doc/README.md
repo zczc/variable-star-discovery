@@ -61,3 +61,5 @@ variable-star-discovery/
 - [实测背景中的信号能找回多少](17-real-residuals-and-standard-controls.md)：34 个实测残差案例、三颗标准星检查、弱信号与原星残留周期的错误。
 
 - [标准星背景下的识别边界](18-standard-star-injection-results.md)：144 个直接注入、不同食持续时间的恢复表现，以及预测门槛和三倍周期分歧导致的弃选。
+
+- [先检查选出的信号是否可靠](19-precision-first-source-review.md)：精确率优先的新取向、来源审查、仪器耦合挑战、真实邻星污染和目标对照。

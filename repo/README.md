@@ -53,3 +53,9 @@ repo/.venv/bin/python repo/benchmarks/evaluate_v3.py --mode former-pilot-develop
 [标准星注入实验](benchmarks/standard-injection-v01/README.md) 在三颗星的两个时段中加入不同周期、幅度及食持续时间的信号；147 个案例均已完成，检测规则保持 v4。[完整报告](benchmarks/standard-injection-v01/evaluation/index.html) 与 [失败诊断](benchmarks/standard-injection-v01/evaluation/diagnostics.html) 区分重复信号、合格周期候选和最终选择。
 
 人工输入缓存可以用 `repo/.venv/bin/python repo/benchmarks/run_standard_injection.py rebuild --case all` 从已公开的六份原始观测重建并核对哈希。标准星背景、同星注入均有明确的统计限制，不能当作总体准确率或误报率。详见 [中文说明](../doc/18-standard-star-injection-results.md)。
+
+### 精确率优先的来源审查
+
+新增 `python -m vstar.source_review --manifest <来源输入 JSON> --output <新目录> --root <项目根目录>`：在 v4 周期判断之后，检查选定周期上的背景、指向、质心以及全段/前后半段像素信号位置。输出仪器复核、邻星污染、来源不足或人工目标复核，不自动确认变星。
+
+[首轮报告](benchmarks/precision-audit-v01/evaluation/index.html) 包含 39 个人工强信号场景与 3 个真实开发对象；[中文说明](../doc/19-precision-first-source-review.md) 解释被暂停的仪器耦合信号、真实邻星来源和保留的 TU Her。人工输入由 `benchmarks/rebuild_precision_inputs.py --case all` 确定性重建，原始数据与预期哈希保留。旧检测与周期规则未改，当前优先精确率，弱信号召回提升暂缓。
