@@ -59,3 +59,20 @@ def test_materialization_retains_measurement_columns_and_marks_artificial(tmp_pa
             np.testing.assert_allclose((h[1].data[product+'_FLUX']-z[1].data[product+'_FLUX'])[good]/scale,
                                        injected_signal(t[good], spec, 0), atol=1e-15)
         assert h[1].data['SAP_FLUX'][20] == y[20]
+
+
+def test_runner_passes_paths_without_truth_to_detector(tmp_path, monkeypatch):
+    import run_empirical_injection as runner
+    from vstar.io import sha256, write_json
+    monkeypatch.setattr(runner, 'ROOT', tmp_path)
+    monkeypatch.setattr(runner, 'OUT', tmp_path/'experiment')
+    source = tmp_path/'example.fits'; source.write_bytes(b'fixture')
+    write_json(tmp_path/'repo/benchmarks/adjudication-protocol-v01.json', {'config': {}})
+    received = []
+    def review(paths, folder, identity):
+        received.append(paths); assert paths == [source]
+        return {'observations': [], 'errors': []}
+    monkeypatch.setattr(runner, 'review_products', review)
+    monkeypatch.setattr(runner, 'adjudicate', lambda *args: {'selected_period_d': None})
+    result = runner.analyze_case({'id': 'case', 'inputs': [{'path': 'example.fits', 'sha256': sha256(source)}]})
+    assert result['status'] == 'completed' and received

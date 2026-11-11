@@ -17,8 +17,14 @@ PROTOCOL = OUT/'protocol.json'
 
 def verify_protocol():
     protocol = read_json(PROTOCOL)
+    amendment_path = OUT/'execution-amendment.json'
+    amendment = read_json(amendment_path) if amendment_path.exists() else None
     for item in protocol['frozen_files']:
-        if sha256(ROOT/item['path']) != item['sha256']:
+        expected = item['sha256']
+        if amendment and item['path'] == amendment['path']:
+            if expected != amendment['original_sha256']: raise ValueError('Amendment base mismatch')
+            expected = amendment['replacement_sha256']
+        if sha256(ROOT/item['path']) != expected:
             raise ValueError('Frozen file changed: '+item['path'])
     return protocol
 
@@ -62,7 +68,7 @@ def analyze_case(case):
     try:
         for item in case['inputs']:
             if sha256(ROOT/item['path']) != item['sha256']: raise ValueError('Injected FITS hash mismatch')
-        products = review_products([ROOT[i['path']] for i in case['inputs']], folder, identity=ident)
+        products = review_products([ROOT/i['path'] for i in case['inputs']], folder, identity=ident)
         for obs in products['observations']:
             obs['input']['path'] = str(Path(obs['input']['path']).relative_to(ROOT))
         write_json(folder/'case.json', products)
