@@ -1,13 +1,371 @@
 {
   "id": "tic-167891326",
-  "status": "transport_failed",
-  "created_at": "2026-11-11T19:26:20.116667+00:00",
-  "source_review": {},
-  "acquisition_errors": [
-    {
-      "uri": "mast:TESS/product/tess2018206045859-s0001-0000000167891326-0120-s_tp.fits",
-      "error": "HTTPSConnectionPool(host='mast.stsci.edu', port=443): Max retries exceeded with url: /api/v0.1/Download/file?uri=mast%3ATESS%2Fproduct%2Ftess2018206045859-s0001-0000000167891326-0120-s_tp.fits (Caused by NameResolutionError(\"HTTPSConnection(host='mast.stsci.edu', port=443): Failed to resolve 'mast.stsci.edu' ([Errno 8] nodename nor servname provided, or not known)\"))"
+  "status": "completed",
+  "created_at": "2026-11-12T04:36:55.250083+00:00",
+  "source_review": {
+    "created_at": "2026-11-12T04:36:54.201975+00:00",
+    "config": {
+      "harmonics": 4,
+      "min_segment_cycles": 3.0,
+      "target_radius_pixels": 1.0,
+      "neighbor_radius_pixels": 0.75,
+      "peak_stability_pixels": 1.0,
+      "neighbor_period_tolerance": 0.02
+    },
+    "period_d": 0.6335889267659544,
+    "selected_period_d": null,
+    "period_usage": "diagnostic_only_not_selected",
+    "observations": [
+      {
+        "sector": 1,
+        "input": {
+          "sector": 1,
+          "uri": "mast:TESS/product/tess2018206045859-s0001-0000000167891326-0120-s_lc.fits",
+          "t_min_mjd": 58324.79219313657,
+          "t_max_mjd": 58352.675398657404,
+          "path": "repo/data/scale-validation-v01/fits/tess2018206045859-s0001-0000000167891326-0120-s_lc.fits.gz",
+          "sha256": "b1a5b71f6bc49831917267b9874782c29d29e2972db02bd2f95c5cdabc6486ed",
+          "raw_sha256": "d41ed43555521383db1ae99c2336f95cf0fe7c792eabb1167985444aecedc03c",
+          "raw_bytes": 2039040,
+          "compressed_bytes": 1205338,
+          "pixels": {
+            "uri": "mast:TESS/product/tess2018206045859-s0001-0000000167891326-0120-s_tp.fits",
+            "path": "repo/data/scale-validation-v01/fits/tess2018206045859-s0001-0000000167891326-0120-s_tp.fits.gz",
+            "sha256": "65863576a18eb8e382e350910790ec67de71d8b857fb9eb3e6f170dcc8ee99f7",
+            "raw_sha256": "bbbb703e8607a5825d41c9e804c2cfd05e8d3bddfe950c7fd4f04e90ab0ba48b",
+            "raw_bytes": 49184640,
+            "compressed_bytes": 23040136
+          }
+        },
+        "auxiliary": {
+          "SAP": [
+            {
+              "name": "SAP_BKG",
+              "status": "no_strong_correlation",
+              "correlation": -0.39244457059686183,
+              "periodic_gain": -0.008507156706621721,
+              "source_caution": false,
+              "note": "Correlation motivates source review; stellar variability can itself shift centroids. This is not proof of instrumental origin."
+            },
+            {
+              "name": "POS_CORR1",
+              "status": "no_strong_correlation",
+              "correlation": 0.2981757550399906,
+              "periodic_gain": -0.010980941165485314,
+              "source_caution": false,
+              "note": "Correlation motivates source review; stellar variability can itself shift centroids. This is not proof of instrumental origin."
+            },
+            {
+              "name": "POS_CORR2",
+              "status": "no_strong_correlation",
+              "correlation": -0.09749615496580259,
+              "periodic_gain": -0.0406025755406072,
+              "source_caution": false,
+              "note": "Correlation motivates source review; stellar variability can itself shift centroids. This is not proof of instrumental origin."
+            },
+            {
+              "name": "MOM_CENTR1",
+              "status": "no_strong_correlation",
+              "correlation": 0.29238523554369095,
+              "periodic_gain": -0.011142199362067728,
+              "source_caution": false,
+              "note": "Correlation motivates source review; stellar variability can itself shift centroids. This is not proof of instrumental origin."
+            },
+            {
+              "name": "MOM_CENTR2",
+              "status": "no_strong_correlation",
+              "correlation": -0.13947234286915175,
+              "periodic_gain": -0.03762997810712787,
+              "source_caution": false,
+              "note": "Correlation motivates source review; stellar variability can itself shift centroids. This is not proof of instrumental origin."
+            }
+          ],
+          "PDCSAP": [
+            {
+              "name": "SAP_BKG",
+              "status": "no_strong_correlation",
+              "correlation": 0.019976699285214432,
+              "periodic_gain": -0.008507156706621721,
+              "source_caution": false,
+              "note": "Correlation motivates source review; stellar variability can itself shift centroids. This is not proof of instrumental origin."
+            },
+            {
+              "name": "POS_CORR1",
+              "status": "no_strong_correlation",
+              "correlation": 0.024823065014610214,
+              "periodic_gain": -0.010980941165485314,
+              "source_caution": false,
+              "note": "Correlation motivates source review; stellar variability can itself shift centroids. This is not proof of instrumental origin."
+            },
+            {
+              "name": "POS_CORR2",
+              "status": "no_strong_correlation",
+              "correlation": 0.006030277638892693,
+              "periodic_gain": -0.0406025755406072,
+              "source_caution": false,
+              "note": "Correlation motivates source review; stellar variability can itself shift centroids. This is not proof of instrumental origin."
+            },
+            {
+              "name": "MOM_CENTR1",
+              "status": "no_strong_correlation",
+              "correlation": 0.023873256272067458,
+              "periodic_gain": -0.011142199362067728,
+              "source_caution": false,
+              "note": "Correlation motivates source review; stellar variability can itself shift centroids. This is not proof of instrumental origin."
+            },
+            {
+              "name": "MOM_CENTR2",
+              "status": "no_strong_correlation",
+              "correlation": 0.008425932927325087,
+              "periodic_gain": -0.03762997810712787,
+              "source_caution": false,
+              "note": "Correlation motivates source review; stellar variability can itself shift centroids. This is not proof of instrumental origin."
+            }
+          ]
+        },
+        "pixels": {
+          "status": "off_target_signal",
+          "target_pixel": [
+            5.298993178685906,
+            5.116017741837737
+          ],
+          "segments": [
+            {
+              "segment": "full",
+              "peak_pixel": [
+                6,
+                0
+              ],
+              "target_distance_pixels": 5.163821075359544
+            },
+            {
+              "segment": "first_half",
+              "peak_pixel": [
+                6,
+                0
+              ],
+              "target_distance_pixels": 5.163821075359544
+            },
+            {
+              "segment": "second_half",
+              "peak_pixel": [
+                6,
+                0
+              ],
+              "target_distance_pixels": 5.163821075359544
+            }
+          ],
+          "stable_peak": true,
+          "maximum_peak_displacement_pixels": 0.0,
+          "compatible_neighbors": [],
+          "note": "Peak pixels from full/half data are not independent measurements or localization uncertainties. Unresolved neighbors and common instrumental effects remain possible.",
+          "period_d": 0.6335889267659544,
+          "tic": 167891326,
+          "sector": 1,
+          "config": {
+            "harmonics": 4,
+            "min_segment_cycles": 3.0,
+            "target_radius_pixels": 1.0,
+            "neighbor_radius_pixels": 0.75,
+            "peak_stability_pixels": 1.0,
+            "neighbor_period_tolerance": 0.02
+          },
+          "pixels": {
+            "path": "repo/data/scale-validation-v01/fits/tess2018206045859-s0001-0000000167891326-0120-s_tp.fits.gz",
+            "sha256": "65863576a18eb8e382e350910790ec67de71d8b857fb9eb3e6f170dcc8ee99f7"
+          },
+          "lightcurve": {
+            "path": "repo/data/scale-validation-v01/fits/tess2018206045859-s0001-0000000167891326-0120-s_lc.fits.gz",
+            "sha256": "b1a5b71f6bc49831917267b9874782c29d29e2972db02bd2f95c5cdabc6486ed"
+          },
+          "plot": "s1-pixels.png",
+          "plot_sha256": "b3ee3ad1ca52c41ed05be7c0f82357907b14017e3ee8ec2481d4ccf360acf361",
+          "matched_samples": 18279
+        }
+      },
+      {
+        "sector": 13,
+        "input": {
+          "sector": 13,
+          "uri": "mast:TESS/product/tess2019169103026-s0013-0000000167891326-0146-s_lc.fits",
+          "t_min_mjd": 58653.418810902775,
+          "t_max_mjd": 58681.856002106484,
+          "path": "repo/data/scale-validation-v01/fits/tess2019169103026-s0013-0000000167891326-0146-s_lc.fits.gz",
+          "sha256": "9d87ccda675515e0cbcb6da06072ba643ccaebf3e0c8899962e93b086bb27ee0",
+          "raw_sha256": "150ea9f7fe6db17b3a230ed6f72259e93547dc7e66d49b39c00276f0fa182912",
+          "raw_bytes": 2079360,
+          "compressed_bytes": 1246650,
+          "pixels": {
+            "uri": "mast:TESS/product/tess2019169103026-s0013-0000000167891326-0146-s_tp.fits",
+            "path": "repo/data/scale-validation-v01/fits/tess2019169103026-s0013-0000000167891326-0146-s_tp.fits.gz",
+            "sha256": "a3617bb943b47e1776c11a0917d2f1802b32be2d327286831163e6f384b75662",
+            "raw_sha256": "033cbf4ea050352fbe753845b5d10bb08d27e8aea4ac85393ae56cc475bc2b2b",
+            "raw_bytes": 50172480,
+            "compressed_bytes": 23761981
+          }
+        },
+        "auxiliary": {
+          "SAP": [
+            {
+              "name": "SAP_BKG",
+              "status": "no_strong_correlation",
+              "correlation": -0.07814373077313183,
+              "periodic_gain": -0.010098700071357047,
+              "source_caution": false,
+              "note": "Correlation motivates source review; stellar variability can itself shift centroids. This is not proof of instrumental origin."
+            },
+            {
+              "name": "POS_CORR1",
+              "status": "no_strong_correlation",
+              "correlation": -0.0010312835543976467,
+              "periodic_gain": -0.020907759972947693,
+              "source_caution": false,
+              "note": "Correlation motivates source review; stellar variability can itself shift centroids. This is not proof of instrumental origin."
+            },
+            {
+              "name": "POS_CORR2",
+              "status": "no_strong_correlation",
+              "correlation": 0.016292459537511794,
+              "periodic_gain": -0.05209922855924409,
+              "source_caution": false,
+              "note": "Correlation motivates source review; stellar variability can itself shift centroids. This is not proof of instrumental origin."
+            },
+            {
+              "name": "MOM_CENTR1",
+              "status": "no_strong_correlation",
+              "correlation": 0.007994667245306328,
+              "periodic_gain": -0.020732074343865925,
+              "source_caution": false,
+              "note": "Correlation motivates source review; stellar variability can itself shift centroids. This is not proof of instrumental origin."
+            },
+            {
+              "name": "MOM_CENTR2",
+              "status": "no_strong_correlation",
+              "correlation": 0.010055548008011997,
+              "periodic_gain": -0.046370783951593664,
+              "source_caution": false,
+              "note": "Correlation motivates source review; stellar variability can itself shift centroids. This is not proof of instrumental origin."
+            }
+          ],
+          "PDCSAP": [
+            {
+              "name": "SAP_BKG",
+              "status": "no_strong_correlation",
+              "correlation": 0.035611348024397846,
+              "periodic_gain": -0.010098700071357047,
+              "source_caution": false,
+              "note": "Correlation motivates source review; stellar variability can itself shift centroids. This is not proof of instrumental origin."
+            },
+            {
+              "name": "POS_CORR1",
+              "status": "no_strong_correlation",
+              "correlation": 0.020322066456514163,
+              "periodic_gain": -0.020907759972947693,
+              "source_caution": false,
+              "note": "Correlation motivates source review; stellar variability can itself shift centroids. This is not proof of instrumental origin."
+            },
+            {
+              "name": "POS_CORR2",
+              "status": "no_strong_correlation",
+              "correlation": 0.00889683440377164,
+              "periodic_gain": -0.05209922855924409,
+              "source_caution": false,
+              "note": "Correlation motivates source review; stellar variability can itself shift centroids. This is not proof of instrumental origin."
+            },
+            {
+              "name": "MOM_CENTR1",
+              "status": "no_strong_correlation",
+              "correlation": 0.015416868384727632,
+              "periodic_gain": -0.020732074343865925,
+              "source_caution": false,
+              "note": "Correlation motivates source review; stellar variability can itself shift centroids. This is not proof of instrumental origin."
+            },
+            {
+              "name": "MOM_CENTR2",
+              "status": "no_strong_correlation",
+              "correlation": 0.013523031102229754,
+              "periodic_gain": -0.046370783951593664,
+              "source_caution": false,
+              "note": "Correlation motivates source review; stellar variability can itself shift centroids. This is not proof of instrumental origin."
+            }
+          ]
+        },
+        "pixels": {
+          "status": "inconsistent_pixel_maps",
+          "target_pixel": [
+            5.719919340513592,
+            5.479620130572953
+          ],
+          "segments": [
+            {
+              "segment": "full",
+              "peak_pixel": [
+                5,
+                6
+              ],
+              "target_distance_pixels": 0.8883012244449718
+            },
+            {
+              "segment": "first_half",
+              "peak_pixel": [
+                6,
+                5
+              ],
+              "target_distance_pixels": 0.5554103397211448
+            },
+            {
+              "segment": "second_half",
+              "peak_pixel": [
+                5,
+                6
+              ],
+              "target_distance_pixels": 0.8883012244449718
+            }
+          ],
+          "stable_peak": false,
+          "maximum_peak_displacement_pixels": 1.4142135623730951,
+          "compatible_neighbors": [],
+          "note": "Peak pixels from full/half data are not independent measurements or localization uncertainties. Unresolved neighbors and common instrumental effects remain possible.",
+          "period_d": 0.6335889267659544,
+          "tic": 167891326,
+          "sector": 13,
+          "config": {
+            "harmonics": 4,
+            "min_segment_cycles": 3.0,
+            "target_radius_pixels": 1.0,
+            "neighbor_radius_pixels": 0.75,
+            "peak_stability_pixels": 1.0,
+            "neighbor_period_tolerance": 0.02
+          },
+          "pixels": {
+            "path": "repo/data/scale-validation-v01/fits/tess2019169103026-s0013-0000000167891326-0146-s_tp.fits.gz",
+            "sha256": "a3617bb943b47e1776c11a0917d2f1802b32be2d327286831163e6f384b75662"
+          },
+          "lightcurve": {
+            "path": "repo/data/scale-validation-v01/fits/tess2019169103026-s0013-0000000167891326-0146-s_lc.fits.gz",
+            "sha256": "9d87ccda675515e0cbcb6da06072ba643ccaebf3e0c8899962e93b086bb27ee0"
+          },
+          "plot": "s13-pixels.png",
+          "plot_sha256": "004718e18b5348ce68b9957ef95b3a503efb67f9a5bb57a0a89b711653b4ec20",
+          "matched_samples": 17224
+        }
+      }
+    ],
+    "errors": [],
+    "conclusion": {
+      "route": "exclude_signal_from_target",
+      "source_status": "off_target_signal",
+      "eligible_for_manual_target_review": false,
+      "instrument_cautions": [],
+      "centroid_cautions": [],
+      "missing_auxiliary": [],
+      "confirmed_variable": false,
+      "submission_ready": false,
+      "novelty_assessed": false,
+      "note": "No warning does not prove an astrophysical origin. Pixel agreement is limited by TESS resolution; catalog completeness and unresolved blends need manual review."
     }
-  ],
-  "meaning": "No source conclusion; preserve transport failure for retry/audit"
+  },
+  "acquisition_errors": [],
+  "catalog_scope": "TESS-EBs frozen catalog only, not exhaustive neighbor identification",
+  "diagnostic_period_origin": "nearest catalog EB; source-only diagnostic"
 }

@@ -1,13 +1,45 @@
 {
   "id": "tic-150300654",
-  "status": "transport_failed",
-  "created_at": "2026-11-11T19:26:19.965406+00:00",
-  "source_review": {},
-  "acquisition_errors": [
-    {
-      "uri": "mast:TESS/product/tess2019112060037-s0011-0000000150300654-0143-s_tp.fits",
-      "error": "HTTPSConnectionPool(host='mast.stsci.edu', port=443): Max retries exceeded with url: /api/v0.1/Download/file?uri=mast%3ATESS%2Fproduct%2Ftess2019112060037-s0011-0000000150300654-0143-s_tp.fits (Caused by NameResolutionError(\"HTTPSConnection(host='mast.stsci.edu', port=443): Failed to resolve 'mast.stsci.edu' ([Errno 8] nodename nor servname provided, or not known)\"))"
+  "status": "incomplete",
+  "created_at": "2026-11-12T04:36:50.691058+00:00",
+  "source_review": {
+    "created_at": "2026-11-12T04:36:50.137423+00:00",
+    "config": {
+      "harmonics": 4,
+      "min_segment_cycles": 3.0,
+      "target_radius_pixels": 1.0,
+      "neighbor_radius_pixels": 0.75,
+      "peak_stability_pixels": 1.0,
+      "neighbor_period_tolerance": 0.02
+    },
+    "period_d": 5.449885611668085,
+    "selected_period_d": 5.449885611668085,
+    "period_usage": "selected_by_v4",
+    "observations": [],
+    "errors": [
+      {
+        "path": "repo/data/scale-validation-v01/fits/tess2019112060037-s0011-0000000150300654-0143-s_lc.fits.gz",
+        "error": "Insufficient pixel segment cycles: first_half"
+      },
+      {
+        "path": "repo/data/scale-validation-v01/fits/tess2025232030459-s0096-0000000150300654-0293-s_lc.fits.gz",
+        "error": "Insufficient pixel segment cycles: first_half"
+      }
+    ],
+    "conclusion": {
+      "route": "analysis_failed",
+      "source_status": "source_evidence_incomplete",
+      "eligible_for_manual_target_review": false,
+      "instrument_cautions": [],
+      "centroid_cautions": [],
+      "missing_auxiliary": [],
+      "confirmed_variable": false,
+      "submission_ready": false,
+      "novelty_assessed": false,
+      "note": "No warning does not prove an astrophysical origin. Pixel agreement is limited by TESS resolution; catalog completeness and unresolved blends need manual review."
     }
-  ],
-  "meaning": "No source conclusion; preserve transport failure for retry/audit"
+  },
+  "acquisition_errors": [],
+  "catalog_scope": "TESS-EBs frozen catalog only, not exhaustive neighbor identification",
+  "diagnostic_period_origin": null
 }

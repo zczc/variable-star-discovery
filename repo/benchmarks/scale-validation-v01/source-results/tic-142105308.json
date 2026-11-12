@@ -1,13 +1,66 @@
 {
   "id": "tic-142105308",
-  "status": "transport_failed",
-  "created_at": "2026-11-11T19:26:19.829412+00:00",
-  "source_review": {},
-  "acquisition_errors": [
-    {
-      "uri": "mast:TESS/product/tess2018234235059-s0002-0000000142105308-0121-s_tp.fits",
-      "error": "HTTPSConnectionPool(host='mast.stsci.edu', port=443): Max retries exceeded with url: /api/v0.1/Download/file?uri=mast%3ATESS%2Fproduct%2Ftess2018234235059-s0002-0000000142105308-0121-s_tp.fits (Caused by NameResolutionError(\"HTTPSConnection(host='mast.stsci.edu', port=443): Failed to resolve 'mast.stsci.edu' ([Errno 8] nodename nor servname provided, or not known)\"))"
+  "status": "not_requested",
+  "reason": "no selected period, or unavailable analysis; no target-source claim",
+  "source_review": {
+    "created_at": "2026-11-11T10:15:00.154350+00:00",
+    "config": {
+      "harmonics": 4,
+      "min_segment_cycles": 3.0,
+      "target_radius_pixels": 1.0,
+      "neighbor_radius_pixels": 0.75,
+      "peak_stability_pixels": 1.0,
+      "neighbor_period_tolerance": 0.02
+    },
+    "period_d": null,
+    "selected_period_d": null,
+    "period_usage": "diagnostic_only_not_selected",
+    "observations": [
+      {
+        "sector": 2,
+        "input": {
+          "sector": 2,
+          "uri": "mast:TESS/product/tess2018234235059-s0002-0000000142105308-0121-s_lc.fits",
+          "t_min_mjd": 58353.606784814816,
+          "t_max_mjd": 58381.01342472222,
+          "path": "repo/data/scale-validation-v01/fits/tess2018234235059-s0002-0000000142105308-0121-s_lc.fits.gz",
+          "sha256": "8edabb7e7a73d115b2115860b396cb68bed64374dc847b3deb411c3c91029779",
+          "raw_sha256": "9bd3fd4795a843f8f8553e684ee313454f645f69707d12f5128a329c8d9178dd",
+          "raw_bytes": 2004480,
+          "compressed_bytes": 1151530
+        },
+        "auxiliary": {},
+        "pixels": null
+      },
+      {
+        "sector": 98,
+        "input": {
+          "sector": 98,
+          "uri": "mast:TESS/product/tess2025312202959-s0098-0000000142105308-0298-s_lc.fits",
+          "t_min_mjd": 60987.99892459491,
+          "t_max_mjd": 61045.39761414352,
+          "path": "repo/data/scale-validation-v01/fits/tess2025312202959-s0098-0000000142105308-0298-s_lc.fits.gz",
+          "sha256": "733d0ad7cbba4ffd57c91d98175ae0dd3ef0766148324062d3c742b0da436fa6",
+          "raw_sha256": "c74fc79a172c03e790c3ba3d076ba40d2743603b43104d2974dd04d3f588ffea",
+          "raw_bytes": 4164480,
+          "compressed_bytes": 2367241
+        },
+        "auxiliary": {},
+        "pixels": null
+      }
+    ],
+    "errors": [],
+    "conclusion": {
+      "route": "period_review_required",
+      "source_status": "source_evidence_incomplete",
+      "eligible_for_manual_target_review": false,
+      "instrument_cautions": [],
+      "centroid_cautions": [],
+      "missing_auxiliary": [],
+      "confirmed_variable": false,
+      "submission_ready": false,
+      "novelty_assessed": false,
+      "note": "No warning does not prove an astrophysical origin. Pixel agreement is limited by TESS resolution; catalog completeness and unresolved blends need manual review."
     }
-  ],
-  "meaning": "No source conclusion; preserve transport failure for retry/audit"
+  }
 }

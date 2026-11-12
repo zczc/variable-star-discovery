@@ -1,13 +1,45 @@
 {
   "id": "tic-297899564",
-  "status": "transport_failed",
-  "created_at": "2026-11-12T00:05:11.146607+00:00",
-  "source_review": {},
-  "acquisition_errors": [
-    {
-      "uri": "mast:TESS/product/tess2024142205832-s0079-0000000297899564-0274-s_tp.fits",
-      "error": "HTTPSConnectionPool(host='stpubdata.s3.us-east-1.amazonaws.com', port=443): Read timed out. (read timeout=45)"
+  "status": "incomplete",
+  "created_at": "2026-11-12T04:37:04.356126+00:00",
+  "source_review": {
+    "created_at": "2026-11-12T04:37:03.794763+00:00",
+    "config": {
+      "harmonics": 4,
+      "min_segment_cycles": 3.0,
+      "target_radius_pixels": 1.0,
+      "neighbor_radius_pixels": 0.75,
+      "peak_stability_pixels": 1.0,
+      "neighbor_period_tolerance": 0.02
+    },
+    "period_d": 7.967770413660075,
+    "selected_period_d": 7.967770413660075,
+    "period_usage": "selected_by_v4",
+    "observations": [],
+    "errors": [
+      {
+        "path": "repo/data/scale-validation-v01/fits/tess2019331140908-s0019-0000000297899564-0164-s_lc.fits.gz",
+        "error": "Insufficient pixel segment cycles: first_half"
+      },
+      {
+        "path": "repo/data/scale-validation-v01/fits/tess2024142205832-s0079-0000000297899564-0274-s_lc.fits.gz",
+        "error": "Insufficient pixel segment cycles: first_half"
+      }
+    ],
+    "conclusion": {
+      "route": "analysis_failed",
+      "source_status": "source_evidence_incomplete",
+      "eligible_for_manual_target_review": false,
+      "instrument_cautions": [],
+      "centroid_cautions": [],
+      "missing_auxiliary": [],
+      "confirmed_variable": false,
+      "submission_ready": false,
+      "novelty_assessed": false,
+      "note": "No warning does not prove an astrophysical origin. Pixel agreement is limited by TESS resolution; catalog completeness and unresolved blends need manual review."
     }
-  ],
-  "meaning": "No source conclusion; preserve transport failure for retry/audit"
+  },
+  "acquisition_errors": [],
+  "catalog_scope": "TESS-EBs frozen catalog only, not exhaustive neighbor identification",
+  "diagnostic_period_origin": null
 }
