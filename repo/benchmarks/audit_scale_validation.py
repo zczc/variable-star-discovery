@@ -65,6 +65,15 @@ def main():
             assert sha256(OUT/evidence['path'])==evidence['sha256']
     for path in (OUT/'reference-followup').glob('*.figure.json'):
         figure=read_json(path);assert sha256(path.parent/figure['plot'])==figure['sha256']
+    decision_audit=OUT/'reference-followup/decision-path-audit.json'
+    if decision_audit.exists():
+        for row in read_json(decision_audit)['records']:
+            prediction=OUT/'evaluation'/(row['id']+'-prediction.json')
+            assert sha256(prediction)==row['prediction_sha256']
+            decision=read_json(prediction)['decision']
+            assert decision['selected_period_d'] is not None
+            assert decision['status']==row['decision_status']
+            assert len(decision['event_checks'])==row['event_check_count']
     sample_path=OUT/'source-sample.json';sample_checked=False
     if sample_path.exists():
         from run_scale_source_sample import choose

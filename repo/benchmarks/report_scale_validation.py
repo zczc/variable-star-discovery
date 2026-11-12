@@ -11,7 +11,7 @@ ROOT=Path(__file__).resolve().parents[2];OUT=ROOT/'repo/benchmarks/scale-validat
 GROUPS={'catalog_eb':'目录食双星','neighbor_risk':'邻星风险对象','field_unlabelled':'未标注普通目标'}
 RELATIONS={'not_evaluable':'未能评估周期','catalog_period_match':'与目录周期一致','half_catalog_period':'约为目录一半','double_catalog_period':'约为目录两倍','other_period':'与目录不同','no_reference':'暂无参考周期','abstained':'未选定周期','pending':'尚未分析'}
 RUNLABEL={'completed':'分析完成','pending':'等待分析','unavailable':'数据不可用','failed':'分析失败'}
-ROUTES={'not_reviewed':'尚未复核','manual_target_review':'目标位置获支持，待人工复核','period_review_required':'周期待查','instrument_review_required':'仪器复核','source_evidence_required':'来源证据不足','exclude_signal_from_target':'程序建议排除该信号','analysis_failed':'来源分析未完成，见原因','transport_failed':'像素下载失败，来源待查'}
+ROUTES={'not_reviewed':'尚未复核','manual_target_review':'目标位置获支持，待人工复核','period_review_required':'周期待查','instrument_review_required':'仪器复核','source_evidence_required':'来源证据不足','exclude_signal_from_target':'程序建议排除该信号','analysis_failed':'来源分析未完成，见原因','transport_failed':'上次来源任务下载失败，待重试'}
 
 def main():
     targets=read_json(OUT/'targets.json');rows=[];groups={g:Counter() for g in GROUPS};times=[]
@@ -46,6 +46,7 @@ def main():
             entry+='<p>未完成原因：'+escape('; '.join(e['error'] for e in s['source_review']['errors']))+'</p>'
         if s and (folder/'source/source-review.json').exists():
             entry+='<p><a href="source/source-review.json">完整来源判据</a> · <a href="source/source-manifest.json">来源复现输入</a></p>'
+            entry+='<p>每排图对应一个观测时段。第一幅显示典型亮度，后三幅显示所选周期信号在全段、前半段和后半段的位置。绿圈是目标，青色叉号是初始目录对象；红色表示与参考光变同向的成分，蓝色表示反向成分。各图色阶不同，不能直接按颜色深浅比较时段间的绝对强弱。前后半段属于同一次观测。</p>'
             for obs in source.get('observations',[]):
                 if obs.get('pixels'):entry+=f'<img src="source/{escape(obs["pixels"]["plot"])}" alt="周期信号位置图">'
         followup=OUT/'reference-followup'/(ident+'-comparison.json')
@@ -54,6 +55,7 @@ def main():
         if manual.exists():
             review=read_json(manual)
             entry+='<h2>看图补查</h2><p>'+escape(review.get('note') or review.get('finding',''))+'</p><p><a href="../../reference-followup/'+ident+'-manual-review.json">备注范围和证据校验值</a>。这些补查没有修改原预测，也不是完整的独立标准答案。</p>'
+            if review.get('source_addendum'):entry+='<p>'+escape(review['source_addendum'])+'</p>'
         figure=OUT/'reference-followup'/(ident+'-periods.png')
         if figure.exists():entry+='<img src="../../reference-followup/'+ident+'-periods.png" alt="按选定周期和目录周期折叠">'
         entry+='<p>目录邻星信息只覆盖 TESS-EBs v1.0。位置相符不排除未分辨近邻；目录周期的半/双倍关系需人工辨别。尚未完成独立裁定，也未查首次发现资格。</p><p><a href="../../index.html">返回总览</a></p>'
@@ -99,7 +101,7 @@ def main():
     for g,counts in groups.items():body+=f'<tr><td>{GROUPS[g]}</td><td>{counts["selected_inputs"]}</td><td>{counts["completed"]}</td><td>{counts["unavailable"]+counts["failed"]}</td><td>{counts["pending"]}</td><td>{counts["period_selected"]}</td><td>{counts["source_attempted"]}</td></tr>'
     body+='</table>'
     if summary.get('source_cohort'):
-        body+=f'<h2>固定的 {summary["source_cohort"]["requested"]} 个来源复核对象</h2><p>风险组未选出周期的对象使用邻星目录周期作位置诊断，不能记作程序检出。<a href="{sample_path.name}">冻结名单和全部周期预测校验值</a>。</p><table><tr><th>组别</th><th>复核对象</th><th>程序选出周期</th><th>来源运行完成</th><th>证据不完整</th><th>下载失败</th><th>不满足前提</th><th>尚待运行</th></tr>'
+        body+=f'<h2>固定的 {summary["source_cohort"]["requested"]} 个来源复核对象</h2><p>风险组未选出周期的对象使用邻星目录周期作位置诊断，不能记作程序检出。<a href="{sample_path.name}">冻结名单和全部周期预测校验值</a>。来源状态按最近一次来源任务记录；补齐缓存后仍需重跑分析，预取本身不清除旧失败状态。</p><table><tr><th>组别</th><th>复核对象</th><th>程序选出周期</th><th>来源运行完成</th><th>证据不完整</th><th>上次获取失败</th><th>不满足前提</th><th>尚待运行</th></tr>'
         for group,stats in summary['source_cohort']['strata'].items():
             states=stats['states'];done=sum(states.get(k,0) for k in ['completed','incomplete','transport_failed','not_requested'])
             body+=f'<tr><td>{GROUPS[group]}</td><td>{stats["requested"]}</td><td>{stats["period_selected"]}</td><td>{states.get("completed",0)}</td><td>{states.get("incomplete",0)}</td><td>{states.get("transport_failed",0)}</td><td>{states.get("not_requested",0)}</td><td>{stats["requested"]-done}</td></tr>'
