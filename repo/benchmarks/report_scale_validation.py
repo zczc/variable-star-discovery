@@ -85,6 +85,9 @@ def main():
         summary['source_cohort']['incomplete_reasons_nonexclusive']=dict(issues)
     prefetched=[read_json(p) for p in (OUT/'prefetch-results').glob('*.json')]
     summary['pixel_prefetch']={'records':len(prefetched),'fully_cached_cases':sum(all(x['status']=='cached' for x in r['products']) for r in prefetched),'source_flux_analyzed_by_prefetch':False}
+    if (OUT/'direct-prefetch/plan.json').exists():
+        direct=[read_json(p) for p in (OUT/'direct-prefetch/results').glob('*.json')]
+        summary['direct_prefetch']={'planned_cases':len(read_json(OUT/'direct-prefetch/plan.json')['cases']),'records':len(direct),'cached_cases':sum(r['status']=='cached' for r in direct),'failed_cases':sum(r['status']=='failed' for r in direct),'pixel_flux_analyzed':False}
     write_json(OUT/'summary.json',summary)
     with (OUT/'summary.csv').open('w',newline='') as f:
         w=csv.DictWriter(f,fieldnames=list(rows[0]),lineterminator='\n');w.writeheader();w.writerows(rows)
@@ -104,6 +107,8 @@ def main():
         if summary['source_cohort']['states'].get('not_requested'):
             body+='<p>不满足前提的对象保留未复核状态。例如 TIC 48191552 没有选定周期，其邻星参考周期约 9.569 天，超出本轮来源诊断的 0.1–8 天范围。</p>'
     body+='<p>像素预取已保存 '+str(summary['pixel_prefetch']['fully_cached_cases'])+' 组完整文件。预取不产生来源结论。</p>'
+    if summary.get('direct_prefetch'):
+        d=summary['direct_prefetch'];body+=f'<p>为恢复网络失败，追加直接存储预取：{d["cached_cases"]} 组缓存完成、{d["failed_cases"]} 组获取失败。此阶段只补齐原始文件，不增加已分析或通过数量。<a href="direct-prefetch/plan.json">预取计划</a> · <a href="direct-transport-verification.json">与 MAST 下载字节一致的验证</a>。</p>'
     body+='<p>这里的“分析完成”只表示程序成功运行。科学结论分列显示，不等同于验证通过。半/双目录周期单独列出，尚未直接记成正确或错误。</p><p><a href="summary.json">汇总 JSON</a> · <a href="summary.csv">CSV</a> · <a href="README.md">预定方案</a> · <a href="targets.json">冻结名单</a></p><input id="filter" placeholder="筛选 TIC、状态或组别"><table id="results"><thead><tr><th>TIC</th><th>组别</th><th>运行</th><th>选定周期（天）</th><th>目录周期比较</th><th>来源处理</th></tr></thead><tbody>'+''.join(table)+'</tbody></table><script>document.getElementById("filter").addEventListener("input",e=>{const q=e.target.value.toLowerCase();document.querySelectorAll("#results tbody tr").forEach(r=>r.hidden=!r.textContent.toLowerCase().includes(q));});</script>'
     (OUT/'index.html').write_text(page('千星实测验证',body))
     print(json.dumps({k:v for k,v in summary.items() if k!='rows'},ensure_ascii=False,indent=2))

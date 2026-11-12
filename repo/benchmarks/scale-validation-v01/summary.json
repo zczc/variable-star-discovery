@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-12T03:15:56.583484+00:00",
+  "updated_at": "2026-11-12T03:36:19.116039+00:00",
   "targets": 1000,
   "groups": {
     "catalog_eb": {
@@ -8,18 +8,18 @@
       "period_selected": 265,
       "catalog_period_match": 238,
       "source_attempted": 265,
-      "source_completed": 107,
-      "route_manual_target_review": 93,
+      "source_completed": 110,
+      "route_manual_target_review": 95,
       "abstained": 135,
       "route_period_review_required": 135,
-      "source_incomplete": 18,
-      "route_analysis_failed": 18,
+      "source_incomplete": 19,
+      "route_analysis_failed": 19,
       "route_exclude_signal_from_target": 7,
       "double_catalog_period": 4,
-      "source_transport_failed": 140,
-      "route_transport_failed": 140,
+      "source_transport_failed": 136,
+      "route_transport_failed": 136,
       "half_catalog_period": 23,
-      "route_source_evidence_required": 7
+      "route_source_evidence_required": 8
     },
     "neighbor_risk": {
       "selected_inputs": 50,
@@ -404,8 +404,8 @@
       "selected_period_d": 7.056233351212399,
       "catalog_orbital_period_d": 7.055069997855933,
       "period_relation": "catalog_period_match",
-      "source_route": "transport_failed",
-      "pixel_review_status": "transport_failed",
+      "source_route": "analysis_failed",
+      "pixel_review_status": "incomplete",
       "independent_verdict": "not_completed",
       "confirmed_variable": false,
       "submission_ready": false
@@ -1874,8 +1874,8 @@
       "selected_period_d": 0.8104489199543206,
       "catalog_orbital_period_d": 0.8104650260994821,
       "period_relation": "catalog_period_match",
-      "source_route": "transport_failed",
-      "pixel_review_status": "transport_failed",
+      "source_route": "source_evidence_required",
+      "pixel_review_status": "completed",
       "independent_verdict": "not_completed",
       "confirmed_variable": false,
       "submission_ready": false
@@ -4604,8 +4604,8 @@
       "selected_period_d": 1.8434621123090031,
       "catalog_orbital_period_d": 1.8434406733257025,
       "period_relation": "catalog_period_match",
-      "source_route": "transport_failed",
-      "pixel_review_status": "transport_failed",
+      "source_route": "manual_target_review",
+      "pixel_review_status": "completed",
       "independent_verdict": "not_completed",
       "confirmed_variable": false,
       "submission_ready": false
@@ -5290,8 +5290,8 @@
       "selected_period_d": 2.3195130059788363,
       "catalog_orbital_period_d": 2.3198144244503456,
       "period_relation": "catalog_period_match",
-      "source_route": "transport_failed",
-      "pixel_review_status": "transport_failed",
+      "source_route": "manual_target_review",
+      "pixel_review_status": "completed",
       "independent_verdict": "not_completed",
       "confirmed_variable": false,
       "submission_ready": false
@@ -14070,17 +14070,17 @@
       "field_unlabelled": 34
     },
     "states": {
-      "completed": 141,
-      "incomplete": 32,
-      "transport_failed": 175,
+      "completed": 144,
+      "incomplete": 33,
+      "transport_failed": 171,
       "not_requested": 1
     },
     "routes": {
-      "manual_target_review": 102,
-      "analysis_failed": 32,
+      "manual_target_review": 104,
+      "analysis_failed": 33,
       "exclude_signal_from_target": 23,
-      "transport_failed": 175,
-      "source_evidence_required": 10,
+      "transport_failed": 171,
+      "source_evidence_required": 11,
       "period_review_required": 7
     },
     "strata": {
@@ -14088,16 +14088,16 @@
         "requested": 265,
         "period_selected": 265,
         "states": {
-          "completed": 107,
-          "incomplete": 18,
-          "transport_failed": 140
+          "completed": 110,
+          "incomplete": 19,
+          "transport_failed": 136
         },
         "routes": {
-          "manual_target_review": 93,
-          "analysis_failed": 18,
+          "manual_target_review": 95,
+          "analysis_failed": 19,
           "exclude_signal_from_target": 7,
-          "transport_failed": 140,
-          "source_evidence_required": 7
+          "transport_failed": 136,
+          "source_evidence_required": 8
         }
       },
       "neighbor_risk": {
@@ -14137,11 +14137,11 @@
     "additional_source_cases": [],
     "returned_routes_by_period_usage": {
       "selected_by_detector": {
-        "manual_target_review": 102,
-        "analysis_failed": 22,
+        "manual_target_review": 104,
+        "analysis_failed": 23,
         "exclude_signal_from_target": 12,
-        "transport_failed": 160,
-        "source_evidence_required": 10
+        "transport_failed": 156,
+        "source_evidence_required": 11
       },
       "neighbor_period_diagnostic_only": {
         "transport_failed": 15,
@@ -14151,13 +14151,20 @@
       }
     },
     "incomplete_reasons_nonexclusive": {
-      "acquisition_errors": 175,
-      "insufficient_pixel_segment_cycles": 32
+      "acquisition_errors": 171,
+      "insufficient_pixel_segment_cycles": 33
     }
   },
   "pixel_prefetch": {
     "records": 135,
     "fully_cached_cases": 76,
     "source_flux_analyzed_by_prefetch": false
+  },
+  "direct_prefetch": {
+    "planned_cases": 175,
+    "records": 0,
+    "cached_cases": 0,
+    "failed_cases": 0,
+    "pixel_flux_analyzed": false
   }
 }

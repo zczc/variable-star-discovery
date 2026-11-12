@@ -109,6 +109,17 @@ def main():
             if not original.exists():original=OUT/'source-results'/(ident+'.json')
             assert sha256(original)==item['original_failure_sha256']
             assert read_json(original)['status']=='transport_failed'
+    if (OUT/'direct-prefetch/plan.json').exists():
+        direct=read_json(OUT/'direct-prefetch/plan.json')
+        assert direct['runner_sha256']==sha256(Path(__file__).with_name('prefetch_scale_direct.py'))
+        assert direct['transport_sha256']==sha256(Path(__file__).with_name('scale_direct_transport.py'))
+        assert direct['verification_sha256']==sha256(OUT/'direct-transport-verification.json')
+        assert direct['retry_plan_sha256']==sha256(OUT/'source-retries/attempt-01/plan.json')
+        proof=read_json(OUT/'direct-transport-verification.json')
+        assert proof['code_sha256']==direct['transport_sha256']
+        assert proof['known_input']['sha256']==proof['direct_receipt']['sha256']
+        assert proof['known_input']['raw_sha256']==proof['direct_receipt']['raw_sha256']
+        assert proof['direct_receipt']['remote_md5_verified']
     result={'checked_at':now(),'target_count':1000,'acquisition_records':acquisitions,'prediction_records':predictions,'source_records':source_records,'source_record_states':dict(source_states),'source_records_meaning':'Includes deferred and not-requested records; these are not completed source reviews.','original_products_verified_now':len(checked-released),'released_original_products_verified_previously':len(released),'plots_verified':plots,'old_files_unchanged':len(old),'frozen_code_unchanged':True,'frozen_source_sample_and_predictions_verified':sample_checked,'frozen_full_source_cohort_and_predictions_verified':full_checked,'independent_truth_adjudication_complete':False,'population_precision_validated':False}
     write_json(OUT/'integrity-audit.json',result);print(json.dumps(result,indent=2))
     class Links(HTMLParser):
