@@ -11,7 +11,7 @@ ROOT=Path(__file__).resolve().parents[2];OUT=ROOT/'repo/benchmarks/scale-validat
 GROUPS={'catalog_eb':'目录食双星','neighbor_risk':'邻星风险对象','field_unlabelled':'未标注普通目标'}
 RELATIONS={'not_evaluable':'未能评估周期','catalog_period_match':'与目录周期一致','half_catalog_period':'约为目录一半','double_catalog_period':'约为目录两倍','other_period':'与目录不同','no_reference':'暂无参考周期','abstained':'未选定周期','pending':'尚未分析'}
 RUNLABEL={'completed':'分析完成','pending':'等待分析','unavailable':'数据不可用','failed':'分析失败'}
-ROUTES={'not_reviewed':'尚未复核','manual_target_review':'目标位置获支持，待人工复核','period_review_required':'周期待查','instrument_review_required':'仪器复核','source_evidence_required':'来源证据不足','exclude_signal_from_target':'信号不归属目标','analysis_failed':'来源分析未完成，见原因','transport_failed':'像素下载失败，来源待查'}
+ROUTES={'not_reviewed':'尚未复核','manual_target_review':'目标位置获支持，待人工复核','period_review_required':'周期待查','instrument_review_required':'仪器复核','source_evidence_required':'来源证据不足','exclude_signal_from_target':'程序建议排除该信号','analysis_failed':'来源分析未完成，见原因','transport_failed':'像素下载失败，来源待查'}
 
 def main():
     targets=read_json(OUT/'targets.json');rows=[];groups={g:Counter() for g in GROUPS};times=[]
@@ -51,7 +51,9 @@ def main():
         followup=OUT/'reference-followup'/(ident+'-comparison.json')
         if followup.exists():entry+='<p><a href="../../reference-followup/'+ident+'-comparison.json">另查 VSX 的周期对照</a></p>'
         manual=OUT/'reference-followup'/(ident+'-manual-review.json')
-        if manual.exists():entry+='<p><a href="../../reference-followup/'+ident+'-manual-review.json">人工看图备注及未解决的问题</a></p>'
+        if manual.exists():
+            review=read_json(manual)
+            entry+='<h2>看图补查</h2><p>'+escape(review.get('note') or review.get('finding',''))+'</p><p><a href="../../reference-followup/'+ident+'-manual-review.json">备注范围和证据校验值</a>。这些补查没有修改原预测，也不是完整的独立标准答案。</p>'
         figure=OUT/'reference-followup'/(ident+'-periods.png')
         if figure.exists():entry+='<img src="../../reference-followup/'+ident+'-periods.png" alt="按选定周期和目录周期折叠">'
         entry+='<p>目录邻星信息只覆盖 TESS-EBs v1.0。位置相符不排除未分辨近邻；目录周期的半/双倍关系需人工辨别。尚未完成独立裁定，也未查首次发现资格。</p><p><a href="../../index.html">返回总览</a></p>'
@@ -61,6 +63,8 @@ def main():
         cell=f'<a href="evaluation/{ident}/index.html">{c["tic"]}</a>' if p else c['tic']
         table.append(f'<tr><td>{cell}</td><td>{GROUPS[c["group"]]}</td><td>{RUNLABEL.get(status,status)}</td><td>{selected:.7f}</td><td>{RELATIONS.get(relation,relation)}</td><td>{ROUTES.get(route,route)}</td></tr>' if selected is not None else f'<tr><td>{cell}</td><td>{GROUPS[c["group"]]}</td><td>{RUNLABEL.get(status,status)}</td><td>—</td><td>{RELATIONS.get(relation,relation)}</td><td>{ROUTES.get(route,route)}</td></tr>')
     summary={'updated_at':now(),'targets':len(rows),'groups':{g:dict(v) for g,v in groups.items()},'total_status':dict(Counter(r['status'] for r in rows)),'selected_periods':sum(r['selected_period_d'] is not None for r in rows),'independently_adjudicated_targets':0,'population_precision_validated':False,'median_analysis_seconds':float(np.median(times)) if times else None,'targets_sha256':sha256(OUT/'targets.json'),'rows':rows}
+    manual=[r for r in rows if r['source_route']=='manual_target_review']
+    summary['manual_source_queue_period_relations']=dict(Counter(r['period_relation'] for r in manual))
     sample_path=OUT/('source-all.json' if full_cohort else 'source-sample.json')
     if sample_path.exists():
         sample=read_json(sample_path);sample_ids={c['id'] for c in sample['cases']}
@@ -106,6 +110,8 @@ def main():
         body+=f'<p>其中 {coverage} 个对象因每半段覆盖不足三次周期而不能完成像素来源复核。这是证据覆盖不足，不表示确认了污染。</p>'
         if summary['source_cohort']['states'].get('not_requested'):
             body+='<p>不满足前提的对象保留未复核状态。例如 TIC 48191552 没有选定周期，其邻星参考周期约 9.569 天，超出本轮来源诊断的 0.1–8 天范围。</p>'
+        conflicts=sum(r['group']=='catalog_eb' and r['period_relation']!='catalog_period_match' for r in manual)
+        body+=f'<p>目标位置获支持的队列中，仍有 {conflicts} 个目录对象存在周期差异，须核对半周期、完整周期或目录冲突。来源位置支持不代表周期已判对。</p>'
     body+='<p>像素预取已保存 '+str(summary['pixel_prefetch']['fully_cached_cases'])+' 组完整文件。预取不产生来源结论。</p>'
     if summary.get('direct_prefetch'):
         d=summary['direct_prefetch'];body+=f'<p>为恢复网络失败，追加直接存储预取：{d["cached_cases"]} 组缓存完成、{d["failed_cases"]} 组获取失败。此阶段只补齐原始文件，不增加已分析或通过数量。<a href="direct-prefetch/plan.json">预取计划</a> · <a href="direct-transport-verification.json">与 MAST 下载字节一致的验证</a>。</p>'

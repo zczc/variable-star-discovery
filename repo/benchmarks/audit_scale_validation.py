@@ -59,7 +59,8 @@ def main():
             if item.get('raw_sha256'):
                 with gzip.open(path,'rb') as f:assert hashlib.file_digest(f,'sha256').hexdigest()==item['raw_sha256']
             checked.add(item['path'])
-    for path in (OUT/'reference-followup').glob('*-manual-review.json'):
+    followup_paths=[*(OUT/'reference-followup').glob('*-manual-review.json'),*(OUT/'reference-followup').glob('*-catalog-position.json')]
+    for path in followup_paths:
         for evidence in read_json(path).get('evidence',[]):
             assert sha256(OUT/evidence['path'])==evidence['sha256']
     for path in (OUT/'reference-followup').glob('*.figure.json'):
