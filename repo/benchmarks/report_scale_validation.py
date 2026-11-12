@@ -80,6 +80,13 @@ def main():
         summary['source_cohort']['returned_routes_by_period_usage']={
             'selected_by_detector':dict(Counter(r['source_route'] for r in returned if r['selected_period_d'] is not None)),
             'neighbor_period_diagnostic_only':dict(Counter(r['source_route'] for r in returned if r['selected_period_d'] is None))}
+        summary['source_cohort']['outcomes_by_period_selection']={}
+        for label,selected in [('selected_by_detector',True),('unselected_risk_control',False)]:
+            subset=[r for r in selected_rows if (r['selected_period_d'] is not None)==selected]
+            summary['source_cohort']['outcomes_by_period_selection'][label]={
+                'targets':len(subset),
+                'states':dict(Counter(r['pixel_review_status'] for r in subset)),
+                'routes':dict(Counter(r['source_route'] for r in subset))}
         issues=Counter()
         for ident in sample_ids:
             path=OUT/'source-results'/(ident+'.json')
@@ -108,6 +115,12 @@ def main():
         body+='</table><p>运行完成仍只表示程序产生了结果。来源去向：</p><ul>'
         for route,count in summary['source_cohort']['routes'].items():body+='<li>'+escape(ROUTES.get(route,route))+f'：{count}</li>'
         body+='</ul><p>名单以外另有 '+str(len(summary['source_cohort']['additional_source_cases']))+' 个已启动的来源案例，分别保留。</p>'
+        body+='<h3>选中信号与未选中风险对照分开统计</h3><table><tr><th>对象</th><th>数量</th><th>目标位置获支持</th><th>程序建议排除</th><th>来源证据不足</th><th>来源计算未完成</th><th>周期待查</th></tr>'
+        for label,stats in summary['source_cohort']['outcomes_by_period_selection'].items():
+            name='检测器选出的信号' if label=='selected_by_detector' else '未选出周期的风险对照'
+            counts=stats['routes']
+            body+=f'<tr><td>{name}</td><td>{stats["targets"]}</td>'+''.join(f'<td>{counts.get(route,0)}</td>' for route in ['manual_target_review','exclude_signal_from_target','source_evidence_required','analysis_failed','period_review_required'])+'</tr>'
+        body+='</table><p>未选中风险对照中的排除结果，不能算作拦下了检测器的误报；周期待查也包含因参考周期超出范围而没有执行像素分析的对象。以上均为程序输出，排除建议还需核验，目标位置支持也不等于周期正确或可投稿。<a href="../../../doc/21-thousand-target-results.md">本轮结果与下一步</a>。</p>'
         coverage=summary['source_cohort']['incomplete_reasons_nonexclusive'].get('insufficient_pixel_segment_cycles',0)
         body+=f'<p>其中 {coverage} 个对象因每半段覆盖不足三次周期而不能完成像素来源复核。这是证据覆盖不足，不表示确认了污染。</p>'
         if summary['source_cohort']['states'].get('not_requested'):

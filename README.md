@@ -4,6 +4,8 @@
 
 当前先做 [识别能力验证](doc/09-validation-first.md)，再考虑新对象筛选。初学者可从 [亲手操作一次](doc/10-human-walkthrough.md) 和 [交互练习](repo/tutorials/first-variable-star/index.html) 开始。
 
+2026-11-12：[千星验证本轮结果](doc/21-thousand-target-results.md)已整理。1,000 颗光变分析、349 个来源任务全部返回，下载失败已清零；306 个选中信号中，226 个获得目标位置支持，25 个被程序建议排除，55 个来源证据不足。仍有半周期和来源歧义，尚未通过可靠识别验收。
+
 ## 内容
 
 - [doc/](doc/README.md)：入门知识、项目目标、研究依据、分析流程、前期结果和 VSX 提交说明。

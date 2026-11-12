@@ -1,10 +1,10 @@
 # 变星发现项目文档
 
-更新日期：2026-11-10。本文档整理项目背景、研究依据、前期试验及已经实现的分析程序。
+更新日期：2026-11-12。本文档整理项目背景、研究依据、前期试验及已经实现的分析程序。
 
 项目目标是用公开望远镜数据，寻找此前未被报告的周期变星。当前尚无确认的新发现，也没有向 VSX 提交。
 
-当前优先阅读：[先验证识别能力](09-validation-first.md) → [人工识别第一次操作](10-human-walkthrough.md) → [第二版实际结果](13-v2-recognition-results.md)。按用户要求，先完成能力验证与亲手练习，再讨论新对象筛选。
+当前结果见[千星验证的本轮结论](21-thousand-target-results.md)：光变分析和全量来源任务已返回，仍有周期与来源问题，尚未通过可靠性验收。入门可读[先验证识别能力](09-validation-first.md)与[人工识别第一次操作](10-human-walkthrough.md)。按用户要求，先完成能力验证，再讨论新对象筛选。
 
 ## 阅读顺序
 
@@ -36,7 +36,7 @@ variable-star-discovery/
 ├── .gitattributes
 ├── doc/
 │   ├── README.md
-│   └── 01…13 文档
+│   └── 01…21 文档
 └── repo/
     ├── README.md
     ├── .gitignore
@@ -65,3 +65,5 @@ variable-star-discovery/
 - [先检查选出的信号是否可靠](19-precision-first-source-review.md)：精确率优先的新取向、来源审查、仪器耦合挑战、真实邻星污染和目标对照。
 
 - [千星验证怎么判断结果](20-thousand-target-validation.md)：1,000 个新对象的分组、全部 349 个对象的来源复核、真实周期分歧和数据成本。
+
+- [千星验证的本轮结论](21-thousand-target-results.md)：全部任务返回后的实际结果、选中信号与风险对照的区别，以及下一轮改进顺序。

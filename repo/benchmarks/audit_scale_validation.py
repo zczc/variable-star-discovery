@@ -63,6 +63,22 @@ def main():
     for path in followup_paths:
         for evidence in read_json(path).get('evidence',[]):
             assert sha256(OUT/evidence['path'])==evidence['sha256']
+    final_visual=OUT/'reference-followup/final-retry-visual-review.json'
+    if final_visual.exists():
+        for record in read_json(final_visual)['records']:
+            assert sha256(OUT/record['review_path'])==record['sha256']
+    scope_limits=OUT/'source-scope-limitations.json'
+    if scope_limits.exists():
+        limits=read_json(scope_limits)['cases']
+        for row in limits:
+            prediction=OUT/'evaluation'/(row['id']+'-prediction.json')
+            source=OUT/'source-results'/(row['id']+'.json')
+            assert sha256(prediction)==row['prediction_sha256']
+            assert sha256(source)==row['source_result_sha256']
+            assert read_json(prediction)['decision']['selected_period_d'] is None
+            assert read_json(source)['status']=='not_requested'
+            lo,hi=row['diagnostic_period_range_d']
+            assert not any(n.get('period_d') and lo<=n['period_d']<=hi for n in row['catalog_neighbors'])
     for path in (OUT/'reference-followup').glob('*.figure.json'):
         figure=read_json(path);assert sha256(path.parent/figure['plot'])==figure['sha256']
     decision_audit=OUT/'reference-followup/decision-path-audit.json'
@@ -130,6 +146,15 @@ def main():
         assert proof['known_input']['sha256']==proof['direct_receipt']['sha256']
         assert proof['known_input']['raw_sha256']==proof['direct_receipt']['raw_sha256']
         assert proof['direct_receipt']['remote_md5_verified']
+        # Include downloaded products that a not-requested source job never used.
+        for result_path in (OUT/'direct-prefetch/results').glob('*.json'):
+            for item in read_json(result_path)['products']:
+                if item['status']!='cached' or item['path'] in checked:continue
+                path=ROOT/item['path'];receipt=item['receipt']
+                assert sha256(path)==receipt['sha256']
+                with gzip.open(path,'rb') as stream:
+                    assert hashlib.file_digest(stream,'sha256').hexdigest()==receipt['raw_sha256']
+                checked.add(item['path'])
     result={'checked_at':now(),'target_count':1000,'acquisition_records':acquisitions,'prediction_records':predictions,'source_records':source_records,'source_record_states':dict(source_states),'source_records_meaning':'Includes deferred and not-requested records; these are not completed source reviews.','original_products_verified_now':len(checked-released),'released_original_products_verified_previously':len(released),'plots_verified':plots,'old_files_unchanged':len(old),'frozen_code_unchanged':True,'frozen_source_sample_and_predictions_verified':sample_checked,'frozen_full_source_cohort_and_predictions_verified':full_checked,'independent_truth_adjudication_complete':False,'population_precision_validated':False}
     write_json(OUT/'integrity-audit.json',result);print(json.dumps(result,indent=2))
     class Links(HTMLParser):
