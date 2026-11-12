@@ -91,6 +91,24 @@ def main():
         expected={c['id'] for c in targets if eligible(c,read_json(OUT/'evaluation'/(c['id']+'-prediction.json')))}
         assert {c['id'] for c in full['cases']}==expected
         full_checked=True
+    extra_path=OUT/'source-extra-prefetch.json'
+    if extra_path.exists():
+        extra=read_json(extra_path)
+        assert extra['full_cohort_sha256']==sha256(OUT/'source-all.json')
+        for item in extra['frozen_files']:assert sha256(Path(__file__).with_name(item['name']))==item['sha256']
+        cohort={c['id']:c for c in read_json(OUT/'source-all.json')['cases']}
+        assert extra['cases']==[cohort[i] for i in extra['remaining_ids_at_preparation'][11::4]]
+    for plan_path in (OUT/'source-retries').glob('attempt-*/plan.json'):
+        retry=read_json(plan_path)
+        assert retry['full_cohort_sha256']==sha256(OUT/'source-all.json')
+        assert retry['runner_sha256']==sha256(Path(__file__).with_name('retry_scale_source_transport.py'))
+        for item in retry['preserved_source_results']:
+            assert sha256(OUT/'source-results'/(item['id']+'.json'))==item['sha256']
+        for item in retry['cases']:
+            ident=item['case']['id'];original=plan_path.parent/'original-results'/(ident+'.json')
+            if not original.exists():original=OUT/'source-results'/(ident+'.json')
+            assert sha256(original)==item['original_failure_sha256']
+            assert read_json(original)['status']=='transport_failed'
     result={'checked_at':now(),'target_count':1000,'acquisition_records':acquisitions,'prediction_records':predictions,'source_records':source_records,'source_record_states':dict(source_states),'source_records_meaning':'Includes deferred and not-requested records; these are not completed source reviews.','original_products_verified_now':len(checked-released),'released_original_products_verified_previously':len(released),'plots_verified':plots,'old_files_unchanged':len(old),'frozen_code_unchanged':True,'frozen_source_sample_and_predictions_verified':sample_checked,'frozen_full_source_cohort_and_predictions_verified':full_checked,'independent_truth_adjudication_complete':False,'population_precision_validated':False}
     write_json(OUT/'integrity-audit.json',result);print(json.dumps(result,indent=2))
     class Links(HTMLParser):

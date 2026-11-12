@@ -74,7 +74,8 @@ def release(free_bytes):
                 assert digest == item['raw_sha256'] == receipt['raw_sha256']
                 note = ledger / (path.name + '.json')
                 if note.exists():
-                    raise ValueError('Previous cache release exists; audit before another release')
+                    # A deliberately restored product stays cached; retain its first release receipt.
+                    continue
                 record = {
                     'verified_at': now(), 'case_id': case['id'], 'input': item,
                     'compressed_and_original_bytes_verified': True,

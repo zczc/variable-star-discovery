@@ -11,7 +11,7 @@ ROOT=Path(__file__).resolve().parents[2];OUT=ROOT/'repo/benchmarks/scale-validat
 GROUPS={'catalog_eb':'目录食双星','neighbor_risk':'邻星风险对象','field_unlabelled':'未标注普通目标'}
 RELATIONS={'not_evaluable':'未能评估周期','catalog_period_match':'与目录周期一致','half_catalog_period':'约为目录一半','double_catalog_period':'约为目录两倍','other_period':'与目录不同','no_reference':'暂无参考周期','abstained':'未选定周期','pending':'尚未分析'}
 RUNLABEL={'completed':'分析完成','pending':'等待分析','unavailable':'数据不可用','failed':'分析失败'}
-ROUTES={'not_reviewed':'尚未复核','manual_target_review':'目标位置获支持，待人工复核','period_review_required':'周期待查','instrument_review_required':'仪器复核','source_evidence_required':'来源证据不足','exclude_signal_from_target':'信号不归属目标','analysis_failed':'来源分析未完成，见原因'}
+ROUTES={'not_reviewed':'尚未复核','manual_target_review':'目标位置获支持，待人工复核','period_review_required':'周期待查','instrument_review_required':'仪器复核','source_evidence_required':'来源证据不足','exclude_signal_from_target':'信号不归属目标','analysis_failed':'来源分析未完成，见原因','transport_failed':'像素下载失败，来源待查'}
 
 def main():
     targets=read_json(OUT/'targets.json');rows=[];groups={g:Counter() for g in GROUPS};times=[]
@@ -27,6 +27,7 @@ def main():
         relation=(period_relation(selected,reference) if p.get('status')=='completed' else 'not_evaluable') if p else 'pending'
         source=(s or {}).get('source_review') or p.get('preliminary_source',{})
         route=source.get('conclusion',{}).get('route','not_reviewed')
+        if s and s['status']=='transport_failed':route='transport_failed'
         status=p.get('status','pending');g=groups[c['group']];g['selected_inputs']+=1;g[status]+=1
         if selected is not None:g['period_selected']+=1
         if c['group']=='catalog_eb' and p:g[relation]+=1
@@ -91,15 +92,17 @@ def main():
     for g,counts in groups.items():body+=f'<tr><td>{GROUPS[g]}</td><td>{counts["selected_inputs"]}</td><td>{counts["completed"]}</td><td>{counts["unavailable"]+counts["failed"]}</td><td>{counts["pending"]}</td><td>{counts["period_selected"]}</td><td>{counts["source_attempted"]}</td></tr>'
     body+='</table>'
     if summary.get('source_cohort'):
-        body+=f'<h2>固定的 {summary["source_cohort"]["requested"]} 个来源复核对象</h2><p>风险组未选出周期的对象使用邻星目录周期作位置诊断，不能记作程序检出。<a href="{sample_path.name}">冻结名单和全部周期预测校验值</a>。</p><table><tr><th>组别</th><th>复核对象</th><th>程序选出周期</th><th>来源运行完成</th><th>证据不完整</th><th>下载失败</th><th>尚待完成</th></tr>'
+        body+=f'<h2>固定的 {summary["source_cohort"]["requested"]} 个来源复核对象</h2><p>风险组未选出周期的对象使用邻星目录周期作位置诊断，不能记作程序检出。<a href="{sample_path.name}">冻结名单和全部周期预测校验值</a>。</p><table><tr><th>组别</th><th>复核对象</th><th>程序选出周期</th><th>来源运行完成</th><th>证据不完整</th><th>下载失败</th><th>不满足前提</th><th>尚待运行</th></tr>'
         for group,stats in summary['source_cohort']['strata'].items():
-            states=stats['states'];done=sum(states.get(k,0) for k in ['completed','incomplete','transport_failed'])
-            body+=f'<tr><td>{GROUPS[group]}</td><td>{stats["requested"]}</td><td>{stats["period_selected"]}</td><td>{states.get("completed",0)}</td><td>{states.get("incomplete",0)}</td><td>{states.get("transport_failed",0)}</td><td>{stats["requested"]-done}</td></tr>'
+            states=stats['states'];done=sum(states.get(k,0) for k in ['completed','incomplete','transport_failed','not_requested'])
+            body+=f'<tr><td>{GROUPS[group]}</td><td>{stats["requested"]}</td><td>{stats["period_selected"]}</td><td>{states.get("completed",0)}</td><td>{states.get("incomplete",0)}</td><td>{states.get("transport_failed",0)}</td><td>{states.get("not_requested",0)}</td><td>{stats["requested"]-done}</td></tr>'
         body+='</table><p>运行完成仍只表示程序产生了结果。来源去向：</p><ul>'
         for route,count in summary['source_cohort']['routes'].items():body+='<li>'+escape(ROUTES.get(route,route))+f'：{count}</li>'
         body+='</ul><p>名单以外另有 '+str(len(summary['source_cohort']['additional_source_cases']))+' 个已启动的来源案例，分别保留。</p>'
         coverage=summary['source_cohort']['incomplete_reasons_nonexclusive'].get('insufficient_pixel_segment_cycles',0)
         body+=f'<p>其中 {coverage} 个对象因每半段覆盖不足三次周期而不能完成像素来源复核。这是证据覆盖不足，不表示确认了污染。</p>'
+        if summary['source_cohort']['states'].get('not_requested'):
+            body+='<p>不满足前提的对象保留未复核状态。例如 TIC 48191552 没有选定周期，其邻星参考周期约 9.569 天，超出本轮来源诊断的 0.1–8 天范围。</p>'
     body+='<p>像素预取已保存 '+str(summary['pixel_prefetch']['fully_cached_cases'])+' 组完整文件。预取不产生来源结论。</p>'
     body+='<p>这里的“分析完成”只表示程序成功运行。科学结论分列显示，不等同于验证通过。半/双目录周期单独列出，尚未直接记成正确或错误。</p><p><a href="summary.json">汇总 JSON</a> · <a href="summary.csv">CSV</a> · <a href="README.md">预定方案</a> · <a href="targets.json">冻结名单</a></p><input id="filter" placeholder="筛选 TIC、状态或组别"><table id="results"><thead><tr><th>TIC</th><th>组别</th><th>运行</th><th>选定周期（天）</th><th>目录周期比较</th><th>来源处理</th></tr></thead><tbody>'+''.join(table)+'</tbody></table><script>document.getElementById("filter").addEventListener("input",e=>{const q=e.target.value.toLowerCase();document.querySelectorAll("#results tbody tr").forEach(r=>r.hidden=!r.textContent.toLowerCase().includes(q));});</script>'
     (OUT/'index.html').write_text(page('千星实测验证',body))
