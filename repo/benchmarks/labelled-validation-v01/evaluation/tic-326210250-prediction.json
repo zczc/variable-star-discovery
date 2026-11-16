@@ -1,0 +1,690 @@
+{
+  "id": "tic-326210250",
+  "started_at": "2026-11-12T09:05:23.050472+00:00",
+  "inputs": [
+    {
+      "sector": 14,
+      "uri": "mast:TESS/product/tess2019198215352-s0014-0000000326210250-0150-s_lc.fits",
+      "t_min_mjd": 58682.85112506944,
+      "t_max_mjd": 58709.70264496528,
+      "path": "repo/data/labelled-validation-v01/fits/tess2019198215352-s0014-0000000326210250-0150-s_lc.fits.gz",
+      "sha256": "5eef7a553e29791e32f72b1c30eaf36970bae805eaec862a8251c8964e939456",
+      "raw_sha256": "e839dc9debf48510f362b54c7dd852e596b68622533b6405ee184a78cafe7bf2",
+      "raw_bytes": 1964160,
+      "compressed_bytes": 1163891
+    },
+    {
+      "sector": 26,
+      "uri": "mast:TESS/product/tess2020160202036-s0026-0000000326210250-0188-s_lc.fits",
+      "t_min_mjd": 59009.76511202546,
+      "t_max_mjd": 59034.63294238426,
+      "path": "repo/data/labelled-validation-v01/fits/tess2020160202036-s0026-0000000326210250-0188-s_lc.fits.gz",
+      "sha256": "3fb5d85575ab5c41b08c628810883e4022e3a52cb97ab9c1552827a62a9dc8cb",
+      "raw_sha256": "b4022ce7df47a78745799635176fbf41e31cdec6dbdfeaa6515c6a4041dd340e",
+      "raw_bytes": 1820160,
+      "compressed_bytes": 1084985
+    }
+  ],
+  "status": "completed",
+  "errors": [],
+  "detection": {
+    "repeated_signal": true,
+    "selected_period": false
+  },
+  "product_conclusions": {
+    "SAP": {
+      "periodic_detected": true,
+      "selected_period_d": null,
+      "photometric_period_d": 2.9897879011273423,
+      "period_status": "cross_epoch_harmonic_conflict",
+      "decision": "period_ambiguous",
+      "source_status": "unchecked",
+      "confirmed_variable": false,
+      "source_evidence": [],
+      "warnings": [
+        "Epochs prefer different integer aliases; averaged scores cannot resolve the full cycle."
+      ],
+      "fractional_period_spread": 0.0049270473920617645,
+      "supported_period_groups": [
+        {
+          "period_d": 2.9897879011273423,
+          "gain": 0.7307305279312866,
+          "members": [
+            2.9824224877868084,
+            2.9971533144678757
+          ],
+          "fractional_spread": 0.0049270473920617645,
+          "harmonic_of_preferred": true,
+          "conditional_checks": [],
+          "independent_competitor": false
+        }
+      ],
+      "target_candidate": true,
+      "algorithm_revision": "v3.0-development",
+      "epoch_preferred_periods_d": [
+        3.0332523150653374,
+        2.9971533144678757
+      ]
+    },
+    "PDCSAP": {
+      "periodic_detected": true,
+      "selected_period_d": 2.9877631902608814,
+      "photometric_period_d": 2.9877631902608814,
+      "period_status": "preferred_lightcurve_cycle",
+      "decision": "periodic_source_unchecked",
+      "source_status": "unchecked",
+      "confirmed_variable": false,
+      "source_evidence": [],
+      "warnings": [],
+      "fractional_period_spread": 0.0035750507212097362,
+      "supported_period_groups": [
+        {
+          "period_d": 2.9877631902608814,
+          "gain": 0.7283568375484214,
+          "members": [
+            2.9824224877868084,
+            2.9931038927349545
+          ],
+          "fractional_spread": 0.0035750507212097362,
+          "harmonic_of_preferred": true,
+          "conditional_checks": [],
+          "independent_competitor": false
+        }
+      ],
+      "target_candidate": true,
+      "algorithm_revision": "v3.0-development",
+      "epoch_preferred_periods_d": [
+        3.0418064845392294,
+        2.9931038927349545
+      ]
+    }
+  },
+  "decision": {
+    "created_at": "2026-11-12T09:05:24.469661+00:00",
+    "config": {
+      "period_tolerance": 0.01,
+      "minimum_pairs": 3,
+      "minimum_relative_difference": 0.01,
+      "minimum_standard_error_ratio": 3.0,
+      "minimum_same_sign_fraction": 0.75,
+      "phase_grid": 256
+    },
+    "selected_period_d": null,
+    "preferred_product": null,
+    "status": "unresolved",
+    "source_status": "needs_independent_source_review",
+    "confirmed_variable": false,
+    "target_candidate": false,
+    "event_checks": [
+      {
+        "passed": false,
+        "period_d": 3.0418064845392294,
+        "epoch_input_time": 1685.8795375085647,
+        "half_cycle": {
+          "pairs": [
+            [
+              0,
+              1
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              4,
+              5
+            ],
+            [
+              8,
+              9
+            ],
+            [
+              10,
+              11
+            ],
+            [
+              12,
+              13
+            ],
+            [
+              14,
+              15
+            ]
+          ],
+          "count": 7,
+          "different": true,
+          "sufficient": true,
+          "mean_difference": 0.002844916219561824,
+          "standard_error_proxy": 0.000464655746365445,
+          "threshold": 0.001393967239096335,
+          "same_sign_fraction": 1.0
+        },
+        "primary_same_family": {
+          "pairs": [
+            [
+              0,
+              2
+            ],
+            [
+              4,
+              6
+            ],
+            [
+              8,
+              10
+            ],
+            [
+              12,
+              14
+            ]
+          ],
+          "count": 4,
+          "different": false,
+          "sufficient": true,
+          "mean_difference": 0.0008331781663310739,
+          "standard_error_proxy": 0.0003222208134881144,
+          "threshold": 0.0009666624404643432,
+          "same_sign_fraction": 1.0
+        },
+        "secondary_same_family": {
+          "pairs": [
+            [
+              1,
+              3
+            ],
+            [
+              9,
+              11
+            ],
+            [
+              13,
+              15
+            ]
+          ],
+          "count": 3,
+          "different": true,
+          "sufficient": true,
+          "mean_difference": -0.001160869676990421,
+          "standard_error_proxy": 0.00017099804885062792,
+          "threshold": 0.0005129941465518838,
+          "same_sign_fraction": 1.0
+        },
+        "positive_minima": false,
+        "events": [
+          {
+            "cycle": -1,
+            "center_input_time": 1684.358634266295,
+            "core_points": 129,
+            "before_points": 109,
+            "after_points": 109,
+            "status": "measured",
+            "depth_fraction": -0.0017811893296069364,
+            "point_error_only": 6.152981976463882e-05,
+            "local_slope_per_day": -0.0005210163900656171
+          },
+          {
+            "cycle": 0,
+            "center_input_time": 1685.8795375085647,
+            "core_points": 132,
+            "before_points": 110,
+            "after_points": 110,
+            "status": "measured",
+            "depth_fraction": 0.003269885830087296,
+            "point_error_only": 6.245633003740261e-05,
+            "local_slope_per_day": -0.000414222694438263
+          },
+          {
+            "cycle": 1,
+            "center_input_time": 1687.4004407508344,
+            "core_points": 132,
+            "before_points": 110,
+            "after_points": 105,
+            "status": "measured",
+            "depth_fraction": -0.0011105339840624996,
+            "point_error_only": 6.28687384382594e-05,
+            "local_slope_per_day": -0.00030827143584105004
+          },
+          {
+            "cycle": 2,
+            "center_input_time": 1688.9213439931038,
+            "core_points": 129,
+            "before_points": 101,
+            "after_points": 109,
+            "status": "measured",
+            "depth_fraction": 0.0031163535410447694,
+            "point_error_only": 6.489449538761292e-05,
+            "local_slope_per_day": -0.00036728235082496047
+          },
+          {
+            "cycle": 3,
+            "center_input_time": 1690.4422472353735,
+            "core_points": 132,
+            "before_points": 109,
+            "after_points": 110,
+            "status": "measured",
+            "depth_fraction": 0.0003260376304934645,
+            "point_error_only": 6.380435981725431e-05,
+            "local_slope_per_day": -1.5866313230044214e-05
+          },
+          {
+            "cycle": 4,
+            "center_input_time": 1691.9631504776432,
+            "core_points": 129,
+            "before_points": 110,
+            "after_points": 106,
+            "status": "measured",
+            "depth_fraction": 0.002297610597868256,
+            "point_error_only": 6.682320209045851e-05,
+            "local_slope_per_day": 0.00015836389800463337
+          },
+          {
+            "cycle": 5,
+            "center_input_time": 1693.4840537199127,
+            "core_points": 131,
+            "before_points": 106,
+            "after_points": 109,
+            "status": "measured",
+            "depth_fraction": -0.0013262352349388171,
+            "point_error_only": 6.599611693624042e-05,
+            "local_slope_per_day": -0.0010306300781896959
+          },
+          {
+            "cycle": 6,
+            "center_input_time": 1695.0049569621824,
+            "core_points": 132,
+            "before_points": 109,
+            "after_points": 110,
+            "status": "measured",
+            "depth_fraction": 0.000672134151330027,
+            "point_error_only": 6.582018634436893e-05,
+            "local_slope_per_day": 0.0002091841900606817
+          },
+          {
+            "cycle": 7,
+            "center_input_time": 1696.5258602044519,
+            "core_points": 0,
+            "before_points": 110,
+            "after_points": 0,
+            "status": "missing_bracketing_data"
+          },
+          {
+            "cycle": 8,
+            "center_input_time": 1698.0467634467216,
+            "core_points": 128,
+            "before_points": 106,
+            "after_points": 108,
+            "status": "measured",
+            "depth_fraction": 0.0006653114401355877,
+            "point_error_only": 6.137008740094064e-05,
+            "local_slope_per_day": 0.001930841641394078
+          },
+          {
+            "cycle": 9,
+            "center_input_time": 1699.5676666889913,
+            "core_points": 131,
+            "before_points": 109,
+            "after_points": 109,
+            "status": "measured",
+            "depth_fraction": -0.0031912582698156917,
+            "point_error_only": 6.207333264966328e-05,
+            "local_slope_per_day": -0.002413414944817234
+          },
+          {
+            "cycle": 10,
+            "center_input_time": 1701.0885699312607,
+            "core_points": 131,
+            "before_points": 109,
+            "after_points": 98,
+            "status": "measured",
+            "depth_fraction": -0.0003853238939015714,
+            "point_error_only": 6.26160707258976e-05,
+            "local_slope_per_day": 0.0008292398113680572
+          },
+          {
+            "cycle": 11,
+            "center_input_time": 1702.6094731735304,
+            "core_points": 129,
+            "before_points": 107,
+            "after_points": 108,
+            "status": "measured",
+            "depth_fraction": -0.002343488896411685,
+            "point_error_only": 6.431388405130324e-05,
+            "local_slope_per_day": -0.00021531194202525304
+          },
+          {
+            "cycle": 12,
+            "center_input_time": 1704.1303764158001,
+            "core_points": 131,
+            "before_points": 109,
+            "after_points": 109,
+            "status": "measured",
+            "depth_fraction": -0.00018304696758860925,
+            "point_error_only": 6.442199135526291e-05,
+            "local_slope_per_day": -0.0022965385962589926
+          },
+          {
+            "cycle": 13,
+            "center_input_time": 1705.6512796580696,
+            "core_points": 131,
+            "before_points": 109,
+            "after_points": 106,
+            "status": "measured",
+            "depth_fraction": -0.0026862639204290463,
+            "point_error_only": 6.575156845134149e-05,
+            "local_slope_per_day": -0.00013099360975266577
+          },
+          {
+            "cycle": 14,
+            "center_input_time": 1707.1721829003393,
+            "core_points": 131,
+            "before_points": 107,
+            "after_points": 107,
+            "status": "measured",
+            "depth_fraction": -0.0006861155632949898,
+            "point_error_only": 6.654570852685304e-05,
+            "local_slope_per_day": -0.0009566891858961969
+          },
+          {
+            "cycle": 15,
+            "center_input_time": 1708.693086142609,
+            "core_points": 131,
+            "before_points": 109,
+            "after_points": 109,
+            "status": "measured",
+            "depth_fraction": -0.001487995877417754,
+            "point_error_only": 6.749632157048479e-05,
+            "local_slope_per_day": -0.0012727355114355511
+          }
+        ],
+        "note": "Same local windows for all contrasts; thresholds are uncalibrated development rules, not significance or a full orbital model.",
+        "sector": 14,
+        "product": "PDCSAP"
+      },
+      {
+        "passed": true,
+        "period_d": 2.9931038927349545,
+        "epoch_input_time": 2011.1162120971103,
+        "half_cycle": {
+          "pairs": [
+            [
+              0,
+              1
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              4,
+              5
+            ],
+            [
+              6,
+              7
+            ],
+            [
+              10,
+              11
+            ],
+            [
+              12,
+              13
+            ],
+            [
+              14,
+              15
+            ]
+          ],
+          "count": 7,
+          "different": true,
+          "sufficient": true,
+          "mean_difference": 0.005245976524637178,
+          "standard_error_proxy": 0.0006685531596201305,
+          "threshold": 0.0020056594788603914,
+          "same_sign_fraction": 1.0
+        },
+        "primary_same_family": {
+          "pairs": [
+            [
+              0,
+              2
+            ],
+            [
+              4,
+              6
+            ],
+            [
+              12,
+              14
+            ]
+          ],
+          "count": 3,
+          "different": false,
+          "sufficient": true,
+          "mean_difference": 0.00042396527548752336,
+          "standard_error_proxy": 0.0006608425742714332,
+          "threshold": 0.0019825277228142993,
+          "same_sign_fraction": 0.6666666666666666
+        },
+        "secondary_same_family": {
+          "pairs": [
+            [
+              1,
+              3
+            ],
+            [
+              5,
+              7
+            ],
+            [
+              9,
+              11
+            ],
+            [
+              13,
+              15
+            ]
+          ],
+          "count": 4,
+          "different": false,
+          "sufficient": true,
+          "mean_difference": 0.00011208807456801454,
+          "standard_error_proxy": 0.00031787124644399234,
+          "threshold": 0.000953613739331977,
+          "same_sign_fraction": 0.25
+        },
+        "positive_minima": true,
+        "events": [
+          {
+            "cycle": 0,
+            "center_input_time": 2011.1162120971103,
+            "core_points": 129,
+            "before_points": 108,
+            "after_points": 107,
+            "status": "measured",
+            "depth_fraction": 0.003905148811311708,
+            "point_error_only": 6.412443072234388e-05,
+            "local_slope_per_day": -0.00034625034036400937
+          },
+          {
+            "cycle": 1,
+            "center_input_time": 2012.6127640434777,
+            "core_points": 129,
+            "before_points": 108,
+            "after_points": 104,
+            "status": "measured",
+            "depth_fraction": 0.0008165161647725998,
+            "point_error_only": 6.436902188481634e-05,
+            "local_slope_per_day": -0.0007549155417951191
+          },
+          {
+            "cycle": 2,
+            "center_input_time": 2014.1093159898453,
+            "core_points": 126,
+            "before_points": 106,
+            "after_points": 105,
+            "status": "measured",
+            "depth_fraction": 0.0046528154710432,
+            "point_error_only": 6.514358039681088e-05,
+            "local_slope_per_day": 0.001402197953202413
+          },
+          {
+            "cycle": 3,
+            "center_input_time": 2015.6058679362127,
+            "core_points": 126,
+            "before_points": 106,
+            "after_points": 104,
+            "status": "measured",
+            "depth_fraction": 0.0008890611400015508,
+            "point_error_only": 6.51166311697469e-05,
+            "local_slope_per_day": 0.00021918595813596426
+          },
+          {
+            "cycle": 4,
+            "center_input_time": 2017.1024198825803,
+            "core_points": 129,
+            "before_points": 108,
+            "after_points": 108,
+            "status": "measured",
+            "depth_fraction": 0.005548093182531567,
+            "point_error_only": 6.472980569191105e-05,
+            "local_slope_per_day": -0.0022419534208224607
+          },
+          {
+            "cycle": 5,
+            "center_input_time": 2018.5989718289477,
+            "core_points": 130,
+            "before_points": 108,
+            "after_points": 107,
+            "status": "measured",
+            "depth_fraction": 0.0013346755117434046,
+            "point_error_only": 6.505191667618022e-05,
+            "local_slope_per_day": 0.002349624588901429
+          },
+          {
+            "cycle": 6,
+            "center_input_time": 2020.095523775315,
+            "core_points": 124,
+            "before_points": 103,
+            "after_points": 102,
+            "status": "measured",
+            "depth_fraction": 0.0050680266552866554,
+            "point_error_only": 6.756381711753905e-05,
+            "local_slope_per_day": -0.0037076211674902356
+          },
+          {
+            "cycle": 7,
+            "center_input_time": 2021.5920757216827,
+            "core_points": 125,
+            "before_points": 103,
+            "after_points": 50,
+            "status": "measured",
+            "depth_fraction": 0.0002796458436679054,
+            "point_error_only": 6.450511187184407e-05,
+            "local_slope_per_day": 0.0015594160613153479
+          },
+          {
+            "cycle": 8,
+            "center_input_time": 2023.08862766805,
+            "core_points": 47,
+            "before_points": 0,
+            "after_points": 107,
+            "status": "missing_bracketing_data"
+          },
+          {
+            "cycle": 9,
+            "center_input_time": 2024.5851796144175,
+            "core_points": 130,
+            "before_points": 108,
+            "after_points": 107,
+            "status": "measured",
+            "depth_fraction": 0.0005409243053066465,
+            "point_error_only": 6.36753017376088e-05,
+            "local_slope_per_day": 0.0014501503131681814
+          },
+          {
+            "cycle": 10,
+            "center_input_time": 2026.081731560785,
+            "core_points": 127,
+            "before_points": 107,
+            "after_points": 106,
+            "status": "measured",
+            "depth_fraction": 0.007349503071086376,
+            "point_error_only": 6.462197840747496e-05,
+            "local_slope_per_day": -0.0015844694625871544
+          },
+          {
+            "cycle": 11,
+            "center_input_time": 2027.5782835071525,
+            "core_points": 124,
+            "before_points": 105,
+            "after_points": 105,
+            "status": "measured",
+            "depth_fraction": 0.0008376672292861993,
+            "point_error_only": 6.544820167300566e-05,
+            "local_slope_per_day": 0.000930644613749087
+          },
+          {
+            "cycle": 12,
+            "center_input_time": 2029.07483545352,
+            "core_points": 120,
+            "before_points": 102,
+            "after_points": 107,
+            "status": "measured",
+            "depth_fraction": 0.007865715019949199,
+            "point_error_only": 6.68756872778258e-05,
+            "local_slope_per_day": -8.002210713877475e-05
+          },
+          {
+            "cycle": 13,
+            "center_input_time": 2030.5713873998875,
+            "core_points": 130,
+            "before_points": 108,
+            "after_points": 108,
+            "status": "measured",
+            "depth_fraction": -0.0002006348801590431,
+            "point_error_only": 6.46289009929084e-05,
+            "local_slope_per_day": 0.00012119488419922625
+          },
+          {
+            "cycle": 14,
+            "center_input_time": 2032.067939346255,
+            "core_points": 129,
+            "before_points": 107,
+            "after_points": 104,
+            "status": "measured",
+            "depth_fraction": 0.006326219061000048,
+            "point_error_only": 6.613033641585914e-05,
+            "local_slope_per_day": 0.0011342812474762001
+          },
+          {
+            "cycle": 15,
+            "center_input_time": 2033.5644912926225,
+            "core_points": 125,
+            "before_points": 104,
+            "after_points": 106,
+            "status": "measured",
+            "depth_fraction": 3.675459043589431e-05,
+            "point_error_only": 6.803574752722535e-05,
+            "local_slope_per_day": -0.0008982427439753753
+          },
+          {
+            "cycle": 16,
+            "center_input_time": 2035.06104323899,
+            "core_points": 116,
+            "before_points": 104,
+            "after_points": 0,
+            "status": "missing_bracketing_data"
+          }
+        ],
+        "note": "Same local windows for all contrasts; thresholds are uncalibrated development rules, not significance or a full orbital model.",
+        "sector": 26,
+        "product": "PDCSAP"
+      }
+    ],
+    "short_epoch_checks": [],
+    "note": "Selection concerns a photometric period only; source, novelty and submission readiness are not assessed."
+  },
+  "completed_at": "2026-11-12T09:05:24.500620+00:00",
+  "elapsed_seconds": 1.4502143749268726
+}

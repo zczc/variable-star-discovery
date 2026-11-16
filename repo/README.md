@@ -4,6 +4,8 @@
 
 入门与项目资料在 [文档入口](../doc/README.md)。当前没有确认的新变星发现。
 
+最新完成：[有标签千星首次基线](benchmarks/labelled-validation-v01/baseline-review/index.html)。1,000 颗全部完成，TP／FN／FP／TN 为 251／249／3／497；最终周期及 252 个错误另行解释。首次预测与冻结文件校验清单位于 `benchmarks/labelled-validation-v01/baseline-manifest.json`。在项目根目录运行 `repo/.venv/bin/python repo/benchmarks/report_labelled_baseline.py --verify-only` 可检查封存文件；不重新运行检测。
+
 ## 已有材料
 
 `experiments/2026-11-09-pilot/` 保存前期 33 个目标的探索性分析，包括脚本、查询结果、图表和本地观测文件。见 [试验说明](experiments/2026-11-09-pilot/README.md)。

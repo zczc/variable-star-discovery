@@ -1,0 +1,116 @@
+{
+  "id": "tic-394120087",
+  "started_at": "2026-11-12T09:04:09.832446+00:00",
+  "inputs": [
+    {
+      "sector": 14,
+      "uri": "mast:TESS/product/tess2019198215352-s0014-0000000394120087-0150-s_lc.fits",
+      "t_min_mjd": 58682.851822743054,
+      "t_max_mjd": 58709.70361135417,
+      "path": "repo/data/labelled-validation-v01/fits/tess2019198215352-s0014-0000000394120087-0150-s_lc.fits.gz",
+      "sha256": "d983ebe1904737a0584b9d32f2c5e87dda499821c7ec533a0ef7dec22974ca3f",
+      "raw_sha256": "864174f4939b252d2200eaa7cdd2a271ddc594c3d5295566b7551f1d33a4e25f",
+      "raw_bytes": 1964160,
+      "compressed_bytes": 1176765
+    },
+    {
+      "sector": 26,
+      "uri": "mast:TESS/product/tess2020160202036-s0026-0000000394120087-0188-s_lc.fits",
+      "t_min_mjd": 59009.76519773148,
+      "t_max_mjd": 59034.63344300926,
+      "path": "repo/data/labelled-validation-v01/fits/tess2020160202036-s0026-0000000394120087-0188-s_lc.fits.gz",
+      "sha256": "a171132563b6b9307acfec4f147be1ac1904f5032596f93750ec84eaf6ec4b41",
+      "raw_sha256": "ea9bd60264ab66841068e85bbd41cbe6e56ae7e2b4cd2464230ec5e8924f92cd",
+      "raw_bytes": 1820160,
+      "compressed_bytes": 1086917
+    }
+  ],
+  "status": "completed",
+  "errors": [],
+  "detection": {
+    "repeated_signal": true,
+    "selected_period": false
+  },
+  "product_conclusions": {
+    "SAP": {
+      "periodic_detected": false,
+      "selected_period_d": null,
+      "photometric_period_d": null,
+      "period_status": "not_established",
+      "decision": "competing_periods",
+      "source_status": "unchecked",
+      "confirmed_variable": false,
+      "source_evidence": [],
+      "warnings": [],
+      "algorithm_revision": "v3.0-development"
+    },
+    "PDCSAP": {
+      "periodic_detected": true,
+      "selected_period_d": null,
+      "photometric_period_d": 3.106908760047123,
+      "period_status": "cross_epoch_harmonic_conflict",
+      "decision": "period_ambiguous",
+      "source_status": "unchecked",
+      "confirmed_variable": false,
+      "source_evidence": [],
+      "warnings": [
+        "Epochs prefer different integer aliases; averaged scores cannot resolve the full cycle."
+      ],
+      "fractional_period_spread": 0.005863124322134816,
+      "supported_period_groups": [
+        {
+          "period_d": 3.106908760047123,
+          "gain": 0.6318833459222191,
+          "members": [
+            3.09780066388828,
+            3.116016856205966
+          ],
+          "fractional_spread": 0.005863124322134816,
+          "harmonic_of_preferred": true,
+          "conditional_checks": [],
+          "independent_competitor": false
+        },
+        {
+          "period_d": 6.208621333857716,
+          "gain": 0.6190000541658427,
+          "members": [
+            6.187984956914697,
+            6.229257710800735
+          ],
+          "fractional_spread": 0.0066476519772536175,
+          "harmonic_of_preferred": true,
+          "conditional_checks": [],
+          "independent_competitor": false
+        }
+      ],
+      "target_candidate": true,
+      "algorithm_revision": "v3.0-development",
+      "epoch_preferred_periods_d": [
+        3.09780066388828,
+        6.229257710800735
+      ]
+    }
+  },
+  "decision": {
+    "created_at": "2026-11-12T09:04:11.275165+00:00",
+    "config": {
+      "period_tolerance": 0.01,
+      "minimum_pairs": 3,
+      "minimum_relative_difference": 0.01,
+      "minimum_standard_error_ratio": 3.0,
+      "minimum_same_sign_fraction": 0.75,
+      "phase_grid": 256
+    },
+    "selected_period_d": null,
+    "preferred_product": null,
+    "status": "unresolved",
+    "source_status": "needs_independent_source_review",
+    "confirmed_variable": false,
+    "target_candidate": false,
+    "event_checks": [],
+    "short_epoch_checks": [],
+    "note": "Selection concerns a photometric period only; source, novelty and submission readiness are not assessed."
+  },
+  "completed_at": "2026-11-12T09:04:11.275730+00:00",
+  "elapsed_seconds": 1.443346375017427
+}

@@ -1,0 +1,116 @@
+{
+  "id": "tic-243278844",
+  "started_at": "2026-11-12T09:05:34.304247+00:00",
+  "inputs": [
+    {
+      "sector": 14,
+      "uri": "mast:TESS/product/tess2019198215352-s0014-0000000243278844-0150-s_lc.fits",
+      "t_min_mjd": 58682.853425775465,
+      "t_max_mjd": 58709.70495054398,
+      "path": "repo/data/labelled-validation-v01/fits/tess2019198215352-s0014-0000000243278844-0150-s_lc.fits.gz",
+      "sha256": "8adcc22cfa009a4d1e3a5df115acbd12e7803f3f66155f5d2a4d5506d663207b",
+      "raw_sha256": "a1623b6d76071fd0137bf895b1e88bbe550eefe2b422c12e6d53e1b24cda9775",
+      "raw_bytes": 1964160,
+      "compressed_bytes": 1167204
+    },
+    {
+      "sector": 26,
+      "uri": "mast:TESS/product/tess2020160202036-s0026-0000000243278844-0188-s_lc.fits",
+      "t_min_mjd": 59009.766621863426,
+      "t_max_mjd": 59034.63505822916,
+      "path": "repo/data/labelled-validation-v01/fits/tess2020160202036-s0026-0000000243278844-0188-s_lc.fits.gz",
+      "sha256": "d75613255777b947dec092a9770873579dbd4008791621c4585498879b1f22f9",
+      "raw_sha256": "ce928ae7b170bc35d745553e9a9c6e4dfc0602aaa814c5bdcd05850dafca18f0",
+      "raw_bytes": 1820160,
+      "compressed_bytes": 1099135
+    }
+  ],
+  "status": "completed",
+  "errors": [],
+  "detection": {
+    "repeated_signal": true,
+    "selected_period": false
+  },
+  "product_conclusions": {
+    "SAP": {
+      "periodic_detected": false,
+      "selected_period_d": null,
+      "photometric_period_d": null,
+      "period_status": "not_established",
+      "decision": "not_repeated_in_all_epochs",
+      "source_status": "unchecked",
+      "confirmed_variable": false,
+      "source_evidence": [],
+      "warnings": [],
+      "algorithm_revision": "v3.0-development"
+    },
+    "PDCSAP": {
+      "periodic_detected": true,
+      "selected_period_d": null,
+      "photometric_period_d": 2.2334214311376437,
+      "period_status": "cross_epoch_harmonic_conflict",
+      "decision": "period_ambiguous",
+      "source_status": "unchecked",
+      "confirmed_variable": false,
+      "source_evidence": [],
+      "warnings": [
+        "Epochs prefer different integer aliases; averaged scores cannot resolve the full cycle."
+      ],
+      "fractional_period_spread": 0.0008187207000542849,
+      "supported_period_groups": [
+        {
+          "period_d": 4.475639887402881,
+          "gain": 0.2844601988415834,
+          "members": [
+            4.471963854093122,
+            4.479315920712639
+          ],
+          "fractional_spread": 0.001642685024818493,
+          "harmonic_of_preferred": true,
+          "conditional_checks": [],
+          "independent_competitor": false
+        },
+        {
+          "period_d": 2.2334214311376437,
+          "gain": 0.2794760215103356,
+          "members": [
+            2.2343357053164525,
+            2.2325071569588353
+          ],
+          "fractional_spread": 0.0008187207000542849,
+          "harmonic_of_preferred": true,
+          "conditional_checks": [],
+          "independent_competitor": false
+        }
+      ],
+      "target_candidate": true,
+      "algorithm_revision": "v3.0-development",
+      "epoch_preferred_periods_d": [
+        4.471963854093122,
+        2.2325071569588353
+      ]
+    }
+  },
+  "decision": {
+    "created_at": "2026-11-12T09:05:35.754550+00:00",
+    "config": {
+      "period_tolerance": 0.01,
+      "minimum_pairs": 3,
+      "minimum_relative_difference": 0.01,
+      "minimum_standard_error_ratio": 3.0,
+      "minimum_same_sign_fraction": 0.75,
+      "phase_grid": 256
+    },
+    "selected_period_d": null,
+    "preferred_product": null,
+    "status": "unresolved",
+    "source_status": "needs_independent_source_review",
+    "confirmed_variable": false,
+    "target_candidate": false,
+    "event_checks": [],
+    "short_epoch_checks": [],
+    "note": "Selection concerns a photometric period only; source, novelty and submission readiness are not assessed."
+  },
+  "completed_at": "2026-11-12T09:05:35.755389+00:00",
+  "elapsed_seconds": 1.4512042079586536
+}

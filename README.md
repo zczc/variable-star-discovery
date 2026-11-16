@@ -4,7 +4,9 @@
 
 当前先做 [识别能力验证](doc/09-validation-first.md)，再考虑新对象筛选。初学者可从 [亲手操作一次](doc/10-human-walkthrough.md) 和 [交互练习](repo/tutorials/first-variable-star/index.html) 开始。
 
-2026-11-12：[千星验证本轮结果](doc/21-thousand-target-results.md)已整理。1,000 颗光变分析、349 个来源任务全部返回，下载失败已清零；306 个选中信号中，226 个获得目标位置支持，25 个被程序建议排除，55 个来源证据不足。仍有半周期和来源歧义，尚未通过可靠识别验收。
+2026-11-12：[有标签千星测试的首次基线](doc/22-labelled-thousand-validation.md)已完成并封存。500 颗已知变星检出 251、漏检 249；500 颗作者未见变光的对照误报 3。精确率 98.82%、检出率 50.20%。最终周期筛选留下 153 颗已知变星，但仅 98 个周期与文献主频倒数直接吻合，其余分歧另列。见[基线与错误复核报告](repo/benchmarks/labelled-validation-v01/baseline-review/index.html)。
+
+上一轮[含未标注对象的千星诊断](doc/21-thousand-target-results.md)仍保留：306 个选中信号、349 个来源任务全部返回，尚有半周期与来源歧义。该轮不用于计算有标签测试的准确率。
 
 ## 内容
 
