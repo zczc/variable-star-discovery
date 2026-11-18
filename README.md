@@ -2,7 +2,9 @@
 
 使用 TESS 等公开观测数据，寻找此前未被报告的周期变星。项目从入门学习、小规模试验和可重复验证开始，目前尚无经过完整核验的新发现，也未向 VSX 提交。
 
-当前先做 [识别能力验证](doc/09-validation-first.md)，再考虑新对象筛选。初学者可从 [亲手操作一次](doc/10-human-walkthrough.md) 和 [交互练习](repo/tutorials/first-variable-star/index.html) 开始。
+2026-11-18：用户认可首次基线，开始[新候选初筛](doc/23-first-discovery-candidates.md)。复用旧数据，对 24 个有重复变光和来源位置支持的对象查 VSX 与论文，排除 8 个已有记录对象，保留 16 个待进一步查重的候选。其他目录、更多文献和逐星周期／邻星复核尚未完成，没有确认新发现。
+
+初学者可从 [识别能力验证](doc/09-validation-first.md)、[亲手操作一次](doc/10-human-walkthrough.md) 和 [交互练习](repo/tutorials/first-variable-star/index.html) 开始。
 
 2026-11-12：[有标签千星测试的首次基线](doc/22-labelled-thousand-validation.md)已完成并封存。500 颗已知变星检出 251、漏检 249；500 颗作者未见变光的对照误报 3。精确率 98.82%、检出率 50.20%。最终周期筛选留下 153 颗已知变星，但仅 98 个周期与文献主频倒数直接吻合，其余分歧另列。见[基线与错误复核报告](repo/benchmarks/labelled-validation-v01/baseline-review/index.html)。
 
