@@ -1,0 +1,12 @@
+{
+  "checked_at": "2026-11-20T08:47:51.840723+00:00",
+  "url": "https://simbad.idia.ac.za/simbad/sim-tap/sync",
+  "params": {
+    "REQUEST": "doQuery",
+    "LANG": "ADQL",
+    "FORMAT": "json",
+    "QUERY": "SELECT b.oid,b.main_id,b.otype,b.ra,b.dec,a.otypes FROM basic AS b LEFT OUTER JOIN alltypes AS a ON b.oid=a.oidref WHERE 1=CONTAINS(POINT('ICRS',b.ra,b.dec),CIRCLE('ICRS',94.0269315037596,-38.5795370090999,0.00555556))"
+  },
+  "http_status": 200,
+  "body": "{\"metadata\":[{\"name\":\"oid\",\"description\":\"Object internal identifier\",\"datatype\":\"LONG\",\"ucd\":\"meta.record\"},{\"name\":\"main_id\",\"description\":\"Main identifier for an object\",\"datatype\":\"CHAR\",\"arraysize\":\"*\",\"ucd\":\"meta.id;meta.main\",\"utype\":\"mango:MangoObject.identifier\"},{\"name\":\"otype\",\"description\":\"Object type\",\"datatype\":\"CHAR\",\"arraysize\":\"*\",\"ucd\":\"src.class\",\"utype\":\"mango:Label.text[CT.vocabulary=https://www.ivoa.net/rdf/uat#classification]\"},{\"name\":\"ra\",\"description\":\"Right ascension\",\"datatype\":\"DOUBLE\",\"unit\":\"deg\",\"ucd\":\"pos.eq.ra;meta.main\",\"utype\":\"mango:EpochPosition.longitude[CS.spaceSys=ICRS CT.epoch=J2000]\"},{\"name\":\"dec\",\"description\":\"Declination\",\"datatype\":\"DOUBLE\",\"unit\":\"deg\",\"ucd\":\"pos.eq.dec;meta.main\",\"utype\":\"mango:EpochPosition.latitude[CS.spaceSys=ICRS CT.epoch=J2000]\"},{\"name\":\"otypes\",\"description\":\"List of all object types concatenated with pipe\",\"datatype\":\"CHAR\",\"arraysize\":\"*\",\"ucd\":\"src.class\"}],\"data\":[[883219,\"HD  43737B\",\"*\",94.02527233506,-38.58065622447,\"*|**|NIR\"],[11467043,\"HD  43737A\",\"*\",94.02693014443,-38.57953714004999,\"*|**|NIR\"],[883218,\"HD  43737\",\"**\",94.02664166666666,-38.579766666666664,\"*|**|MIR|UV\"]]}"
+}

@@ -1,0 +1,58 @@
+{
+  "checked_at": "2026-11-20T08:41:04.275804+00:00",
+  "tic": "273606451",
+  "service": "gaia",
+  "endpoint": "https://gea.esac.esa.int/tap-server/tap/sync",
+  "params": {
+    "REQUEST": "doQuery",
+    "LANG": "ADQL",
+    "FORMAT": "csv",
+    "QUERY": "SELECT TOP 1000 g.source_id,g.ref_epoch,g.ra,g.dec,g.pmra,g.pmdec,\n            g.phot_g_mean_mag,g.phot_variable_flag,g.ruwe,\n            c.best_class_name,c.best_class_score,c.classifier_name,\n            s.num_selected_g_fov,s.trimmed_range_mag_g_fov,\n            s.in_vari_eclipsing_binary,s.in_vari_rotation_modulation,s.in_vari_ms_oscillator\n            FROM gaiadr3.gaia_source AS g\n            LEFT OUTER JOIN gaiadr3.vari_classifier_result AS c ON g.source_id=c.source_id\n            LEFT OUTER JOIN gaiadr3.vari_summary AS s ON g.source_id=s.source_id\n            WHERE 1=CONTAINS(POINT('ICRS',g.ra,g.dec),CIRCLE('ICRS',358.035028536308,-74.4041434387814,0.002777777778))"
+  },
+  "status": "completed",
+  "http_status": 200,
+  "url": "https://gea.esac.esa.int/tap-server/tap/sync?REQUEST=doQuery&LANG=ADQL&FORMAT=csv&QUERY=SELECT+TOP+1000+g.source_id%2Cg.ref_epoch%2Cg.ra%2Cg.dec%2Cg.pmra%2Cg.pmdec%2C%0A++++++++++++g.phot_g_mean_mag%2Cg.phot_variable_flag%2Cg.ruwe%2C%0A++++++++++++c.best_class_name%2Cc.best_class_score%2Cc.classifier_name%2C%0A++++++++++++s.num_selected_g_fov%2Cs.trimmed_range_mag_g_fov%2C%0A++++++++++++s.in_vari_eclipsing_binary%2Cs.in_vari_rotation_modulation%2Cs.in_vari_ms_oscillator%0A++++++++++++FROM+gaiadr3.gaia_source+AS+g%0A++++++++++++LEFT+OUTER+JOIN+gaiadr3.vari_classifier_result+AS+c+ON+g.source_id%3Dc.source_id%0A++++++++++++LEFT+OUTER+JOIN+gaiadr3.vari_summary+AS+s+ON+g.source_id%3Ds.source_id%0A++++++++++++WHERE+1%3DCONTAINS%28POINT%28%27ICRS%27%2Cg.ra%2Cg.dec%29%2CCIRCLE%28%27ICRS%27%2C358.035028536308%2C-74.4041434387814%2C0.002777777778%29%29",
+  "raw_response": "source_id,ref_epoch,ra,dec,pmra,pmdec,phot_g_mean_mag,phot_variable_flag,ruwe,best_class_name,best_class_score,classifier_name,num_selected_g_fov,trimmed_range_mag_g_fov,in_vari_eclipsing_binary,in_vari_rotation_modulation,in_vari_ms_oscillator\n6379416187194199424,2016.0,358.03714675988954,-74.40403858151096,128.26122023398383,23.671092438707806,14.633268,NOT_AVAILABLE,1.0509964,,,,,,,,\n6379416187193491712,2016.0,358.0328556713359,-74.40645906034374,20.077810673054028,-6.732902801480938,20.611101,NOT_AVAILABLE,1.3555403,,,,,,,,\n",
+  "rows": [
+    {
+      "source_id": "6379416187194199424",
+      "ref_epoch": "2016.0",
+      "ra": "358.03714675988954",
+      "dec": "-74.40403858151096",
+      "pmra": "128.26122023398383",
+      "pmdec": "23.671092438707806",
+      "phot_g_mean_mag": "14.633268",
+      "phot_variable_flag": "NOT_AVAILABLE",
+      "ruwe": "1.0509964",
+      "best_class_name": "",
+      "best_class_score": "",
+      "classifier_name": "",
+      "num_selected_g_fov": "",
+      "trimmed_range_mag_g_fov": "",
+      "in_vari_eclipsing_binary": "",
+      "in_vari_rotation_modulation": "",
+      "in_vari_ms_oscillator": "",
+      "separation_arcsec": 2.0846147144871296
+    },
+    {
+      "source_id": "6379416187193491712",
+      "ref_epoch": "2016.0",
+      "ra": "358.0328556713359",
+      "dec": "-74.40645906034374",
+      "pmra": "20.077810673054028",
+      "pmdec": "-6.732902801480938",
+      "phot_g_mean_mag": "20.611101",
+      "phot_variable_flag": "NOT_AVAILABLE",
+      "ruwe": "1.3555403",
+      "best_class_name": "",
+      "best_class_score": "",
+      "classifier_name": "",
+      "num_selected_g_fov": "",
+      "trimmed_range_mag_g_fov": "",
+      "in_vari_eclipsing_binary": "",
+      "in_vari_rotation_modulation": "",
+      "in_vari_ms_oscillator": "",
+      "separation_arcsec": 8.59738066015471
+    }
+  ]
+}

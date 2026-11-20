@@ -2,7 +2,9 @@
 
 使用 TESS 等公开观测数据，寻找此前未被报告的周期变星。项目从入门学习、小规模试验和可重复验证开始，目前尚无经过完整核验的新发现，也未向 VSX 提交。
 
-2026-11-18：用户认可首次基线，开始[新候选初筛](doc/23-first-discovery-candidates.md)。复用旧数据，对 24 个有重复变光和来源位置支持的对象查 VSX 与论文，排除 8 个已有记录对象，保留 16 个待进一步查重的候选。其他目录、更多文献和逐星周期／邻星复核尚未完成，没有确认新发现。
+2026-11-20：[候选查重更新](doc/24-candidate-catalog-followup.md)已完成本轮目录比对。初筛的 16 个对象中，14 个已有 Fetherolf 2023 变光报告，保留 TIC 302959739 和 TIC 393386173 继续核验。前者优先检查，后者与几乎同亮的 HD 43737B 混在 TESS 像素中，来源归属未定。没有确认新发现。
+
+2026-11-18 的[首轮初筛](doc/23-first-discovery-candidates.md)及原始 16 个候选记录保留。本轮补齐 TIC、Gaia、ASAS-SN 和 SIMBAD 备用站查询，更广泛文献及逐星确认仍未完成。
 
 初学者可从 [识别能力验证](doc/09-validation-first.md)、[亲手操作一次](doc/10-human-walkthrough.md) 和 [交互练习](repo/tutorials/first-variable-star/index.html) 开始。
 

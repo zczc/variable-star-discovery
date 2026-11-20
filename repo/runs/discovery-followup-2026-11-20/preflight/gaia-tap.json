@@ -1,0 +1,14 @@
+{
+  "service": "gaia-tap",
+  "url": "https://gea.esac.esa.int/tap-server/tap/sync",
+  "params": {
+    "REQUEST": "doQuery",
+    "LANG": "ADQL",
+    "FORMAT": "csv",
+    "QUERY": "SELECT TOP 1 source_id,ra,dec,phot_variable_flag FROM gaiadr3.gaia_source WHERE 1=CONTAINS(POINT('ICRS',ra,dec),CIRCLE('ICRS',251.771050466109,-39.5823511899007,0.00277778))"
+  },
+  "checked_at": "2026-11-20T08:38:28.824156+00:00",
+  "status_code": 200,
+  "final_url": "https://gea.esac.esa.int/tap-server/tap/sync?REQUEST=doQuery&LANG=ADQL&FORMAT=csv&QUERY=SELECT+TOP+1+source_id%2Cra%2Cdec%2Cphot_variable_flag+FROM+gaiadr3.gaia_source+WHERE+1%3DCONTAINS%28POINT%28%27ICRS%27%2Cra%2Cdec%29%2CCIRCLE%28%27ICRS%27%2C251.771050466109%2C-39.5823511899007%2C0.00277778%29%29",
+  "body": "source_id,ra,dec,phot_variable_flag\n5970680745450961536,251.7695074880446,-39.584184399612155,NOT_AVAILABLE\n"
+}
