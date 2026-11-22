@@ -1,0 +1,15 @@
+{
+  "created_at": "2026-11-22T08:44:43.068763+00:00",
+  "purpose": "Exploratory subpixel source diagnostics; no automatic source confirmation.",
+  "prf_model": "Official MAST TESS PRF start_s0004, bilinear detector interpolation and subpixel interpolation from Keaton Bell TESS_PRF, pinned source and MIT license retained.",
+  "astrometry": "Gaia DR3 positions propagated from J2016 to each epoch using proper motions. Fit common x/y WCS shift against the median pixel image with nonnegative stellar fluxes and free constant/linear background. Evaluate 1%, 2%, and 5% per-pixel model floors to expose registration sensitivity.",
+  "period_maps": "Saved P=0.4376766017096235 d, 4 harmonics. Source diagnostic only; new period detector receives no reference period. Compare all samples with samples excluding |PDCSAP-median| > 8*MAD-scaled sigma. Do not promote an epoch that failed frozen detection.",
+  "flare_map": "S36 highest good-quality PDCSAP point. Mean pixel image within +/-0.005 d of peak minus a linear interpolation of median images from [-0.5,-0.2] d and [+0.8,+1.1] d. This identifies a transient location, not necessarily the periodic source.",
+  "fits": "Free source position near target, and fixed target versus fixed 5.09 arcsec neighbor hypotheses, with fitted nonnegative amplitude and free plane. Residual losses are diagnostics, not calibrated odds or significance.",
+  "validation": "Synthetic PRF images at target/neighbor with imposed registration shifts check coordinate convention and fitting. Compare temporal halves, model-floor choices and source-map variants; do not interpret synthetic recovery alone as real-sky calibration.",
+  "limits": [
+    "PRF calibration/model mismatch may dominate statistical precision.",
+    "Magnitude conversion is not assumed: fitted stellar amplitudes are free.",
+    "A non-detection remains a non-detection regardless of any masked diagnostic."
+  ]
+}
