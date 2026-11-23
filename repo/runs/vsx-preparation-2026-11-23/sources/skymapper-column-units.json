@@ -1,0 +1,15 @@
+{
+  "at": "2026-11-23T08:30:20.773363+00:00",
+  "url": "https://api.skymapper.nci.org.au/public/tap/sync",
+  "params": {
+    "REQUEST": "doQuery",
+    "LANG": "ADQL",
+    "FORMAT": "csv",
+    "QUERY": "SELECT table_name,column_name,unit,description FROM TAP_SCHEMA.columns WHERE table_name IN ('dr4.master','dr4.photometry','dr4.images') AND column_name IN ('fwhm','mean_fwhm','flags_psf','flags','imaflags','img_qual','date','mean_epoch')"
+  },
+  "data": null,
+  "method": "GET",
+  "resolved_url": "https://api.skymapper.nci.org.au/public/tap/sync?REQUEST=doQuery&LANG=ADQL&FORMAT=csv&QUERY=SELECT+table_name%2Ccolumn_name%2Cunit%2Cdescription+FROM+TAP_SCHEMA.columns+WHERE+table_name+IN+%28%27dr4.master%27%2C%27dr4.photometry%27%2C%27dr4.images%27%29+AND+column_name+IN+%28%27fwhm%27%2C%27mean_fwhm%27%2C%27flags_psf%27%2C%27flags%27%2C%27imaflags%27%2C%27img_qual%27%2C%27date%27%2C%27mean_epoch%27%29",
+  "status_code": 200,
+  "body": "table_name,column_name,unit,description\r\ndr4.images,date,d,Modified Julian Date at the start of the exposure\r\ndr4.images,img_qual,,Quality level of this image from 1=best to 3=worst\r\ndr4.master,flags,,Bitwise OR of Source Extractor flags across all observations\r\ndr4.master,flags_psf,,Bitmask indicating whether photometry is likely biased by neighbours at &amp;gt;1%; bits 0-5 correspond to filters z-u\r\ndr4.master,mean_epoch,d,Mean MJD epoch of the observations\r\ndr4.master,mean_fwhm,pix,Mean FWHM of detections\r\ndr4.photometry,flags,,Flags raised by Source Extractor\r\ndr4.photometry,fwhm,pix,Object full width at half maximum on detector\r\ndr4.photometry,imaflags,,\"OR-combined flagged pixel types within isophotal radius from bad, saturated, and crosstalk pixel mask\"\r\ndr4.photometry,img_qual,,Quality level of this image from 1=best to 3=worst\r\n"
+}
