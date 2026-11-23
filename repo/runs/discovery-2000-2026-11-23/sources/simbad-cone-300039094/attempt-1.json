@@ -1,0 +1,13 @@
+{
+  "at": "2026-11-23T10:42:36.037581+00:00",
+  "url": "https://simbad.idia.ac.za/simbad/sim-tap/sync",
+  "params": {
+    "REQUEST": "doQuery",
+    "LANG": "ADQL",
+    "FORMAT": "json",
+    "QUERY": "SELECT TOP 1000 oid,main_id,otype,ra,dec,sp_type FROM basic WHERE 1=CONTAINS(POINT('ICRS',ra,dec),CIRCLE('ICRS',107.713278474921,-69.0777642880141,0.04))"
+  },
+  "attempt": 1,
+  "status_code": 200,
+  "body": "{\"metadata\":[{\"name\":\"oid\",\"description\":\"Object internal identifier\",\"datatype\":\"LONG\",\"ucd\":\"meta.record\"},{\"name\":\"main_id\",\"description\":\"Main identifier for an object\",\"datatype\":\"CHAR\",\"arraysize\":\"*\",\"ucd\":\"meta.id;meta.main\",\"utype\":\"mango:MangoObject.identifier\"},{\"name\":\"otype\",\"description\":\"Object type\",\"datatype\":\"CHAR\",\"arraysize\":\"*\",\"ucd\":\"src.class\",\"utype\":\"mango:Label.text[CT.vocabulary=https://www.ivoa.net/rdf/uat#classification]\"},{\"name\":\"ra\",\"description\":\"Right ascension\",\"datatype\":\"DOUBLE\",\"unit\":\"deg\",\"ucd\":\"pos.eq.ra;meta.main\",\"utype\":\"mango:EpochPosition.longitude[CS.spaceSys=ICRS CT.epoch=J2000]\"},{\"name\":\"dec\",\"description\":\"Declination\",\"datatype\":\"DOUBLE\",\"unit\":\"deg\",\"ucd\":\"pos.eq.dec;meta.main\",\"utype\":\"mango:EpochPosition.latitude[CS.spaceSys=ICRS CT.epoch=J2000]\"},{\"name\":\"sp_type\",\"description\":\"MK spectral type\",\"datatype\":\"CHAR\",\"arraysize\":\"*\",\"ucd\":\"src.spType\"}],\"data\":[[3104442,\"CD-68   451\",\"PM*\",107.69886854478,-69.08442700712,null],[24974866,\"Gaia DR3 5268351681508183424\",\"PM*\",107.69166705896085,-69.08403986878248,null],[3104294,\"HD  56267\",\"*\",107.71327975640001,-69.07776501738,\"A3/4III\"]]}"
+}

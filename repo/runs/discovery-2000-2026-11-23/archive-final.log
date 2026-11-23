@@ -1,0 +1,24 @@
+error connecting to api.github.com
+check your internet connection or https://githubstatus.com
+Traceback (most recent call last):
+  File "/Users/bytedance/Desktop/test/variable-star-discovery/repo/benchmarks/archive_discovery_2000.py", line 140, in <module>
+    if a.action=='upload':upload(a.max_shards)
+                          ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bytedance/Desktop/test/variable-star-discovery/repo/benchmarks/archive_discovery_2000.py", line 66, in upload
+    manifest=DEST/f'shard-{n:03}.json';write_json(manifest,r);publish(manifest,r)
+                                                              ^^^^^^^^^^^^^^^^^^^
+  File "/Users/bytedance/Desktop/test/variable-star-discovery/repo/benchmarks/archive_discovery_2000.py", line 71, in publish
+    identity();release=json.loads(gh('api',f'repos/{REPO}/releases/tags/{TAG}'))
+    ^^^^^^^^^^
+  File "/Users/bytedance/Desktop/test/variable-star-discovery/repo/benchmarks/archive_discovery_2000.py", line 17, in identity
+    assert gh('api','user','--jq','.login').strip()=='zczc'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bytedance/Desktop/test/variable-star-discovery/repo/benchmarks/archive_discovery_2000.py", line 11, in gh
+    return subprocess.check_output(['gh',*args],cwd=ROOT,text=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/subprocess.py", line 466, in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['gh', 'api', 'user', '--jq', '.login']' returned non-zero exit status 1.

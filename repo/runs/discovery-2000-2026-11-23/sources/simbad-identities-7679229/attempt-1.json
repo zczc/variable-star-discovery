@@ -1,0 +1,13 @@
+{
+  "at": "2026-11-23T10:55:17.233113+00:00",
+  "url": "https://simbad.idia.ac.za/simbad/sim-tap/sync",
+  "params": {
+    "REQUEST": "doQuery",
+    "LANG": "ADQL",
+    "FORMAT": "json",
+    "QUERY": "SELECT i.id,b.oid,b.main_id,b.otype,b.ra,b.dec,b.nbref,b.sp_type FROM basic AS b JOIN ident AS i ON b.oid=i.oidref WHERE i.id IN ('TIC 7679229','Gaia DR2 2116305144665376896','2MASS J18115765+4614008','Gaia DR3 2116305144665376896')"
+  },
+  "attempt": 1,
+  "status_code": 200,
+  "body": "{\"metadata\":[{\"name\":\"id\",\"description\":\"Identifier\",\"datatype\":\"CHAR\",\"arraysize\":\"*\",\"ucd\":\"meta.id\"},{\"name\":\"oid\",\"description\":\"Object internal identifier\",\"datatype\":\"LONG\",\"ucd\":\"meta.record\"},{\"name\":\"main_id\",\"description\":\"Main identifier for an object\",\"datatype\":\"CHAR\",\"arraysize\":\"*\",\"ucd\":\"meta.id;meta.main\",\"utype\":\"mango:MangoObject.identifier\"},{\"name\":\"otype\",\"description\":\"Object type\",\"datatype\":\"CHAR\",\"arraysize\":\"*\",\"ucd\":\"src.class\",\"utype\":\"mango:Label.text[CT.vocabulary=https://www.ivoa.net/rdf/uat#classification]\"},{\"name\":\"ra\",\"description\":\"Right ascension\",\"datatype\":\"DOUBLE\",\"unit\":\"deg\",\"ucd\":\"pos.eq.ra;meta.main\",\"utype\":\"mango:EpochPosition.longitude[CS.spaceSys=ICRS CT.epoch=J2000]\"},{\"name\":\"dec\",\"description\":\"Declination\",\"datatype\":\"DOUBLE\",\"unit\":\"deg\",\"ucd\":\"pos.eq.dec;meta.main\",\"utype\":\"mango:EpochPosition.latitude[CS.spaceSys=ICRS CT.epoch=J2000]\"},{\"name\":\"nbref\",\"description\":\"number of references\",\"datatype\":\"INT\",\"ucd\":\"meta.bib;arith.sum\"},{\"name\":\"sp_type\",\"description\":\"MK spectral type\",\"datatype\":\"CHAR\",\"arraysize\":\"*\",\"ucd\":\"src.spType\"}],\"data\":[[\"2MASS J18115765+4614008\",6873541,\"TYC 3525-1889-1\",\"PM*\",272.99024988493,46.23350818399,5,null],[\"Gaia DR2 2116305144665376896\",6873541,\"TYC 3525-1889-1\",\"PM*\",272.99024988493,46.23350818399,5,null],[\"Gaia DR3 2116305144665376896\",6873541,\"TYC 3525-1889-1\",\"PM*\",272.99024988493,46.23350818399,5,null],[\"TIC 7679229\",6873541,\"TYC 3525-1889-1\",\"PM*\",272.99024988493,46.23350818399,5,null]]}"
+}

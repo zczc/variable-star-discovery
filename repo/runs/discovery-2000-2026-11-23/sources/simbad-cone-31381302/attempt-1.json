@@ -1,0 +1,13 @@
+{
+  "at": "2026-11-23T11:02:29.735208+00:00",
+  "url": "https://simbad.idia.ac.za/simbad/sim-tap/sync",
+  "params": {
+    "REQUEST": "doQuery",
+    "LANG": "ADQL",
+    "FORMAT": "json",
+    "QUERY": "SELECT TOP 1000 oid,main_id,otype,ra,dec,sp_type FROM basic WHERE 1=CONTAINS(POINT('ICRS',ra,dec),CIRCLE('ICRS',88.3602205142272,-71.5638308422149,0.04))"
+  },
+  "attempt": 1,
+  "status_code": 200,
+  "body": "{\"metadata\":[{\"name\":\"oid\",\"description\":\"Object internal identifier\",\"datatype\":\"LONG\",\"ucd\":\"meta.record\"},{\"name\":\"main_id\",\"description\":\"Main identifier for an object\",\"datatype\":\"CHAR\",\"arraysize\":\"*\",\"ucd\":\"meta.id;meta.main\",\"utype\":\"mango:MangoObject.identifier\"},{\"name\":\"otype\",\"description\":\"Object type\",\"datatype\":\"CHAR\",\"arraysize\":\"*\",\"ucd\":\"src.class\",\"utype\":\"mango:Label.text[CT.vocabulary=https://www.ivoa.net/rdf/uat#classification]\"},{\"name\":\"ra\",\"description\":\"Right ascension\",\"datatype\":\"DOUBLE\",\"unit\":\"deg\",\"ucd\":\"pos.eq.ra;meta.main\",\"utype\":\"mango:EpochPosition.longitude[CS.spaceSys=ICRS CT.epoch=J2000]\"},{\"name\":\"dec\",\"description\":\"Declination\",\"datatype\":\"DOUBLE\",\"unit\":\"deg\",\"ucd\":\"pos.eq.dec;meta.main\",\"utype\":\"mango:EpochPosition.latitude[CS.spaceSys=ICRS CT.epoch=J2000]\"},{\"name\":\"sp_type\",\"description\":\"MK spectral type\",\"datatype\":\"CHAR\",\"arraysize\":\"*\",\"ucd\":\"src.spType\"}],\"data\":[[3153761,\"[HP99]  1289\",\"X\",88.33541666666665,-71.55777777777777,null],[6219587,\"OGLE LMC-LPV-87900\",\"LP*\",88.35768847996,-71.54128510548,null],[3153304,\"WOH S 519\",\"*\",88.41324497146,-71.53462449894,\"M0\"],[8213497,\"EROS2-star lm061-6m-9643\",\"LP*\",88.39133333333332,-71.56433333333334,null],[5650030,\"OGLE LMC-LPV-87894\",\"LP*\",88.35413333333332,-71.55398611111112,null],[8213496,\"OGLE LMC-LPV-87972\",\"LP*\",88.42923743716665,-71.56128858250999,null],[5493386,\"OGLE LMC-ACEP-69\",\"Ce*\",88.38310993889081,-71.54580436968082,null],[5650039,\"OGLE LMC-LPV-87921\",\"LP*\",88.37790096357,-71.59365007625,null],[6219567,\"OGLE LMC-LPV-87794\",\"LP*\",88.27721489847,-71.590990926,null],[3153404,\"WOH G 618\",\"PM*\",88.36022035772666,-71.56383041059361,\"M6.0\"],[6225055,\"MACHO  51.11878.960\",\"*\",88.36440501468,-71.58550643294,null],[6138765,\"OGLE LMC-RRLYR-23638\",\"RR*\",88.27794475649,-71.56404084603,null],[23038341,\"Gaia DR3 4656783041893534592\",\"WD?\",88.38671839784791,-71.54140234289945,null]]}"
+}

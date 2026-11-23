@@ -1,5 +1,7 @@
 # 变星发现代码与实验
 
+2026-11-23：[两千星检索与复核](../doc/28-two-thousand-discovery-search.md)。2,000 个固定目标全部分析完成，43 个跨时段信号、6 个初步采用周期；查重发现 33 个信号对象已有公开记录，其余尚无可靠提交证据。本轮确认新发现与可提交对象均为 0，初筛和旧基线保持冻结。
+
 这里是公开仓库 [zczc/variable-star-discovery](https://github.com/zczc/variable-star-discovery) 的代码与数据子目录。Git 根目录在上一级，同时管理 `doc/` 和 `repo/`；本目录不单独初始化 Git。
 
 入门与项目资料在 [文档入口](../doc/README.md)。当前没有确认的新变星发现。

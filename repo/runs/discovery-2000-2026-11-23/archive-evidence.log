@@ -1,0 +1,23 @@
+Published diagnostic-evidence-001.tar 1238 352112640
+HTTP 422: Validation Failed (https://uploads.github.com/repos/zczc/variable-star-discovery/releases/455293761/assets?label=&name=diagnostic-evidence-002.tar)
+ReleaseAsset.name already exists
+asset under the same name already exists: [diagnostic-evidence-002.tar]
+asset under the same name already exists: [diagnostic-evidence-002.tar]
+Traceback (most recent call last):
+  File "/Users/bytedance/Desktop/test/variable-star-discovery/repo/benchmarks/archive_discovery_2000.py", line 171, in <module>
+    elif a.action=='upload-evidence':upload_evidence()
+                                     ^^^^^^^^^^^^^^^^^
+  File "/Users/bytedance/Desktop/test/variable-star-discovery/repo/benchmarks/archive_discovery_2000.py", line 165, in upload_evidence
+    manifest=DEST/f'evidence-{n:03}.json';write_json(manifest,r);publish(manifest,r)
+                                                                 ^^^^^^^^^^^^^^^^^^^
+  File "/Users/bytedance/Desktop/test/variable-star-discovery/repo/benchmarks/archive_discovery_2000.py", line 78, in publish
+    gh('release','upload',TAG,str(path),'--repo',REPO)
+  File "/Users/bytedance/Desktop/test/variable-star-discovery/repo/benchmarks/archive_discovery_2000.py", line 12, in gh
+    try:return subprocess.check_output(['gh',*args],cwd=ROOT,text=True)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/subprocess.py", line 466, in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['gh', 'release', 'upload', 'discovery-2000-2026-11-23-data', '/Users/bytedance/Desktop/test/variable-star-discovery/repo/data/discovery-2000-publish/diagnostic-evidence-002.tar', '--repo', 'zczc/variable-star-discovery']' returned non-zero exit status 1.

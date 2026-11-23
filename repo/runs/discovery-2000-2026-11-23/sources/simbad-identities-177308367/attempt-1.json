@@ -1,0 +1,13 @@
+{
+  "at": "2026-11-23T10:56:48.115090+00:00",
+  "url": "https://simbad.idia.ac.za/simbad/sim-tap/sync",
+  "params": {
+    "REQUEST": "doQuery",
+    "LANG": "ADQL",
+    "FORMAT": "json",
+    "QUERY": "SELECT i.id,b.oid,b.main_id,b.otype,b.ra,b.dec,b.nbref,b.sp_type FROM basic AS b JOIN ident AS i ON b.oid=i.oidref WHERE i.id IN ('TIC 177308367','Gaia DR2 5262401365097005952','2MASS J06533596-7304571','Gaia DR3 5262401365097005952')"
+  },
+  "attempt": 1,
+  "status_code": 200,
+  "body": "{\"metadata\":[{\"name\":\"id\",\"description\":\"Identifier\",\"datatype\":\"CHAR\",\"arraysize\":\"*\",\"ucd\":\"meta.id\"},{\"name\":\"oid\",\"description\":\"Object internal identifier\",\"datatype\":\"LONG\",\"ucd\":\"meta.record\"},{\"name\":\"main_id\",\"description\":\"Main identifier for an object\",\"datatype\":\"CHAR\",\"arraysize\":\"*\",\"ucd\":\"meta.id;meta.main\",\"utype\":\"mango:MangoObject.identifier\"},{\"name\":\"otype\",\"description\":\"Object type\",\"datatype\":\"CHAR\",\"arraysize\":\"*\",\"ucd\":\"src.class\",\"utype\":\"mango:Label.text[CT.vocabulary=https://www.ivoa.net/rdf/uat#classification]\"},{\"name\":\"ra\",\"description\":\"Right ascension\",\"datatype\":\"DOUBLE\",\"unit\":\"deg\",\"ucd\":\"pos.eq.ra;meta.main\",\"utype\":\"mango:EpochPosition.longitude[CS.spaceSys=ICRS CT.epoch=J2000]\"},{\"name\":\"dec\",\"description\":\"Declination\",\"datatype\":\"DOUBLE\",\"unit\":\"deg\",\"ucd\":\"pos.eq.dec;meta.main\",\"utype\":\"mango:EpochPosition.latitude[CS.spaceSys=ICRS CT.epoch=J2000]\"},{\"name\":\"nbref\",\"description\":\"number of references\",\"datatype\":\"INT\",\"ucd\":\"meta.bib;arith.sum\"},{\"name\":\"sp_type\",\"description\":\"MK spectral type\",\"datatype\":\"CHAR\",\"arraysize\":\"*\",\"ucd\":\"src.spType\"}],\"data\":[[\"2MASS J06533596-7304571\",16602665,\"UCAC4 085-012701\",\"*\",103.39979302866001,-73.08255849049,3,null],[\"Gaia DR2 5262401365097005952\",16602665,\"UCAC4 085-012701\",\"*\",103.39979302866001,-73.08255849049,3,null],[\"Gaia DR3 5262401365097005952\",16602665,\"UCAC4 085-012701\",\"*\",103.39979302866001,-73.08255849049,3,null],[\"TIC 177308367\",16602665,\"UCAC4 085-012701\",\"*\",103.39979302866001,-73.08255849049,3,null]]}"
+}

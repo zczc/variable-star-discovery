@@ -1,0 +1,13 @@
+{
+  "at": "2026-11-23T10:55:23.135863+00:00",
+  "url": "https://gaia.ari.uni-heidelberg.de/tap/sync",
+  "params": {
+    "REQUEST": "doQuery",
+    "LANG": "ADQL",
+    "FORMAT": "csv",
+    "QUERY": "SELECT TOP 1000 g.source_id,g.ref_epoch,g.ra,g.dec,g.pmra,g.pmdec,g.phot_g_mean_mag,g.phot_variable_flag,g.ruwe,c.best_class_name,c.best_class_score,c.classifier_name,s.num_selected_g_fov,s.trimmed_range_mag_g_fov,s.in_vari_eclipsing_binary,s.in_vari_rotation_modulation,s.in_vari_ms_oscillator FROM gaiadr3.gaia_source AS g LEFT OUTER JOIN gaiadr3.vari_classifier_result AS c ON g.source_id=c.source_id LEFT OUTER JOIN gaiadr3.vari_summary AS s ON g.source_id=s.source_id WHERE 1=CONTAINS(POINT('ICRS',g.ra,g.dec),CIRCLE('ICRS',272.99025071876,46.2335076578847,0.00611111112))"
+  },
+  "attempt": 1,
+  "status_code": 200,
+  "body": "source_id,ref_epoch,ra,dec,pmra,pmdec,phot_g_mean_mag,phot_variable_flag,ruwe,best_class_name,best_class_score,classifier_name,num_selected_g_fov,trimmed_range_mag_g_fov,in_vari_eclipsing_binary,in_vari_rotation_modulation,in_vari_ms_oscillator\n2116305140370043136,2016.0,272.99618384692945,46.22967433015029,2.553116282632059,-1.0309266366424517,18.250195,\"NOT_AVAILABLE\",1.0229843,,,,,,,,\n2116305144665376896,2016.0,272.9905767022223,46.23311995667211,50.864900678763945,-87.35119642750792,10.516365,\"NOT_AVAILABLE\",1.013739,,,,,,,,\n"
+}

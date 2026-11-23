@@ -1,0 +1,13 @@
+{
+  "at": "2026-11-23T10:55:46.939982+00:00",
+  "url": "https://simbad.idia.ac.za/simbad/sim-tap/sync",
+  "params": {
+    "REQUEST": "doQuery",
+    "LANG": "ADQL",
+    "FORMAT": "json",
+    "QUERY": "SELECT i.id,b.oid,b.main_id,b.otype,b.ra,b.dec,b.nbref,b.sp_type FROM basic AS b JOIN ident AS i ON b.oid=i.oidref WHERE i.id IN ('TIC 230089225','Gaia DR2 1648631825160323200','2MASS J16285639+6749054','Gaia DR3 1648631825160323200')"
+  },
+  "attempt": 1,
+  "status_code": 200,
+  "body": "{\"metadata\":[{\"name\":\"id\",\"description\":\"Identifier\",\"datatype\":\"CHAR\",\"arraysize\":\"*\",\"ucd\":\"meta.id\"},{\"name\":\"oid\",\"description\":\"Object internal identifier\",\"datatype\":\"LONG\",\"ucd\":\"meta.record\"},{\"name\":\"main_id\",\"description\":\"Main identifier for an object\",\"datatype\":\"CHAR\",\"arraysize\":\"*\",\"ucd\":\"meta.id;meta.main\",\"utype\":\"mango:MangoObject.identifier\"},{\"name\":\"otype\",\"description\":\"Object type\",\"datatype\":\"CHAR\",\"arraysize\":\"*\",\"ucd\":\"src.class\",\"utype\":\"mango:Label.text[CT.vocabulary=https://www.ivoa.net/rdf/uat#classification]\"},{\"name\":\"ra\",\"description\":\"Right ascension\",\"datatype\":\"DOUBLE\",\"unit\":\"deg\",\"ucd\":\"pos.eq.ra;meta.main\",\"utype\":\"mango:EpochPosition.longitude[CS.spaceSys=ICRS CT.epoch=J2000]\"},{\"name\":\"dec\",\"description\":\"Declination\",\"datatype\":\"DOUBLE\",\"unit\":\"deg\",\"ucd\":\"pos.eq.dec;meta.main\",\"utype\":\"mango:EpochPosition.latitude[CS.spaceSys=ICRS CT.epoch=J2000]\"},{\"name\":\"nbref\",\"description\":\"number of references\",\"datatype\":\"INT\",\"ucd\":\"meta.bib;arith.sum\"},{\"name\":\"sp_type\",\"description\":\"MK spectral type\",\"datatype\":\"CHAR\",\"arraysize\":\"*\",\"ucd\":\"src.spType\"}],\"data\":[[\"2MASS J16285639+6749054\",22737852,\"2MASS J16285639+6749054\",\"*\",247.2349791224808,67.81815565438721,1,null],[\"Gaia DR3 1648631825160323200\",22737852,\"2MASS J16285639+6749054\",\"*\",247.2349791224808,67.81815565438721,1,null],[\"TIC 230089225\",22737852,\"2MASS J16285639+6749054\",\"*\",247.2349791224808,67.81815565438721,1,null]]}"
+}

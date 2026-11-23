@@ -1,0 +1,13 @@
+{
+  "at": "2026-11-23T11:02:28.457939+00:00",
+  "url": "https://simbad.idia.ac.za/simbad/sim-tap/sync",
+  "params": {
+    "REQUEST": "doQuery",
+    "LANG": "ADQL",
+    "FORMAT": "json",
+    "QUERY": "SELECT i.id,b.oid,b.main_id,b.otype,b.ra,b.dec,b.nbref,b.sp_type FROM basic AS b JOIN ident AS i ON b.oid=i.oidref WHERE i.id IN ('TIC 31381302','Gaia DR2 4656782698309778432','2MASS J05532643-7133502','Gaia DR3 4656782698309778432')"
+  },
+  "attempt": 1,
+  "status_code": 200,
+  "body": "{\"metadata\":[{\"name\":\"id\",\"description\":\"Identifier\",\"datatype\":\"CHAR\",\"arraysize\":\"*\",\"ucd\":\"meta.id\"},{\"name\":\"oid\",\"description\":\"Object internal identifier\",\"datatype\":\"LONG\",\"ucd\":\"meta.record\"},{\"name\":\"main_id\",\"description\":\"Main identifier for an object\",\"datatype\":\"CHAR\",\"arraysize\":\"*\",\"ucd\":\"meta.id;meta.main\",\"utype\":\"mango:MangoObject.identifier\"},{\"name\":\"otype\",\"description\":\"Object type\",\"datatype\":\"CHAR\",\"arraysize\":\"*\",\"ucd\":\"src.class\",\"utype\":\"mango:Label.text[CT.vocabulary=https://www.ivoa.net/rdf/uat#classification]\"},{\"name\":\"ra\",\"description\":\"Right ascension\",\"datatype\":\"DOUBLE\",\"unit\":\"deg\",\"ucd\":\"pos.eq.ra;meta.main\",\"utype\":\"mango:EpochPosition.longitude[CS.spaceSys=ICRS CT.epoch=J2000]\"},{\"name\":\"dec\",\"description\":\"Declination\",\"datatype\":\"DOUBLE\",\"unit\":\"deg\",\"ucd\":\"pos.eq.dec;meta.main\",\"utype\":\"mango:EpochPosition.latitude[CS.spaceSys=ICRS CT.epoch=J2000]\"},{\"name\":\"nbref\",\"description\":\"number of references\",\"datatype\":\"INT\",\"ucd\":\"meta.bib;arith.sum\"},{\"name\":\"sp_type\",\"description\":\"MK spectral type\",\"datatype\":\"CHAR\",\"arraysize\":\"*\",\"ucd\":\"src.spType\"}],\"data\":[[\"2MASS J05532643-7133502\",3153404,\"WOH G 618\",\"PM*\",88.36022035772666,-71.56383041059361,24,\"M6.0\"],[\"Gaia DR2 4656782698309778432\",3153404,\"WOH G 618\",\"PM*\",88.36022035772666,-71.56383041059361,24,\"M6.0\"],[\"Gaia DR3 4656782698309778432\",3153404,\"WOH G 618\",\"PM*\",88.36022035772666,-71.56383041059361,24,\"M6.0\"],[\"TIC 31381302\",3153404,\"WOH G 618\",\"PM*\",88.36022035772666,-71.56383041059361,24,\"M6.0\"]]}"
+}

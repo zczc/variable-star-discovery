@@ -1,0 +1,13 @@
+{
+  "at": "2026-11-23T11:02:23.988036+00:00",
+  "url": "https://irsa.ipac.caltech.edu/TAP/sync",
+  "params": {
+    "REQUEST": "doQuery",
+    "LANG": "ADQL",
+    "FORMAT": "csv",
+    "QUERY": "SELECT TOP 100 * FROM ztf_objects_dr24 WHERE 1=CONTAINS(POINT('ICRS',ra,dec),CIRCLE('ICRS',281.666627539349,54.6518318719039,0.000833333333)) OR 1=CONTAINS(POINT('ICRS',ra,dec),CIRCLE('ICRS',274.302422715039,51.0473358325603,0.000833333333))"
+  },
+  "attempt": 1,
+  "status_code": 200,
+  "body": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<VOTABLE version=\"1.3\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://www.ivoa.net/xml/VOTable/v1.3\" xsi:schemaLocation=\"http://www.ivoa.net/xml/VOTable/v1.3 http://www.ivoa.net/xml/VOTable/v1.3\">\n  <DESCRIPTION>Caltech/IPAC-IRSA IVOA Table Access Protocol (sync) Service</DESCRIPTION>\n  <RESOURCE type=\"results\">\n    <INFO name=\"QUERY_STATUS\" value=\"ERROR\">UsageFault: BAD_REQUEST: Invalid or unsupported ADQL query string. See TAP documentation here: https://irsa.ipac.caltech.edu/docs/program_interface/TAP.html</INFO>\n  </RESOURCE>\n</VOTABLE>\n"
+}

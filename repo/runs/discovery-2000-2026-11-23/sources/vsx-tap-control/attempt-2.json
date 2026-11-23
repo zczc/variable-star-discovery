@@ -1,0 +1,12 @@
+{
+  "at": "2026-11-23T10:41:28.105308+00:00",
+  "url": "https://tapvizier.cds.unistra.fr/TAPVizieR/tap/sync",
+  "params": {
+    "REQUEST": "doQuery",
+    "LANG": "ADQL",
+    "FORMAT": "csv",
+    "QUERY": "SELECT TOP 100 \"Name\",\"RAJ2000\",\"DEJ2000\",\"Type\",\"Period\" FROM \"B/vsx/vsx\" WHERE 1=CONTAINS(POINT('ICRS',\"RAJ2000\",\"DEJ2000\"),CIRCLE('ICRS',291.3663,42.78436,0.04))"
+  },
+  "attempt": 2,
+  "error": "HTTPSConnectionPool(host='tapvizier.cds.unistra.fr', port=443): Max retries exceeded with url: /TAPVizieR/tap/sync?REQUEST=doQuery&LANG=ADQL&FORMAT=csv&QUERY=SELECT+TOP+100+%22Name%22%2C%22RAJ2000%22%2C%22DEJ2000%22%2C%22Type%22%2C%22Period%22+FROM+%22B%2Fvsx%2Fvsx%22+WHERE+1%3DCONTAINS%28POINT%28%27ICRS%27%2C%22RAJ2000%22%2C%22DEJ2000%22%29%2CCIRCLE%28%27ICRS%27%2C291.3663%2C42.78436%2C0.04%29%29 (Caused by ConnectTimeoutError(<HTTPSConnection(host='tapvizier.cds.unistra.fr', port=443) at 0x107b9ff50>, 'Connection to tapvizier.cds.unistra.fr timed out. (connect timeout=12)'))"
+}

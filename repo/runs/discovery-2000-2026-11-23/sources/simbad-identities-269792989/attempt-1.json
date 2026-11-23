@@ -1,0 +1,13 @@
+{
+  "at": "2026-11-23T11:02:38.359237+00:00",
+  "url": "https://simbad.idia.ac.za/simbad/sim-tap/sync",
+  "params": {
+    "REQUEST": "doQuery",
+    "LANG": "ADQL",
+    "FORMAT": "json",
+    "QUERY": "SELECT i.id,b.oid,b.main_id,b.otype,b.ra,b.dec,b.nbref,b.sp_type FROM basic AS b JOIN ident AS i ON b.oid=i.oidref WHERE i.id IN ('TIC 269792989','Gaia DR2 4622931346616488576','2MASS J04310979-7837584','HIP 21087','Gaia DR3 4622931346615038848','Gaia DR3 4622931346616488576')"
+  },
+  "attempt": 1,
+  "status_code": 200,
+  "body": "{\"metadata\":[{\"name\":\"id\",\"description\":\"Identifier\",\"datatype\":\"CHAR\",\"arraysize\":\"*\",\"ucd\":\"meta.id\"},{\"name\":\"oid\",\"description\":\"Object internal identifier\",\"datatype\":\"LONG\",\"ucd\":\"meta.record\"},{\"name\":\"main_id\",\"description\":\"Main identifier for an object\",\"datatype\":\"CHAR\",\"arraysize\":\"*\",\"ucd\":\"meta.id;meta.main\",\"utype\":\"mango:MangoObject.identifier\"},{\"name\":\"otype\",\"description\":\"Object type\",\"datatype\":\"CHAR\",\"arraysize\":\"*\",\"ucd\":\"src.class\",\"utype\":\"mango:Label.text[CT.vocabulary=https://www.ivoa.net/rdf/uat#classification]\"},{\"name\":\"ra\",\"description\":\"Right ascension\",\"datatype\":\"DOUBLE\",\"unit\":\"deg\",\"ucd\":\"pos.eq.ra;meta.main\",\"utype\":\"mango:EpochPosition.longitude[CS.spaceSys=ICRS CT.epoch=J2000]\"},{\"name\":\"dec\",\"description\":\"Declination\",\"datatype\":\"DOUBLE\",\"unit\":\"deg\",\"ucd\":\"pos.eq.dec;meta.main\",\"utype\":\"mango:EpochPosition.latitude[CS.spaceSys=ICRS CT.epoch=J2000]\"},{\"name\":\"nbref\",\"description\":\"number of references\",\"datatype\":\"INT\",\"ucd\":\"meta.bib;arith.sum\"},{\"name\":\"sp_type\",\"description\":\"MK spectral type\",\"datatype\":\"CHAR\",\"arraysize\":\"*\",\"ucd\":\"src.spType\"}],\"data\":[[\"2MASS J04310979-7837584\",3210341,\"HD  29783\",\"**\",67.79099299095344,-78.63287613430323,22,\"A3mA5-A8\"],[\"Gaia DR2 4622931346616488576\",18690142,\"HD  29783A\",\"*\",67.79101011698292,-78.63288805481334,1,null],[\"Gaia DR3 4622931346615038848\",11607259,\"HD  29783B\",\"*\",67.78922290683083,-78.63290301572862,0,null],[\"Gaia DR3 4622931346616488576\",18690142,\"HD  29783A\",\"*\",67.79101011698292,-78.63288805481334,1,null],[\"HIP 21087\",3210341,\"HD  29783\",\"**\",67.79099299095344,-78.63287613430323,22,\"A3mA5-A8\"],[\"TIC 269792989\",3210341,\"HD  29783\",\"**\",67.79099299095344,-78.63287613430323,22,\"A3mA5-A8\"]]}"
+}

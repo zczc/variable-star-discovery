@@ -1,0 +1,39 @@
+gh: Not Found (HTTP 404)
+HTTP 422: Validation Failed (https://api.github.com/repos/zczc/variable-star-discovery/releases)
+tag_name is not a valid tag
+Published releases must have a valid tag
+Release.target_commitish is invalid
+Traceback (most recent call last):
+  File "/Users/bytedance/Desktop/test/variable-star-discovery/repo/benchmarks/archive_discovery_2000.py", line 31, in setup
+    try:return json.loads(gh('api',f'repos/{REPO}/releases/tags/{TAG}'))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bytedance/Desktop/test/variable-star-discovery/repo/benchmarks/archive_discovery_2000.py", line 11, in gh
+    return subprocess.check_output(['gh',*args],cwd=ROOT,text=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/subprocess.py", line 466, in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['gh', 'api', 'repos/zczc/variable-star-discovery/releases/tags/discovery-2000-2026-11-23-data']' returned non-zero exit status 1.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/bytedance/Desktop/test/variable-star-discovery/repo/benchmarks/archive_discovery_2000.py", line 107, in <module>
+    if a.action=='upload':upload(a.max_shards)
+                          ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bytedance/Desktop/test/variable-star-discovery/repo/benchmarks/archive_discovery_2000.py", line 45, in upload
+    release=setup();saved=list(DEST.glob('shard-*.json'));recorded={r['path'] for p in saved for r in read_json(p)['files']}
+            ^^^^^^^
+  File "/Users/bytedance/Desktop/test/variable-star-discovery/repo/benchmarks/archive_discovery_2000.py", line 33, in setup
+    gh('release','create',TAG,'--repo',REPO,'--target','fd0d79e9','--title','Public TESS inputs for the 2000-target search','--notes-file',str(body),'--prerelease','--latest=false')
+  File "/Users/bytedance/Desktop/test/variable-star-discovery/repo/benchmarks/archive_discovery_2000.py", line 11, in gh
+    return subprocess.check_output(['gh',*args],cwd=ROOT,text=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/subprocess.py", line 466, in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['gh', 'release', 'create', 'discovery-2000-2026-11-23-data', '--repo', 'zczc/variable-star-discovery', '--target', 'fd0d79e9', '--title', 'Public TESS inputs for the 2000-target search', '--notes-file', '/Users/bytedance/Desktop/test/variable-star-discovery/repo/runs/discovery-2000-2026-11-23/data-archive/README.md', '--prerelease', '--latest=false']' returned non-zero exit status 1.
